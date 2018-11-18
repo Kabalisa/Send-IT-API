@@ -1,0 +1,203 @@
+
+body{
+		margin: 0;
+	    padding: 0;
+}
+
+.signin-form{
+margin:auto;
+width: 400px;
+height: 400px;
+background-color: #DDDDDD;
+margin-top: 20px;
+margin-bottom: 20px;
+border-radius: 10px;
+position: relative;
+}
+
+form{
+	text-align: center;
+}
+
+form .text1 {
+	width: 200px;
+	height: 40px;
+	border-radius: 5px;
+	text-align: center;
+	border:none;
+	opacity: 0.7;
+    font-size: 16px;
+}
+
+form .btn {
+	font-size: 16px;
+	text-align: center;
+	border:none;
+	border-radius: 5px;
+	padding: 13px;
+	background-color: #FFFFFF;
+	color: #256188;
+	position: relative;
+	top: 20px;
+}
+
+.signin-form  input{
+margin:20px;
+
+}
+
+
+
+form a{
+	text-decoration: none;
+	font-size: 16px;
+}
+
+h1{
+	padding-top: 10px;
+}
+
+.down{
+	position: relative;
+	top: 50px;
+	color: #256188;
+}
+
+.diss{
+	color: #FF4560;
+}
+
+.pic{
+	background-color: #454545;
+	width: 100%;
+	text-align: center;
+}
+
+.mode{
+  margin-top: 5px;	
+  border-radius: 50px;
+}
+
+h4{
+	color: white;
+}
+
+.hail{
+	display: flex;
+	flex-direction: row;
+}
+
+.the{
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	background-color: #DDDDDD;
+	height: 130px;
+}
+
+.the>a{
+    font-size: 16px;
+	text-align: center;
+	border:none;
+	border-radius: ;
+	width: 130px;
+	height: 50px;
+    background-color: #DDDDDD;
+    color: #256188;
+	text-decoration: none;
+	border-bottom: 3px solid #FF9800;
+}
+
+.the>div{
+	font-size: 16px;
+	text-align: center;
+	color: #FF9800;
+	background-color: #256188;
+	font-family: cursive;
+    border-bottom: 3px solid;
+}
+
+.cure{
+	grid-area: over;
+	z-index: 1;
+	background-color: white;
+	width: 590px;
+	height: 433px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	overflow: auto;
+}
+
+.lord{
+	display: grid;
+	grid-template-columns: 'over';
+}
+
+.tab{
+	display: block;
+	border-collapse: separate;
+	border-spacing: 0 1em;
+	border: none;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+tr{
+	background-color: #ABB1BA;
+	color: #010101;
+ }
+
+ tr:hover {background-color: #011740; color: white;}
+
+
+.histo{
+  grid-area: over;
+  z-index: 0;
+  background-color: white;
+  width: 590px;
+  height: 433px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.tabl{
+	display: block;
+	border-collapse: separate;
+	border-spacing: 0 1em;
+    border: none;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.view{
+	text-decoration: none;
+	color: blue;
+}
+
+.now{
+	display: grid;
+	grid-template-areas: 'ver';
+	position: relative;
+	
+}
+
+.status{
+	grid-area: over;
+	z-index: 1;
+	background-color: #DDDDDD;
+	position: relative;
+	top: -130px;
+	text-align: center;
+}
+
+.location{
+	grid-area: over;
+	z-index: 0;
+	background-color: #DDDDDD;
+	position: relative;
+	top: -130px;
+	text-align: center;
+}
