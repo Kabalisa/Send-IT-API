@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Order</title>
+	<link rel="stylesheet" type="text/css" href="../css/style2.css">
+</head>
+<body>
+<header>
+	<div class="one">
+	<a href="index.html" class="one-1" id="1" onmouseover="yello()" onmouseout="whit()">Send-<span class="it">IT</span></a>
+	<a href="contactus.html#contact" class="one-2" id="2" onmouseover="yello1()" onmouseout="whit()">Contact Us</a>
+	<a href="contactus.html" class="one-2" id="3" onmouseover="yello2()" onmouseout="whit()">About Us</a>
+	<a href="vieworders.html" class="one-2" id="4" onmouseover="yello3()" onmouseout="whit()"><span class="diss">4</span> items</a>
+	<a href="myprofile.html" class="one-2" id="5" onmouseover="yello4()" onmouseout="whit()">Kabalisa</a>
+	<a href="index.html" class="one-2" id="13" onmouseover="yello5()" onmouseout="whit()"><span class="diss">Log Out</span></a>
+</div>
+</header>
+<div class="container">
+	<div class="menu">
+		<a href="createorder.html">Create Order</a>
+		<a href="vieworders.html">View Orders</a>
+		<a href="myprofile.html">My Profile</a>
+		<a href="#"><span class="diss">0</span> Notifications</a>
+		<a href="#">Track</a>
+	</div>
+	<div class="display">
+		<h3 class="cente"><b>Delivery Order</b></h3><br>
+        Parcel No. <select id = "pid"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><br><br>
+        Weight <input type="text" > .in Kilograms<br>
+        <div class="ano">
+
+        <div>
+        <b><h4>Pick-Up Address:</h4></b><br>
+        Street number <input type="text" class=""><br><br>
+        street name   <input type="text" class="pick2"><br><br>
+        Town/City     <input type="text" class="pick3"><br><br>
+        Province      <input type="text" class="pick4"><br><br>
+        </div>
+                
+        <div>
+        <b><h4>Destination Address:</h4></b><br>
+        Street number <input type="text" class=""><br><br>
+        street name   <input type="text" class="pick2"><br><br>
+        Town/City     <input type="text" class="pick3"><br><br>
+        Province      <input type="text" class="pick4"><br><br>
+        </div>
+                
+        <div>
+        <b><h4>Receiver details:</h4></b><br>
+        Receiver's Name  <input type="text" class="pick1"><br><br>
+        Receiver's Phone <input type="text" class="pick1"><br><br>
+        Receiver's Email <input type="text" class="pick1"><br><br>
+        </div>
+        
+        </div>
+        <input type="button" value="Place Order" class="do" onclick="addi()">
+        <input type="button" value="Clear" class="do" onclick="ucl()">
+    </div>
+</div>
+<div class="block-1">   
+          <a href="index.html">Home</a>
+          <a href="contactus.html">Contact Us</a>
+          <a href="contactus#contact">About Us</a>
+          <a href="myprofile.html">Kabalisa</a>
+          <a href="index.html"><span class="diss">Log Out</span></a>
+        </div>
+       <hr>
+       <footer>
+         Copyright © 2084 Send-IT	
+        </footer>
+        <script src="../js/main.js"></script>
+        <script  src="../js/createOrder.js"></script>
+</body>
+</html>
