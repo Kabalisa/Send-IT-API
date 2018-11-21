@@ -12,4 +12,7 @@ router.get('/parcels/:id', parcelController.getOne);
 /*cancel a specific parcel delivery order*/
 router.put('/parcels/:id/cancel', parcelController.cancelOrder);
 
+/*GET all parcels of a specific user*/
+router.get('/users/:id/parcels', parcelController.getAllUserParcels);
+
 export default router;

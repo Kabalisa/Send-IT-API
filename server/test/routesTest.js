@@ -97,4 +97,28 @@ it('should not cancel a parcel', (done) => {
   });
 });
 
+//test the FETCH parcels for one user endpoint
+it('should FETCH  all parcels for one user', (done) => {
+   chai.request(app)
+   .get('/api/v1/users/657384/parcels')
+   .end((err, res) => {
+     res.should.have.status(200);
+     res.body.should.be.a('array');
+     res.body.length.should.be.eql(1);
+     done();
+   });
+});
+
+//test when not to fethc parcels for one user
+it('should not fetch all parcels for one user', (done) => {
+  chai.request(app)
+  .get('/api/v1/users/6573/parcels')
+  .end((err, res) => {
+   res.should.have.status(404);
+   res.body.should.be.a('object');
+   res.body.should.have.property('message').eql('user has no parcels');
+   done();
+  });
+});
+
 });
