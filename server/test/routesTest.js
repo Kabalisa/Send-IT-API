@@ -172,4 +172,28 @@ it('should not create a parcel delivery order', (done) => {
   });
 });
 
+//test the delete specific parcel order endpoint
+it('should delete a specified parcel delivery order', (done) => {
+  chai.request(app)
+  .delete('/api/v1/parcels/2/delete')
+  .end((err, res) => {
+    res.should.have.status(201);
+    res.body.should.be.a('object');
+    res.body.should.have.property('message').eql('parcel DELETED');
+    done();
+  });
+});
+
+//test when not to delete a specific parcel 
+it('should not delete a parcel', (done) => {
+  chai.request(app)
+  .delete('/api/v1/parcels/7/delete')
+  .end((err, res) => {
+     res.should.have.status(404);
+     res.body.should.be.a('object');
+     res.body.should.have.property('message').eql('parcel do not exist');
+     done();
+  });
+});
+
 });
