@@ -10,7 +10,7 @@
 }
 
 .content-slide1{
-	position:absolute;
+	position: relative;
 	top:15%;
 	left: 25%;
 	color:white;
