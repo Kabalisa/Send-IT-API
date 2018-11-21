@@ -121,4 +121,55 @@ it('should not fetch all parcels for one user', (done) => {
   });
 });
 
+//test the create parcel endpoint
+it('should create a parcel delivery order', (done) =>{
+    const item = {
+       pickup_StNo : 'KN 334 St',      
+       pickup : 'kirehe',
+       destination_StNo : 'KN 322 St',
+       destination : 'bugesera',
+       weight : '5',
+       userId : '222000',
+       receiver : 'peruth',
+       receiver_phone : '0789765432'
+    };
+    chai.request(app)
+    .post('/api/v1/parcels')
+    .send(item)
+    .end((err,res) => {
+      res.should.have.status(201);
+      res.body.should.be.a('object');
+      res.body.should.have.property('id');
+      res.body.should.have.property('weight').eql('5');
+      res.body.should.have.property('price').eql(5000);
+      res.body.should.have.property('pickup').eql('kirehe');
+      res.body.should.have.property('pickup_StNo').eql('KN 334 St');
+      res.body.should.have.property('destination').eql('bugesera');
+      res.body.should.have.property('destination_StNo').eql('KN 322 St');
+      res.body.should.have.property('userId');
+      res.body.should.have.property('receiver').eql('peruth');
+      res.body.should.have.property('receiver_phone').eql('0789765432');
+      res.body.should.have.property('status').eql('pending');
+      res.body.should.have.property('presentLocation').eql('kirehe');
+      done();
+    });
+});
+
+//test when not to create parcel
+it('should not create a parcel delivery order', (done) => {
+  const item = {
+    weight : '5',
+    userId : '222000'
+  };
+  chai.request(app)
+  .post('/api/v1/parcels')
+  .send(item)
+  .end((err, res) => {
+   res.should.have.status(400);
+   res.should.be.a('object');
+   res.body.should.have.property('message').eql('complete all fields to proceed');
+   done();
+  });
+});
+
 });
