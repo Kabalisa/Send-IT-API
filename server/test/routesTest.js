@@ -46,7 +46,7 @@ it('should FETCH one specific parcel', (done) => {
    res.should.have.status(200);
    res.body.should.be.a('object');
    res.body.should.have.property('id').eql('1');
-   res.body.should.have.property('weight').eql('4 kg');
+   res.body.should.have.property('weight').eql('4');
    res.body.should.have.property('price').eql('4000');
    res.body.should.have.property('pickup').eql('nyamirambo');
    res.body.should.have.property('pickup_StNo').eql('KN 245 St');
@@ -151,6 +151,52 @@ it('should create a parcel delivery order', (done) =>{
       res.body.should.have.property('receiver_phone').eql('0789765432');
       res.body.should.have.property('status').eql('pending');
       res.body.should.have.property('presentLocation').eql('kirehe');
+      done();
+    });
+});
+
+//test a created follows proper datatypes parcel endpoint
+it('should create a parcel delivery order with proper datatypes', (done) =>{
+    const item = {
+       pickup_StNo : 'KN 334 St',      
+       pickup : '1234',
+       destination_StNo : 'KN 322 St',
+       destination : 'bugesera',
+       weight : '5',
+       userId : '222000',
+       receiver : 'peruth',
+       receiver_phone : '0789765432'
+    };
+    chai.request(app)
+    .post('/api/v1/parcels')
+    .send(item)
+    .end((err,res) => {
+      res.should.have.status(400);
+      res.body.should.be.a('object');
+      res.body.should.have.property('message').eql('CHECK: pickup location, destination location and receiver must be a word')
+      done();
+    });
+});
+
+//test a created follows proper datatypes parcel endpoint
+it('should create a parcel delivery order with proper datatypes', (done) =>{
+    const item = {
+       pickup_StNo : 'KN 334 St',      
+       pickup : 'remera',
+       destination_StNo : 'KN 322 St',
+       destination : 'bugesera',
+       weight : '5',
+       userId : 'string',
+       receiver : 'peruth',
+       receiver_phone : '0789765432'
+    };
+    chai.request(app)
+    .post('/api/v1/parcels')
+    .send(item)
+    .end((err,res) => {
+      res.should.have.status(400);
+      res.body.should.be.a('object');
+      res.body.should.have.property('message').eql('CHECK: weight, userId and receiver_phone must be a number')
       done();
     });
 });
