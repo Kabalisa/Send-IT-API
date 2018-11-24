@@ -2,9 +2,12 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
+import swaggerui from 'swagger-ui-express';
 // import favicon from 'serve-favicon';
 
+import swaggerfile from './swagger.json';
 import routes from './routes/routes';
+
 
 const app = express();
 
@@ -24,8 +27,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 
+
 app.use(express.static(__dirname + '/public'));
+app.use('/swaggerui', swaggerui.serve, swaggerui.setup(swaggerfile));
 app.use('/api/v1', routes);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
