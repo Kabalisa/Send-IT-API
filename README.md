@@ -23,7 +23,7 @@ Following is a list of API Endpoint you will find:
  * maintainability badge from codeclimate
  * Heroku deployment
  
- the app's URL on heroku is [sendorder.herokuapp.com](https://sendorder.herokuapp.com/)
+ the app's URL on heroku is [send-order.herokuapp.com](https://send-order.herokuapp.com/)
  
  following is a list of example routes deployed on heroku:
  
