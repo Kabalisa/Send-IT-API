@@ -11,7 +11,7 @@ constructor(){
 	this.parcels = [
       {
        id : '1',
-       weight : '4 kg',
+       weight : '4',
        price : '4000',
        pickup_StNo: 'KN 245 St',
        pickup : 'nyamirambo',
@@ -26,7 +26,7 @@ constructor(){
       
       {
        id : '2',
-       weight : '2 kg',
+       weight : '2',
        price : '2000',
        pickup_StNo: 'KN 345 St',
        pickup : 'byimana',
@@ -41,7 +41,7 @@ constructor(){
 
       {
        id : '3',
-       weight : '10 kg',
+       weight : '10',
        price : '10000',
        pickup_StNo: 'KN 445 St',
        pickup : 'kanombe',
