@@ -1,4 +1,4 @@
-import parcelData from '../Data/parcelData';
+import query from '../Data/parcelData';
 
 const parcel = {
 
