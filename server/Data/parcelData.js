@@ -8,9 +8,14 @@ const pool  = new Pool({
    port: 5432,
 });
 
+pool.on('connect', () => {
+  console.log('connected to database succesfully');
+});
+
 const query = (sql, data) => {
    try{
-    pool.query(sql, data = []);
+    let result = pool.query(sql, data);
+    return result;
    }
    catch(error){
      console.log(error.message);
@@ -18,7 +23,7 @@ const query = (sql, data) => {
    finally{
     pool.end;
    }
-}
+};
 
 export default query;
 
