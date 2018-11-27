@@ -1,4 +1,24 @@
+import { Pool } from 'pg';
 
+const pool  = new Pool({
+   user: 'postgres',
+   host: 'localhost',
+   database: 'sendit',
+   password: 'Kif@0788475785',
+   port: 5432,
+});
+
+export default const query = (sql, data) => {
+   try{
+    pool.query(sql, data = []);
+   }
+   catch(error){
+     console.log(error.message);
+   }
+   finally{
+    pool.end;
+   }
+};
 
 
 
