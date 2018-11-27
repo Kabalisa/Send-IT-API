@@ -32,7 +32,7 @@ class Initial {
 
      	const table1 = `
      	 CREATE TABLE IF NOT EXISTS parcels(
-     	  id INT PRIMARY KEY,
+     	  id SERIAL PRIMARY KEY,
      	  weight INT NOT NULL,
      	  price INT NOT NULL,
         pickup VARCHAR(30) NOT NULL,

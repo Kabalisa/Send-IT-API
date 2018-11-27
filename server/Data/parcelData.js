@@ -8,7 +8,7 @@ const pool  = new Pool({
    port: 5432,
 });
 
-export default const query = (sql, data) => {
+const query = (sql, data) => {
    try{
     pool.query(sql, data = []);
    }
@@ -20,7 +20,7 @@ export default const query = (sql, data) => {
    }
 }
 
-
+export default query;
 
 
 
