@@ -1,8 +1,8 @@
 import express from 'express';
 import userController from '../Controllers/parcelController';
 
-const route = express.Router();
+const routerr = express.Router();
 
-route.post('auth/signup', userController.signup);
+routerr.post('/signup', userController.signup);
 
-export default route;
+export default routerr;
