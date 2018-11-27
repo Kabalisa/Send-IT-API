@@ -6,7 +6,7 @@ async create(req, res){
 
   const sql = `
      INSERT INTO parcels(weight, price, pickup, pickup_stNo, destination, destination_stNo, userid, receiver, receiver_phone, status, presentlocation)
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
      returning *
   `;
 
