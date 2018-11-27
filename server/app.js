@@ -3,15 +3,22 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 import swaggerui from 'swagger-ui-express';
+
 // import favicon from 'serve-favicon';
 
+
+
+import database from './database/database';
 import swaggerfile from './swagger.json';
 import routes from './routes/routes';
 
 
 const app = express();
 
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 5000; 
+
+// const test = database;
+// console.log(database);
 
 app.listen(port, () =>{ 
   console.log('API running now');
