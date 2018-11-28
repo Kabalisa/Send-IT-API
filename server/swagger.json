@@ -7,7 +7,7 @@
   },
   "servers" : [
     {"url" : "https://send-order.herokuapp.com/"},
-    {"url" : "localhost:5000"}
+    {"url" : "localhost:3000"}
     ],
   "paths": {
     "/api/v1/parcels/": {
