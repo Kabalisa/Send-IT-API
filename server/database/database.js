@@ -63,7 +63,7 @@ class Initial {
              phone_number INT NOT NULL,
              email VARCHAR(30) NOT NULL,
              userId INT NOT NULL, 
-             password VARCHAR(30) NOT NULL,
+             password VARCHAR(70) NOT NULL,
              isloggedin BOOLEAN
              )`;
             

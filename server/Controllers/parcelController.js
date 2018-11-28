@@ -1,4 +1,5 @@
 import query from '../Data/parcelData';
+import bhelp from '../helpers/bhelp';
 
 const parcel = {
 
