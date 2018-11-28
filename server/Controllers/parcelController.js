@@ -1,72 +1,67 @@
-import parcelData from '../Data/parcelData';
+import query from '../Data/parcelData';
 
 const parcel = {
 
-create(req, res){
-  if(!req.body.pickup_StNo || !req.body.pickup || !req.body.destination_StNo || !req.body.destination || !req.body.weight || !req.body.userId || !req.body.receiver || !req.body.receiver_phone){
-  	return res.status(400).send({message: 'complete all fields to proceed'});
-  }
-  const parcel = parcelData.create(req.body);
-  return res.status(201).send(parcel);
-},
+async updateOrder(req, res){
 
-getAll(req, res){
-const allParcels = parcelData.getAll();
-return res.status(200).send(allParcels);
-},
+let sql = `
+UPDATE parcels
+SET 
+ weight = $1,
+ price = $2,
+ pickup = $3,
+ pickup_stno = $4,
+ destination = $5,
+ destination_stno = $6,
+ userid = $7,
+ receiver = $8,
+ receiver_phone = $9
+WHERE id = $10
+returning *
+`;
 
-getOne(req, res){
-const oneParcel = parcelData.getOne(req.params.id);
-if(!oneParcel){
-	return res.status(404).send({message: 'parcel do not exist'});
-}
-else{
-  return res.status(200).send(oneParcel);
-}
+let sql2 = `SELECT * FROM parcels WHERE id = $1`;
 
-},
+let data2 = [req.params.id];
 
-delete(req, res){
- // const parcel = parcelData.getOne(req.params.id);
-const note  = parcelData.delete(req.params.id);
- if (!note){
- 	return res.status(404).send({message: 'parcel do not exist'});
- }
-   return res.status(201).send({message : 'parcel DELETED'});
-},
-
-getAllUserParcels(req, res){
-	const parcels = parcelData.getAllUserParcels(req.params.id);
-	if(parcels.length === 0){
-    return res.status(404).send({message: 'user has no parcels'});
-	}
-	else{
-		return res.status(200).send(parcels);
-	}
-},
-
-cancelOrder(req, res){
-const parcel = parcelData.cancelOrder(req.params.id);
-if(!parcel){
-  return res.status(404).send({message:'parcel do not exist'});	
-}
-else{
-	return res.status(200).send(parcel);
-}
-},
-
-updateOrder(req, res){
-if(req.body.weight =="" && req.body.pickup == "" && req.body.pickup_StNo == "" && req.body.destination == "" && req.body.destination_StNo == "" && req.body.receiver == "" && req.body.receiver_phone == ""){
-  return res.status(404).send({message:'nothing updated'});
+if(!req.body.userId){
+  return res.status(404).send({message:'complete the userId field to proceed'});  
 }
 
-const updated = parcelData.updateOrder(req.params.id, req.body);
+let { rows } = await query(sql2, data2);
 
-if(!updated){
-  return res.status(404).send({message:'parcel do not exist'});
+if(!rows[0]){
+  return res.status(400).send({message:'this parcel does not exist'});
 }
 
-return res.status(200).send(updated);
+if(rows[0].userid !== Number.parseInt(req.body.userId)){
+  return res.status(400).send({message:'the specified user is not the one who created this parcel'});
+}
+  let data = [
+  req.body.weight || rows[0].weight,
+  req.body.weight * 1000 || rows[0].price,
+  req.body.pickup || rows[0].pickup,
+  req.body.pickup_stno || rows[0].pickup_stno,
+  req.body.destination || rows[0].destination,
+  req.body.destination_stno || rows[0].destination_stno,
+  req.body.userId || rows[0].userid,
+  req.body.receiver || rows[0].receiver,
+  req.body.receiver_phone || rows[0].receiver_phone,
+  req.params.id
+  ];
+
+
+try{
+
+  let { rows } = await query(sql, data);
+
+  return res.status(200).send(rows[0]);
+
+}
+
+catch(error){
+  return res.status(400).send(error.message);
+}
 
 }
 
