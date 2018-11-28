@@ -19,12 +19,15 @@ try{
      return res.status(400).send({message:'user does not exist'});
   }
   
-  if(bhelp.validatePassword(req.body.password, rows[0].password)){
+  if(!bhelp.validatePassword(req.body.password, rows[0].password)){
     return res.status(400).send({message:'INVALID password'});
   }
   else{
     return res.status(200).send({message: `user with id ${req.body.userId} is logged in`});
   }
+}
+catch(error){
+  return res.status(400).send(error.message);
 }
 
 }
