@@ -1,4 +1,5 @@
 import query from '../Data/parcelData';
+import bhelp from '../helpers/bhelp';
 import uuid from 'uuid/v4';
 
 const parcel = {
@@ -11,6 +12,8 @@ async signup(req, res){
     returning *
   `;
 
+  let hashPassword = bhelp.hashPassword(req.body.password);
+
   let data  = [
    uuid(),
    req.body.first_name,
@@ -20,7 +23,7 @@ async signup(req, res){
    req.body.phone_number,
    req.body.email,
    req.body.userid,
-   req.body.password,
+   hashPassword,
    true
   ]
 
