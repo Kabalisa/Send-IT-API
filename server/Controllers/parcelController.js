@@ -2,12 +2,12 @@ import query from '../Data/parcelData';
 
 const parcel = {
 
-delete(req, res){
+async delete(req, res){
 
 let sql = `DELETE FROM parcels WHERE id = $1`;
 let data = [req.params.id];
 
-if (!req,body.userId){
+if (!req.body.userId){
    return res.status(400).send({message:'enter your userId to proceed'});
 }
 
@@ -21,7 +21,7 @@ try{
     return res.status(400).send({message:'this parcel od not exist'});
   }
 
-  if(rows[0].userid !== req.body.userId){
+  if(rows[0].userid !== Number.parseInt(req.body.userId)){
     return res.status(400).send({message:'the specified user did not create this parcel'})
   }
   
