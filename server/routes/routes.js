@@ -3,7 +3,13 @@ import parcelController from '../Controllers/parcelController';
 
 const router = express.Router();
 
-/* GET all parcel delivery orders */
-router.get('/parcels', parcelController.getAll);
+/*create a parcel delivery order the user want*/
+router.post('/parcels', parcelController.create);
+
+/*DELETE a specified parcel delivery order*/
+router.delete('/parcels/:id/delete', parcelController.delete);
+
+/*UPDATE a specific parcel delivery order*/
+router.put('/parcels/:id/update', parcelController.updateOrder)
 
 export default router;

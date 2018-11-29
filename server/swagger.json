@@ -1,0 +1,239 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Send-IT",
+    "description": "API documentation for Send-IT courier services"
+  },
+  "servers" : [
+    {"url" : "https://send-order.herokuapp.com/"},
+    {"url" : "localhost:3000"}
+    ],
+  "paths": {
+    "/api/v1/parcels/": {
+       "post": {
+          "tags": ["Endpoint 1"],
+          "description": "Create a parcel delivery order",
+          
+           "requestBody": {
+            "required": true,
+            "content" : {
+              "application/x-www-form-urlencoded": {
+                "schema" : {
+                  "type": "object",
+                  "properties" : {
+                    "weight": {
+                      "type": "number"
+                    },
+                    "pickup_StNo" : {
+                      "type": "string"
+                    },
+                    "pickup": {
+                      "type": "string"
+                    },
+                    "Destination_StNo" : {
+                      "type": "string"
+                    },
+                    "Destination" : {
+                      "type": "string"
+                    },
+                    "userId" : {
+                      "type": "number"
+                    },
+                    "receiver" : {
+                      "type": "string"
+                    },
+                    "receiver_phone" : {
+                      "type": "number"
+                    }
+                  }
+                },
+                "example" : {
+                  "0" : {
+                    "values" : "{\n \"weight\": \"3\",\n \"pickup_StNo\": \"KN 223 St\",\n \"pickup\": \"kigali\",\n  \"Destination_StNo\": \"KN 234 St\",\n \"Destination\": \"bugarama\",\n \"userId\": \"434\",\n \"receiver\": \"ruburi\",\n \"receiver_phone\": \"0788456574\" \n}"
+                  }
+                }
+              }
+            }
+          },
+         
+            "responses": {
+            "200": {
+              "description": "a parcel have been created",
+              "content": {
+                "text/html; charset=utf-8": {
+                  "schema": {
+                 "type": "object"
+                 },
+                 "example": {}
+                }
+              }
+            }
+           }
+         }
+       },
+    "/api/v1/parcels":{
+         "get": {
+          "tags": ["Endpoint2"],
+          "description": "Fetch all parcels",
+          "operationId": "parcelController_getAll",
+         "responses": {
+           "200": {
+             "description": "parcels fetched succesfully",
+             "content": {
+               "application/json; charset=utf-8": {
+                 "schema":{
+                   "type": "object"
+                   },
+                   "example": {}
+                 }
+               }
+             }
+           }
+          }
+        },
+
+    "/api/v1/parcels/1":{
+         "get": {
+          "tags": ["Endpoint3"],
+          "description": "Fetch a specific parcel",
+         "responses": {
+           "200": {
+             "description": "parcel fetched succesfully",
+             "content": {
+               "application/json; charset=utf-8": {
+                 "schema":{
+                   "type": "object"
+                   },
+                   "example": {}
+                 }
+               }
+             }
+           }
+          }
+        },
+
+        "/api/v1/users/989876/parcels":{
+         "get": {
+          "tags": ["Endpoint4"],
+          "description": "Fetch all parcels of a specific user",
+         "responses": {
+           "200": {
+             "description": "all parcels of a specific user have been fetched",
+             "content": {
+               "application/json; charset=utf-8": {
+                 "schema":{
+                   "type": "object"
+                   },
+                   "example": {}
+                 }
+               }
+             }
+           }
+          }
+        },
+        
+        "/api/v1/parcels/2/cancel": {
+          "put": {
+            "tags": ["Endpoint 5"],
+            "description": "cancel a specific parcel delivery order",
+            "responses": {
+              "200": {
+                "description": "a parcel has been succesfully canceled",
+                "content": {
+                  "text/html; charset=utf-8": {
+                    "schema": {
+                      "type": "object"
+                    },
+                    "example": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+        
+       "/api/v1/parcels/3/delete": {
+          "delete":{
+            "tags": ["Endpoint 6"],
+            "description": "delete a specific parcel delivery order",
+            "responses": {
+              "200": {
+                "description": "a parcel has been succesfully deleted",
+                "content": {
+                  "text/html; charset=utf-8": {
+                    "schema": {
+                      "type": "object"
+                    },
+                    "example": {}
+                  }
+                }
+              }
+            }
+          }
+        },
+
+      "/api/v1/parcels/1/update": {
+       "put": {
+          "tags": ["Endpoint 7"],
+          "description": "update a specific parcel delivery order",
+          
+           "requestBody": {
+            "content" : {
+              "application/x-www-form-urlencoded": {
+                "schema" : {
+                  "type": "object",
+                  "properties" : {
+                    "weight": {
+                      "type": "number"
+                    },
+                    "pickup_StNo" : {
+                      "type": "string"
+                    },
+                    "pickup": {
+                      "type": "string"
+                    },
+                    "Destination_StNo" : {
+                      "type": "string"
+                    },
+                    "Destination" : {
+                      "type": "string"
+                    },
+                    "userId" : {
+                      "type": "number"
+                    },
+                    "receiver" : {
+                      "type": "string"
+                    },
+                    "receiver_phone" : {
+                      "type": "number"
+                    }
+                  }
+                },
+                "example" : {
+                  "0" : {
+                    "values" : "{\n \"weight\": \"3\",\n \"pickup_StNo\": \"KN 223 St\",\n \"pickup\": \"kigali\",\n  \"Destination_StNo\": \"KN 234 St\",\n \"Destination\": \"bugarama\",\n \"userId\": \"434\",\n \"receiver\": \"ruburi\",\n \"receiver_phone\": \"0788456574\" \n}"
+                  }
+                }
+              }
+            }
+          },
+         
+            "responses": {
+            "200": {
+              "description": "a parcel have been succesfully updated",
+              "content": {
+                "text/html; charset=utf-8": {
+                  "schema": {
+                 "type": "object"
+                 },
+                 "example": {}
+                }
+              }
+            }
+           }
+         }
+       }
+
+    }
+}
