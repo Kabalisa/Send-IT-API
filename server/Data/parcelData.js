@@ -1,11 +1,14 @@
 import { Pool } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const pool  = new Pool({
-   user: 'postgres',
-   host: 'localhost',
-   database: 'sendit',
-   password: 'Kif@0788475785',
-   port: 5432,
+   user: process.env.PGUSER,
+   host: process.env.PGHOST,
+   database: process.env.PGDATABASE,
+   password: process.env.PGPASSWORD,
+   port: process.env.PGPORT,
 });
 
 pool.on('connect', () => {

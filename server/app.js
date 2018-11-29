@@ -7,8 +7,9 @@ import database from './database/database';
 import swaggerfile from './swagger.json';
 import routes from './routes/routes';
 import userRoutes from './routes/userRoutes';
+import dotenv from 'dotenv';
 
-
+dotenv.config();
 const app = express();
 
 const port = process.env.PORT || 3000; 

@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "main": "app.js",
+   "engines": {
+    "node": "10.5.0"
+  },
   "scripts": {
     "start": "node --require babel-core/register --require babel-polyfill server/app.js",
     "test": "nyc  --reporter=html --reporter=text mocha server/test --compilers js:babel-core/register --exit",
