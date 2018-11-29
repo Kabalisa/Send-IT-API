@@ -26,7 +26,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-
 app.use(express.static(__dirname + '/public'));
 app.use('/swaggerui', swaggerui.serve, swaggerui.setup(swaggerfile));
 app.use('/api/v1', routes);
