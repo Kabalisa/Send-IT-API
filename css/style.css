@@ -76,14 +76,17 @@ color:white;
 
 .content-slide{
 	position:absolute;
-	top:25%;
+	top:20%;
 	left:25%;
 	text-align: center;
 	z-index: 2;
 	font-size: 30px;
 	color:white;
+}
 
-
+.content-slide > p{
+	color: yellow;
+	font-size: 35px;
 }
 
 #map{

@@ -18,6 +18,10 @@
 
 }
 
+.decr{
+color: #FF9800;
+}
+
 .description{
     display:flex;
     flex-direction: row;
