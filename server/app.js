@@ -1,12 +1,7 @@
 import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 import swaggerui from 'swagger-ui-express';
-
-// import favicon from 'serve-favicon';
-
-
 
 import database from './database/database';
 import swaggerfile from './swagger.json';
@@ -18,22 +13,17 @@ const app = express();
 
 const port = process.env.PORT || 3000; 
 
-// const test = database;
-// console.log(database);
 
 app.listen(port, () =>{ 
   console.log('API running now');
   });
 
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-app.use(cookieParser());
 
 
 app.use(express.static(__dirname + '/public'));
