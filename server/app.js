@@ -11,6 +11,7 @@ import swaggerui from 'swagger-ui-express';
 import database from './database/database';
 import swaggerfile from './swagger.json';
 import routes from './routes/routes';
+import userRoutes from './routes/userRoutes';
 
 
 const app = express();
@@ -38,6 +39,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use('/swaggerui', swaggerui.serve, swaggerui.setup(swaggerfile));
 app.use('/api/v1', routes);
+app.use('/auth', userRoutes);
 
 
 // catch 404 and forward to error handler
