@@ -241,6 +241,8 @@ if(!req.body.userId || !req.body.password){
   return res.status(404).send({message:'complete all field to proceed'}); 
 }
 
+const token = bhelp.makeToken(req.body.userId);
+
 try{
 
   const { rows } = await query(sql, data);
@@ -252,7 +254,7 @@ try{
     return res.status(400).send({message:'INVALID password'});
   }
   else{
-    return res.status(200).send({message: `user with id ${req.body.userId} is logged in`});
+    return res.status(200).send({token: token});
   }
 }
 catch(error){

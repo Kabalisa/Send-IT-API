@@ -10,12 +10,16 @@
 }
 
 .content-slide1{
-	position: relative;
+	position: absolute;
 	top:15%;
 	left: 25%;
 	color:white;
     font-size: 40px;
 
+}
+
+.decr{
+color: #FF9800;
 }
 
 .description{
