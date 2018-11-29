@@ -1,5 +1,6 @@
 import express from 'express';
 import parcelController from '../Controllers/parcelController';
+import bhelp from '../helpers/bhelp';
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.put('/parcels/:id/cancel', parcelController.cancelOrder);
 router.get('/users/:id/parcels', parcelController.getAllUserParcels);
 
 /*create a parcel delivery order the user want*/
-router.post('/parcels', parcelController.create);
+router.post('/parcels', bhelp.checkToken, parcelController.create);
 
 /*DELETE a specified parcel delivery order*/
 router.delete('/parcels/:id/delete', parcelController.delete);
@@ -24,10 +25,10 @@ router.delete('/parcels/:id/delete', parcelController.delete);
 /*UPDATE a specific parcel delivery order*/
 router.put('/parcels/:id/update', parcelController.updateOrder);
 
-router.put('/parcels/:id/presentLocation', parcelController.presentLocation);
+router.put('/parcels/:id/presentLocation', bhelp.checkToken, parcelController.presentLocation);
 
-router.put('/parcels/:id/status', parcelController.status);
+router.put('/parcels/:id/status', bhelp.checkToken, parcelController.status);
 
-router.put('/parcels/:id/destination', parcelController.destination);
+router.put('/parcels/:id/destination', bhelp.checkToken, parcelController.destination);
 
 export default router;
