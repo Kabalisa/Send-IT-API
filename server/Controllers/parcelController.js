@@ -37,7 +37,7 @@ async create(req, res){
   if(req.body.weight.toLowerCase() !== req.body.weight.toUpperCase() || req.body.userId.toLowerCase() !== req.body.userId.toUpperCase() || req.body.receiver_phone.toLowerCase() !== req.body.receiver_phone.toUpperCase()){
     return res.status(400).send({message: 'CHECK: weight, userId and receiver_phone must be a number'});
   }
-
+   
   try{
   const { rows } = await query(sql, data);
     return res.status(201).send(rows[0]);
@@ -221,10 +221,11 @@ async signup(req, res){
     return res.status(400).send({message: 'CHECK: phone_number and userid must be a number'});
   }
 
+  const token = bhelp.makeToken(req.body.userId);
 
   try{
     const { rows } = await query(sql, data);
-    return res.status(201).send(rows[0]);
+    return res.status(201).send({result: rows[0], token});
   }
   catch(error){
     return res.status(400).send(error.message);
