@@ -2,13 +2,23 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
+import swaggerui from 'swagger-ui-express';
+
 // import favicon from 'serve-favicon';
 
+
+
+import database from './database/database';
+import swaggerfile from './swagger.json';
 import routes from './routes/routes';
+
 
 const app = express();
 
 const port = process.env.PORT || 3000; 
+
+// const test = database;
+// console.log(database);
 
 app.listen(port, () =>{ 
   console.log('API running now');
@@ -24,8 +34,11 @@ app.use(bodyParser.urlencoded({
 
 app.use(cookieParser());
 
+
 app.use(express.static(__dirname + '/public'));
+app.use('/swaggerui', swaggerui.serve, swaggerui.setup(swaggerfile));
 app.use('/api/v1', routes);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

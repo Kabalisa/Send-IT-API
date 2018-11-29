@@ -46,7 +46,7 @@ it('should FETCH one specific parcel', (done) => {
    res.should.have.status(200);
    res.body.should.be.a('object');
    res.body.should.have.property('id').eql('1');
-   res.body.should.have.property('weight').eql('4 kg');
+   res.body.should.have.property('weight').eql('4');
    res.body.should.have.property('price').eql('4000');
    res.body.should.have.property('pickup').eql('nyamirambo');
    res.body.should.have.property('pickup_StNo').eql('KN 245 St');
@@ -155,6 +155,52 @@ it('should create a parcel delivery order', (done) =>{
     });
 });
 
+//test a created follows proper datatypes parcel endpoint
+it('should create a parcel delivery order with proper datatypes', (done) =>{
+    const item = {
+       pickup_StNo : 'KN 334 St',      
+       pickup : '1234',
+       destination_StNo : 'KN 322 St',
+       destination : 'bugesera',
+       weight : '5',
+       userId : '222000',
+       receiver : 'peruth',
+       receiver_phone : '0789765432'
+    };
+    chai.request(app)
+    .post('/api/v1/parcels')
+    .send(item)
+    .end((err,res) => {
+      res.should.have.status(400);
+      res.body.should.be.a('object');
+      res.body.should.have.property('message').eql('CHECK: pickup location, destination location and receiver must be a word')
+      done();
+    });
+});
+
+//test a created follows proper datatypes parcel endpoint
+it('should create a parcel delivery order with proper datatypes', (done) =>{
+    const item = {
+       pickup_StNo : 'KN 334 St',      
+       pickup : 'remera',
+       destination_StNo : 'KN 322 St',
+       destination : 'bugesera',
+       weight : '5',
+       userId : 'string',
+       receiver : 'peruth',
+       receiver_phone : '0789765432'
+    };
+    chai.request(app)
+    .post('/api/v1/parcels')
+    .send(item)
+    .end((err,res) => {
+      res.should.have.status(400);
+      res.body.should.be.a('object');
+      res.body.should.have.property('message').eql('CHECK: weight, userId and receiver_phone must be a number')
+      done();
+    });
+});
+
 //test when not to create parcel
 it('should not create a parcel delivery order', (done) => {
   const item = {
@@ -170,6 +216,97 @@ it('should not create a parcel delivery order', (done) => {
    res.body.should.have.property('message').eql('complete all fields to proceed');
    done();
   });
+});
+
+//test the delete specific parcel order endpoint
+it('should delete a specified parcel delivery order', (done) => {
+  chai.request(app)
+  .delete('/api/v1/parcels/2/delete')
+  .end((err, res) => {
+    res.should.have.status(201);
+    res.body.should.be.a('object');
+    res.body.should.have.property('message').eql('parcel DELETED');
+    done();
+  });
+});
+
+//test when not to delete a specific parcel 
+it('should not delete a parcel', (done) => {
+  chai.request(app)
+  .delete('/api/v1/parcels/7/delete')
+  .end((err, res) => {
+     res.should.have.status(404);
+     res.body.should.be.a('object');
+     res.body.should.have.property('message').eql('parcel do not exist');
+     done();
+  });
+});
+
+//test when to update a specific parcel
+it('should update a specific parcel delivery order', (done) => {
+  const item = {
+       pickup_StNo : 'KN 332 St',
+       pickup : 'kayonza',
+       destination_StNo : 'KN 003 St',
+       destination : 'kigali',
+       weight : '50',
+       receiver : 'krichof',
+       receiver_phone : '0788364536'
+    };
+chai.request(app)
+.put('/api/v1/parcels/1/update')
+.send(item)
+.end((err, res) => {
+  res.should.have.status(200);
+  res.body.should.be.a('object');
+  res.body.should.have.property('id').eql('1');
+  res.body.should.have.property('weight').eql('50');
+  res.body.should.have.property('price').eql(50000);
+  res.body.should.have.property('pickup_StNo').eql('KN 332 St');
+  res.body.should.have.property('pickup').eql('kayonza');
+  res.body.should.have.property('destination_StNo').eql('KN 003 St');
+  res.body.should.have.property('destination').eql('kigali');
+  res.body.should.have.property('userId').eql('980768');
+  res.body.should.have.property('status').eql('pending');
+  res.body.should.have.property('receiver').eql('krichof');
+  res.body.should.have.property('receiver_phone').eql('0788364536');
+  res.body.should.have.property('presentLocation').eql('kayonza');
+  done();
+});
+});
+
+// test whe not to update a parcel delivery order
+it('should not update a parcel', (done) => {
+chai.request(app)
+.put('/api/v1/parcels/778/update')
+.end((err, res) => {
+res.should.have.status(404);
+res.body.should.be.a('object');
+res.body.should.have.property('message').eql('parcel do not exist');
+done();
+});
+});
+
+//test when to update a specific parcel
+it('should update a specific parcel delivery order', (done) => {
+  const item = {
+       pickup_StNo : '',
+       pickup : '',
+       destination_StNo : '',
+       destination : '',
+       weight : '',
+       receiver : '',
+       receiver_phone :''
+    };
+chai.request(app)
+.put('/api/v1/parcels/1/update')
+.send(item)
+.end((err, res) => {
+  res.should.have.status(404);
+  res.body.should.be.a('object');
+  res.body.should.have.property('message').eql('nothing updated');
+  done();
+});
 });
 
 });
