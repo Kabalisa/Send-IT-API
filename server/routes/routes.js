@@ -22,6 +22,12 @@ router.post('/parcels', parcelController.create);
 router.delete('/parcels/:id/delete', parcelController.delete);
 
 /*UPDATE a specific parcel delivery order*/
-router.put('/parcels/:id/update', parcelController.updateOrder)
+router.put('/parcels/:id/update', parcelController.updateOrder);
+
+router.put('/parcels/:id/presentLocation', parcelController.presentLocation);
+
+router.put('/parcels/:id/status', parcelController.status);
+
+router.put('/parcels/:id/destination', parcelController.destination);
 
 export default router;
