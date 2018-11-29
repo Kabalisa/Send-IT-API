@@ -26,7 +26,7 @@ async create(req, res){
      req.body.pickup
   ];
 
-  if(!req.body.pickup_StNo || !req.body.pickup || !req.body.destination_StNo || !req.body.destination || !req.body.weight || !req.body.userId || !req.body.receiver || !req.body.receiver_phone){
+  if(!req.body.pickup_StNo || !req.body.pickup || !req.body.destination_StNo || !req.body.destination || !req.body.weight || !req.body.receiver || !req.body.receiver_phone){
     return res.status(400).send({message: 'complete all fields to proceed'});
   }
 
@@ -76,15 +76,16 @@ req.body.presentLocation,
 req.params.id
 ];
 
-if(!req.body.admincode || !req.body.presentLocation){
+if(!req.body.presentLocation){
   return res.status(404).send({message:'complete all fields to proceed'});  
 }
 
 try{
 
   let { rows } = await query(sql, data);
-  if(req.body.admincode !== "meonly"){
-     return res.status(400).send({message:'admincode incorrect!!'});
+
+  if(req.body.userId !== '0'){
+    return res.status(400).send({message: 'user not admin'});
   }
 
   if(!rows[0]){
@@ -116,15 +117,16 @@ req.body.status,
 req.params.id
 ];
 
-if(!req.body.admincode || !req.body.status){
+if(!req.body.status){
   return res.status(404).send({message:'complete all fields to proceed'});  
 }
 
 try{
 
   let { rows } = await query(sql, data);
-  if(req.body.admincode !== "meonly"){
-     return res.status(400).send({message:'admincode incorrect!!'});
+
+  if(req.body.userId !== '0'){
+    return res.status(400).send({message: 'user not admin'});
   }
 
   if(!rows[0]){
@@ -146,19 +148,21 @@ async destination(req, res){
 let sql = `SELECT * FROM parcels WHERE id = $1`;
 let data = [req.params.id];
 
-if(!req.body.userId || !req.body.destination){
+if(!req.body.destination){
   return res.status(404).send({message:'all fields are required in order to proceed!!'}); 
 }
 
 try{
 
   let { rows } = await query(sql, data);
+  console.log(typeof(rows[0].userid));
+
+  if(req.body.userId != rows[0].userid){
+    return res.status(400).send({message:'the specified user did not create this parcel'});
+  }
   
   if(!rows[0]){
     return res.status(400).send({message: 'the specified parcel do not exist'});
-  }
-  else if(rows[0].userid !== Number.parseInt(req.body.userId)){
-    return res.status(400).send({message: 'the specified user did not create the specified parcel!!'});
   }
   else{
     

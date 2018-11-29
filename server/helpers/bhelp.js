@@ -19,16 +19,16 @@ let bhelp = {
   },
 
   async checkToken(req, res, next){
-  	const token = req.headers['tokenToProceed'];
+  	const token = req.headers['x-access-token'];
   	if(!token){
-  		return res.status(403).send({message:'No Token provided'});
+  		return res.sendStatus(403).send({message:'No Token provided'});
   	}
   	try{
         const { id } = await jwt.verify(token, 'fadees');
         let sql = 'SELECT * FROM users WHERE userid = $1';
         let { rows } = await query(sql, [id]);
         if(!rows[0]){
-        	return res.status(400).send({message:'user does not exist'});
+        	return res.status(400).send({message:'Invalid token'});
         }
         req.body.userId = id;
         next();
