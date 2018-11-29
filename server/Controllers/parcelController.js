@@ -1,11 +1,35 @@
-import parcelData from '../Data/parcelData';
+import query from '../Data/parcelData';
+import bhelp from '../helpers/bhelp';
+import uuid from 'uuid/v4';
 
 const parcel = {
 
-create(req, res){
+async create(req, res){
+
+  const sql = `
+     INSERT INTO parcels(weight, price, pickup, pickup_stNo, destination, destination_stNo, userid, receiver, receiver_phone, status, presentlocation)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+     returning *
+  `;
+
+  const data = [
+     req.body.weight,
+     req.body.weight * 1000,
+     req.body.pickup,
+     req.body.pickup_StNo,
+     req.body.destination,
+     req.body.destination_StNo,
+     req.body.userId,
+     req.body.receiver,
+     req.body.receiver_phone,
+     'pending',
+     req.body.pickup
+  ];
+
   if(!req.body.pickup_StNo || !req.body.pickup || !req.body.destination_StNo || !req.body.destination || !req.body.weight || !req.body.userId || !req.body.receiver || !req.body.receiver_phone){
-  	return res.status(400).send({message: 'complete all fields to proceed'});
+    return res.status(400).send({message: 'complete all fields to proceed'});
   }
+
   if(req.body.pickup.toLowerCase() === req.body.pickup.toUpperCase() || req.body.destination.toLowerCase() === req.body.destination.toUpperCase() || req.body.receiver.toLowerCase() === req.body.receiver.toUpperCase()){
     return res.status(400).send({message: 'CHECK: pickup location, destination location and receiver must be a word'});
   }
@@ -14,69 +38,419 @@ create(req, res){
     return res.status(400).send({message: 'CHECK: weight, userId and receiver_phone must be a number'});
   }
 
-  const parcel = parcelData.create(req.body);
-  return res.status(201).send(parcel);
+  try{
+  const { rows } = await query(sql, data);
+    return res.status(201).send(rows[0]);
+  }
+  catch(error){
+    return res.status(400).send(error.message);
+  }
 },
 
-getAll(req, res){
-const allParcels = parcelData.getAll();
-return res.status(200).send(allParcels);
-},
+async getAll(req, res){
 
-getOne(req, res){
-const oneParcel = parcelData.getOne(req.params.id);
-if(!oneParcel){
-	return res.status(404).send({message: 'parcel do not exist'});
+ let sql = `
+ SELECT * FROM parcels
+ `; 
+
+ try{
+  const { rows, rowCount } = await query(sql);
+  return res.status(200).send({ rows, rowCount });
 }
-else{
-  return res.status(200).send(oneParcel);
+  catch(error){
+    return res.status(400).send(error.message);
+  }
+},
+
+async presentLocation(req, res){
+
+let sql = `
+UPDATE parcels
+SET presentlocation = $1
+WHERE id = $2
+returning *
+`;
+
+let data = [
+req.body.presentLocation,
+req.params.id
+];
+
+if(!req.body.admincode || !req.body.presentLocation){
+  return res.status(404).send({message:'complete all fields to proceed'});  
+}
+
+try{
+
+  let { rows } = await query(sql, data);
+  if(req.body.admincode !== "meonly"){
+     return res.status(400).send({message:'admincode incorrect!!'});
+  }
+
+  if(!rows[0]){
+    return res.status(400).send({message:'the parcel does not exist'});
+  }
+  else{
+    return res.status(200).send(rows[0]);
+  }
+
+}
+
+catch(error){
+  return res.status(400).send(error.message);
 }
 
 },
 
-delete(req, res){
- // const parcel = parcelData.getOne(req.params.id);
-const note  = parcelData.delete(req.params.id);
- if (!note){
- 	return res.status(404).send({message: 'parcel do not exist'});
- }
+async status(req, res){
+
+let sql = `
+UPDATE parcels
+SET status = $1
+WHERE id = $2
+returning *
+`;
+
+let data = [
+req.body.status,
+req.params.id
+];
+
+if(!req.body.admincode || !req.body.status){
+  return res.status(404).send({message:'complete all fields to proceed'});  
+}
+
+try{
+
+  let { rows } = await query(sql, data);
+  if(req.body.admincode !== "meonly"){
+     return res.status(400).send({message:'admincode incorrect!!'});
+  }
+
+  if(!rows[0]){
+    return res.status(400).send({message:'the parcel does not exist'});
+  }
+  else{
+    return res.status(200).send(rows[0]);
+  }
+
+}
+catch(error){
+  return res.status(400).send(error.message);
+}
+
+},
+
+async destination(req, res){
+
+let sql = `SELECT * FROM parcels WHERE id = $1`;
+let data = [req.params.id];
+
+if(!req.body.userId || !req.body.destination){
+  return res.status(404).send({message:'all fields are required in order to proceed!!'}); 
+}
+
+try{
+
+  let { rows } = await query(sql, data);
+  
+  if(!rows[0]){
+    return res.status(400).send({message: 'the specified parcel do not exist'});
+  }
+  else if(rows[0].userid !== Number.parseInt(req.body.userId)){
+    return res.status(400).send({message: 'the specified user did not create the specified parcel!!'});
+  }
+  else{
+    
+    let sql2 = `
+    UPDATE parcels
+    SET destination = $1
+    WHERE id = $2
+    returning *
+    `;
+
+    let data2 = [
+      req.body.destination,
+      req.params.id
+    ];
+
+    let { rows } = await query(sql2, data2);
+
+    return res.status(200).send(rows[0]);
+
+  }
+
+}
+catch(error){
+return res.status(400).send(error.message);
+}
+
+},
+
+async signup(req, res){
+
+  let sql = `
+    INSERT INTO users(id, first_name, last_name, town, street_number, phone_number, email, userid, password, isloggedin)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    returning *
+  `;
+
+  let hashPassword = bhelp.hashPassword(req.body.password);
+
+  let data  = [
+   uuid(),
+   req.body.first_name,
+   req.body.last_name,
+   req.body.town,
+   req.body.street_number,
+   req.body.phone_number,
+   req.body.email,
+   req.body.userid,
+   hashPassword,
+   true
+  ]
+
+  if(!req.body.first_name || !req.body.last_name || !req.body.town || !req.body.street_number || !req.body.phone_number || !req.body.email|| !req.body.userid || !req.body.password){
+    return res.status(400).send({message: 'complete all fields to proceed'});
+  }
+  if(req.body.first_name.toLowerCase() === req.body.first_name.toUpperCase() || req.body.last_name.toLowerCase() === req.body.last_name.toUpperCase() || req.body.town.toLowerCase() === req.body.town.toUpperCase() || req.body.email.toLowerCase() === req.body.email.toUpperCase()){
+    return res.status(400).send({message: 'CHECK: first_name, last_name, town,\ and email must be a word'});
+  }
+
+  if(req.body.phone_number.toLowerCase() !== req.body.phone_number.toUpperCase() || req.body.userid.toLowerCase() !== req.body.userid.toUpperCase()){
+    return res.status(400).send({message: 'CHECK: phone_number and userid must be a number'});
+  }
+
+
+  try{
+    const { rows } = await query(sql, data);
+    return res.status(201).send(rows[0]);
+  }
+  catch(error){
+    return res.status(400).send(error.message);
+  }
+},
+
+async signin(req, res){
+
+let sql = `SELECT * FROM users WHERE userid = $1`;
+let data = [req.body.userId];
+
+if(!req.body.userId || !req.body.password){
+  return res.status(404).send({message:'complete all field to proceed'}); 
+}
+
+try{
+
+  const { rows } = await query(sql, data);
+  if(!rows[0]){
+     return res.status(400).send({message:'user does not exist'});
+  }
+  
+  if(!bhelp.validatePassword(req.body.password, rows[0].password)){
+    return res.status(400).send({message:'INVALID password'});
+  }
+  else{
+    return res.status(200).send({message: `user with id ${req.body.userId} is logged in`});
+  }
+}
+catch(error){
+  return res.status(400).send(error.message);
+}
+
+},
+
+async cancelOrder(req, res){
+
+let sql = `
+UPDATE parcels
+SET status = $1
+WHERE id = $2
+returning *
+`;
+
+let data = [
+"CANCELED",
+req.params.id
+];
+
+let sql2 = `
+SELECT * FROM parcels
+WHERE id = $1
+`;
+
+let data2 = [req.params.id];
+
+if(!req.body.userId){
+  return res.status(404).send({message:'complete all fields to proceed'});  
+}
+
+
+let { rows } = await query(sql2, data2);
+
+if(rows[0].userid !== Number.parseInt(req.body.userId)){
+     return res.status(400).send({message:'the specified user did not create this parcel'});
+  }
+
+try{
+
+  let { rows } = await query(sql, data);
+  
+  if(!rows[0]){
+    return res.status(400).send({message:'the parcel does not exist'});
+  }
+  else{
+    return res.status(200).send(rows[0]);
+  }
+
+}
+
+catch(error){
+  return res.status(400).send(error.message);
+}
+
+},
+
+async delete(req, res){
+
+let sql = `DELETE FROM parcels WHERE id = $1`;
+let data = [req.params.id];
+
+if (!req.body.userId){
+   return res.status(400).send({message:'enter your userId to proceed'});
+}
+
+let sql2 = `SELECT * FROM parcels WHERE id = $1`;
+
+try{
+
+  let { rows } = await query(sql2, data);
+
+  if(!rows[0]){
+    return res.status(400).send({message:'this parcel od not exist'});
+  }
+
+  if(rows[0].userid !== Number.parseInt(req.body.userId)){
+    return res.status(400).send({message:'the specified user did not create this parcel'})
+  }
+  
+   await query(sql, data);
+   
    return res.status(201).send({message : 'parcel DELETED'});
+
+}
+catch(error){
+  return res.status(400).send(error.message);
+}
+
 },
 
-getAllUserParcels(req, res){
-	const parcels = parcelData.getAllUserParcels(req.params.id);
-	if(parcels.length === 0){
+async getAllUserParcels(req, res){
+  
+  let sql = `SELECT * FROM parcels WHERE userid = $1`;
+  let data = [req.params.id];
+
+  try{
+
+    const { rows } = await query(sql, data);
+
+    if(!rows[0]){
     return res.status(404).send({message: 'user has no parcels'});
-	}
-	else{
-		return res.status(200).send(parcels);
-	}
+  }
+  else{
+    return res.status(200).send(rows[0]);
+  }
+
+  }
+  catch(error){
+    return res.status(400).send(error.message);
+  }
+
 },
 
-cancelOrder(req, res){
-const parcel = parcelData.cancelOrder(req.params.id);
-if(!parcel){
-  return res.status(404).send({message:'parcel do not exist'});	
+async updateOrder(req, res){
+
+let sql = `
+UPDATE parcels
+SET 
+ weight = $1,
+ price = $2,
+ pickup = $3,
+ pickup_stno = $4,
+ destination = $5,
+ destination_stno = $6,
+ userid = $7,
+ receiver = $8,
+ receiver_phone = $9
+WHERE id = $10
+returning *
+`;
+
+let sql2 = `SELECT * FROM parcels WHERE id = $1`;
+
+let data2 = [req.params.id];
+
+if(!req.body.userId){
+  return res.status(404).send({message:'complete the userId field to proceed'});  
 }
-else{
-	return res.status(200).send(parcel);
+
+let { rows } = await query(sql2, data2);
+
+if(!rows[0]){
+  return res.status(400).send({message:'this parcel does not exist'});
 }
+
+if(rows[0].userid !== Number.parseInt(req.body.userId)){
+  return res.status(400).send({message:'the specified user is not the one who created this parcel'});
+}
+  let data = [
+  req.body.weight || rows[0].weight,
+  req.body.weight * 1000 || rows[0].price,
+  req.body.pickup || rows[0].pickup,
+  req.body.pickup_stno || rows[0].pickup_stno,
+  req.body.destination || rows[0].destination,
+  req.body.destination_stno || rows[0].destination_stno,
+  req.body.userId || rows[0].userid,
+  req.body.receiver || rows[0].receiver,
+  req.body.receiver_phone || rows[0].receiver_phone,
+  req.params.id
+  ];
+
+
+try{
+
+  let { rows } = await query(sql, data);
+
+  return res.status(200).send(rows[0]);
+
+}
+
+catch(error){
+  return res.status(400).send(error.message);
+}
+
 },
 
-updateOrder(req, res){
-if(req.body.weight =="" && req.body.pickup == "" && req.body.pickup_StNo == "" && req.body.destination == "" && req.body.destination_StNo == "" && req.body.receiver == "" && req.body.receiver_phone == ""){
-  return res.status(404).send({message:'nothing updated'});
+async getOne(req, res){
+
+let sql = `
+SELECT * FROM parcels WHERE id = $1
+`;
+
+try{
+  const { rows } = await query(sql, [req.params.id]);
+  if(!rows[0]){
+    return res.status(404).send({message: 'parcel do not exist'});
+  }
+  else{
+    return res.status(200).send(rows[0]);
+  } 
+}
+catch(error){
+  return res.status(400).send(error.message);
 }
 
-const updated = parcelData.updateOrder(req.params.id, req.body);
-
-if(!updated){
-  return res.status(404).send({message:'parcel do not exist'});
-}
-
-return res.status(200).send(updated);
-
-}
+  }
 
 };
 
