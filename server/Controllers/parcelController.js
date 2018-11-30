@@ -84,7 +84,7 @@ try{
 
   let { rows } = await query(sql, data);
 
-  if(req.body.userId !== '0'){
+  if(req.body.userId != '0'){
     return res.status(400).send({message: 'user not admin'});
   }
 
@@ -125,7 +125,7 @@ try{
 
   let { rows } = await query(sql, data);
 
-  if(req.body.userId !== '0'){
+  if(req.body.userId != '0'){
     return res.status(400).send({message: 'user not admin'});
   }
 
