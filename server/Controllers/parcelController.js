@@ -214,8 +214,8 @@ async signup(req, res){
    true
   ]
 
-  let sql2 = `SELECT * FROM users WHERE userid = $1`;
-  let data2 = [Number.parseInt(req.body.userId)];
+//   let sql2 = `SELECT * FROM users WHERE userid = $1`;
+//   let data2 = [Number.parseInt(req.body.userId)];
 
   if(!req.body.first_name || !req.body.last_name || !req.body.town || !req.body.street_number || !req.body.phone_number || !req.body.email|| !req.body.userid || !req.body.password){
     return res.status(400).send({message: 'complete all fields to proceed'});
@@ -228,11 +228,11 @@ async signup(req, res){
     return res.status(400).send({message: 'CHECK: phone_number and userid must be a number'});
   }
 
-  let { rows } = await query(sql2, data2);
+//   let { rows } = await query(sql2, data2);
 
-  if(rows[0]){
-    return res.status(400).send({message:'The userId already exists'});
-  }
+//   if(rows[0]){
+//     return res.status(400).send({message:'The userId already exists'});
+//   }
 
   const token = bhelp.makeToken(req.body.userId);
 
