@@ -366,6 +366,21 @@ catch(error){
 
 },
 
+async deleteUser(req, res){
+   
+   let sql = `DELETE FROM users WHERE userid = $1`;
+   let data  = [req.body.userId];
+
+   try{
+       let { rows } = await query(sql, data);
+       return res.status(201).send({message: 'your account has been deleted'});
+   }
+   catch(error){
+    return res.status(400).send(error.message);
+   }
+
+},
+
 async getAllUserParcels(req, res){
   
   let sql = `SELECT * FROM parcels WHERE userid = $1`;
