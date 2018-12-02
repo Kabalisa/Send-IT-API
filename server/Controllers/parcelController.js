@@ -55,11 +55,41 @@ async getAll(req, res){
 
  try{
   const { rows, rowCount } = await query(sql);
-  return res.status(200).send({ rows, rowCount });
+
+  if(req.body.userId != '0'){
+      return res.status(400).send({message:'user not admin'});
+  }
+  else{
+      return res.status(200).send({ rows, rowCount });
+  }
+  
 }
   catch(error){
     return res.status(400).send(error.message);
   }
+},
+
+async getUsers(req, res){
+
+let sql = `
+SELECT * FROM users
+`;
+
+try{
+const { rows, rowCount } = await query(sql);
+
+  if(req.body.userId != '0'){
+      return res.status(400).send({message:'user not admin'});
+  }
+  else{
+      return res.status(200).send({ rows, rowCount });
+  }
+
+}
+catch(error){
+  return res.status(400).send(error.message);
+}
+
 },
 
 async presentLocation(req, res){
@@ -77,14 +107,14 @@ req.params.id
 ];
 
 if(!req.body.presentLocation){
-  return res.status(404).send({message:'complete all fields to proceed'});  
+  return res.status(404).send({message:'complete the presentLocation fields to proceed'});  
 }
 
 try{
 
   let { rows } = await query(sql, data);
 
-  if(req.body.userId !== '0'){
+  if(req.body.userId != '0'){
     return res.status(400).send({message: 'user not admin'});
   }
 
@@ -118,14 +148,14 @@ req.params.id
 ];
 
 if(!req.body.status){
-  return res.status(404).send({message:'complete all fields to proceed'});  
+  return res.status(404).send({message:'complete the status fields to proceed'});  
 }
 
 try{
 
   let { rows } = await query(sql, data);
 
-  if(req.body.userId !== '0'){
+  if(req.body.userId != '0'){
     return res.status(400).send({message: 'user not admin'});
   }
 
@@ -149,7 +179,7 @@ let sql = `SELECT * FROM parcels WHERE id = $1`;
 let data = [req.params.id];
 
 if(!req.body.destination){
-  return res.status(404).send({message:'all fields are required in order to proceed!!'}); 
+  return res.status(404).send({message:'complete the destination field to proceed!!'}); 
 }
 
 try{
@@ -194,24 +224,22 @@ return res.status(400).send(error.message);
 async signup(req, res){
 
   let sql = `
-    INSERT INTO users(id, first_name, last_name, town, street_number, phone_number, email, userid, password, isloggedin)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    INSERT INTO users(userid, first_name, last_name, town, street_number, phone_number, email, password)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     returning *
   `;
 
   let hashPassword = bhelp.hashPassword(req.body.password);
 
   let data  = [
-   uuid(),
+   req.body.userid,
    req.body.first_name,
    req.body.last_name,
    req.body.town,
    req.body.street_number,
    req.body.phone_number,
    req.body.email,
-   req.body.userid,
-   hashPassword,
-   true
+   hashPassword
   ]
 
   if(!req.body.first_name || !req.body.last_name || !req.body.town || !req.body.street_number || !req.body.phone_number || !req.body.email|| !req.body.userid || !req.body.password){
@@ -232,20 +260,20 @@ async signup(req, res){
     return res.status(201).send({result: rows[0], token});
   }
   catch(error){
-    return res.status(400).send(error.message);
+    return res.status(400).send({message:'userId already exist'});
   }
 },
 
 async signin(req, res){
 
 let sql = `SELECT * FROM users WHERE userid = $1`;
-let data = [req.body.userId];
+let data = [req.body.userid];
 
-if(!req.body.userId || !req.body.password){
+if(!req.body.userid || !req.body.password){
   return res.status(404).send({message:'complete all field to proceed'}); 
 }
 
-const token = bhelp.makeToken(req.body.userId);
+const token = bhelp.makeToken(req.body.userid);
 
 try{
 
@@ -288,29 +316,23 @@ WHERE id = $1
 
 let data2 = [req.params.id];
 
-if(!req.body.userId){
-  return res.status(404).send({message:'complete all fields to proceed'});  
-}
-
-
 let { rows } = await query(sql2, data2);
 
-if(rows[0].userid !== Number.parseInt(req.body.userId)){
-     return res.status(400).send({message:'the specified user did not create this parcel'});
+if(!rows[0]){
+    return res.status(400).send({message:'the parcel does not exist'});
+}
+
+if(req.body.userId != rows[0].userid){
+     return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
   }
 
 try{
 
   let { rows } = await query(sql, data);
   
-  if(!rows[0]){
-    return res.status(400).send({message:'the parcel does not exist'});
-  }
-  else{
-    return res.status(200).send(rows[0]);
-  }
+   return res.status(200).send(rows[0]);
 
-}
+  }
 
 catch(error){
   return res.status(400).send(error.message);
@@ -323,9 +345,7 @@ async delete(req, res){
 let sql = `DELETE FROM parcels WHERE id = $1`;
 let data = [req.params.id];
 
-if (!req.body.userId){
-   return res.status(400).send({message:'enter your userId to proceed'});
-}
+
 
 let sql2 = `SELECT * FROM parcels WHERE id = $1`;
 
@@ -334,11 +354,11 @@ try{
   let { rows } = await query(sql2, data);
 
   if(!rows[0]){
-    return res.status(400).send({message:'this parcel od not exist'});
+    return res.status(400).send({message:'this parcel does not exist'});
   }
 
-  if(rows[0].userid !== Number.parseInt(req.body.userId)){
-    return res.status(400).send({message:'the specified user did not create this parcel'})
+  if(req.body.userId != rows[0].userid){
+    return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'})
   }
   
    await query(sql, data);
@@ -352,20 +372,39 @@ catch(error){
 
 },
 
+async deleteUser(req, res){
+   
+   let sql = `DELETE FROM users WHERE userid = $1`;
+   let data  = [req.body.userId];
+
+   try{
+       let { rows } = await query(sql, data);
+       return res.status(201).send({message: 'your account has been deleted'});
+   }
+   catch(error){
+    return res.status(400).send(error.message);
+   }
+
+},
+
 async getAllUserParcels(req, res){
   
   let sql = `SELECT * FROM parcels WHERE userid = $1`;
   let data = [req.params.id];
 
+  if(req.body.userId != req.params.id){
+    return res.status(400).send({message:'the specified userid in the URL is not the one logged in'});
+  }
+
   try{
 
-    const { rows } = await query(sql, data);
+    const { rows, rowCount } = await query(sql, data);
 
     if(!rows[0]){
     return res.status(404).send({message: 'user has no parcels'});
   }
   else{
-    return res.status(200).send(rows[0]);
+    return res.status(200).send({ rows, rowCount });
   }
 
   }
@@ -397,18 +436,14 @@ let sql2 = `SELECT * FROM parcels WHERE id = $1`;
 
 let data2 = [req.params.id];
 
-if(!req.body.userId){
-  return res.status(404).send({message:'complete the userId field to proceed'});  
-}
-
 let { rows } = await query(sql2, data2);
 
 if(!rows[0]){
   return res.status(400).send({message:'this parcel does not exist'});
 }
 
-if(rows[0].userid !== Number.parseInt(req.body.userId)){
-  return res.status(400).send({message:'the specified user is not the one who created this parcel'});
+if(req.body.userId != rows[0].userid){
+  return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
 }
   let data = [
   req.body.weight || rows[0].weight,
@@ -438,6 +473,53 @@ catch(error){
 
 },
 
+async updateDetails(req, res){
+  
+  let sql = `
+    UPDATE users
+    SET
+    first_name = $1,
+    last_name = $2,
+    town = $3,
+    street_number = $4,
+    phone_number = $5,
+    email = $6,
+    password = $7
+    WHERE userid = $8
+    returning * 
+  `;
+   
+   let sql2 = `SELECT * FROM users WHERE userid = $1`;
+
+   let data2 = [req.body.user];
+
+   let { rows } = await query(sql2, data2);
+
+   let hashPassword = bhelp.hashPassword(req.body.password);
+  
+   let data = [
+      req.body.first_name || rows[0].first_name,
+      req.body.last_name || rows[0].last_name,
+      req.body.town || rows[0].town,
+      req.body.street_number || rows[0].street_number,
+      req.body.phone_number || rows[0].phone_number,
+      req.body.email || rows[0].email,
+      hashPassword || rows[0].password,
+      rows[0].userid
+   ];
+
+   try{
+
+    let { rows } = await query(sql, data);
+    return res.status(200).send(rows[0]);
+
+   }
+   catch(error){
+    return res.status(400).send(error.message);
+   }
+
+},
+
 async getOne(req, res){
 
 let sql = `
@@ -446,12 +528,16 @@ SELECT * FROM parcels WHERE id = $1
 
 try{
   const { rows } = await query(sql, [req.params.id]);
+
   if(!rows[0]){
     return res.status(404).send({message: 'parcel do not exist'});
   }
-  else{
+
+  if(req.body.userId != rows[0].userid){
+    return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
+  }
+
     return res.status(200).send(rows[0]);
-  } 
 }
 catch(error){
   return res.status(400).send(error.message);
