@@ -253,13 +253,13 @@ async signup(req, res){
 async signin(req, res){
 
 let sql = `SELECT * FROM users WHERE userid = $1`;
-let data = [req.body.userId];
+let data = [req.body.userid];
 
-if(!req.body.userId || !req.body.password){
+if(!req.body.userid || !req.body.password){
   return res.status(404).send({message:'complete all field to proceed'}); 
 }
 
-const token = bhelp.makeToken(req.body.userId);
+const token = bhelp.makeToken(req.body.userid);
 
 try{
 
@@ -464,6 +464,53 @@ try{
 catch(error){
   return res.status(400).send(error.message);
 }
+
+},
+
+async updateDetails(req, res){
+  
+  let sql = `
+    UPDATE users
+    SET
+    first_name = $1,
+    last_name = $2,
+    town = $3,
+    street_number = $4,
+    phone_number = $5,
+    email = $6,
+    password = $7
+    WHERE userid = $8
+    returning * 
+  `;
+   
+   let sql2 = `SELECT * FROM users WHERE userid = $1`;
+
+   let data2 = [req.body.user];
+
+   let { rows } = await query(sql2, data2);
+
+   let hashPassword = bhelp.hashPassword(req.body.password);
+  
+   let data = [
+      req.body.first_name || rows[0].first_name,
+      req.body.last_name || rows[0].last_name,
+      req.body.town || rows[0].town,
+      req.body.street_number || rows[0].street_number,
+      req.body.phone_number || rows[0].phone_number,
+      req.body.email || rows[0].email,
+      hashPassword || rows[0].password,
+      rows[0].userid
+   ];
+
+   try{
+
+    let { rows } = await query(sql, data);
+    return res.status(200).send(rows[0]);
+
+   }
+   catch(error){
+    return res.status(400).send(error.message);
+   }
 
 },
 

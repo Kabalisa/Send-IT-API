@@ -12,4 +12,6 @@ routerr.get('/list/users', userController.getUsers);
 
 routerr.delete('/myprofile/delete', bhelp.checkToken, userController.deleteUser);
 
+routerr.put('/myprofile/update', bhelp.checkToken, userController.updateDetails);
+
 export default routerr;

@@ -21,7 +21,7 @@ let bhelp = {
   async checkToken(req, res, next){
   	const token = req.headers['x-access-token'];
   	if(!token){
-  		return res.sendStatus(403).send({message:'No Token provided'});
+  		return res.status(403).send({message:'No Token provided'});
   	}
   	try{
         const { id } = await jwt.verify(token, 'fadees');
@@ -31,6 +31,7 @@ let bhelp = {
         	return res.status(400).send({message:'Invalid token'});
         }
         req.body.userId = id;
+        req.body.user = id;
         next();
   	}
     catch(error){
