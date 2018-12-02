@@ -5,25 +5,25 @@ import bhelp from '../helpers/bhelp';
 const router = express.Router();
 
 /* GET all parcel delivery orders */
-router.get('/parcels', parcelController.getAll);
+router.get('/parcels', bhelp.checkToken, parcelController.getAll);
 
 /* GET a specific Parcel delivery order*/
-router.get('/parcels/:id', parcelController.getOne);
+router.get('/parcels/:id', bhelp.checkToken, parcelController.getOne);
 
 /*cancel a specific parcel delivery order*/
-router.put('/parcels/:id/cancel', parcelController.cancelOrder);
+router.put('/parcels/:id/cancel', bhelp.checkToken, parcelController.cancelOrder);
 
 /*GET all parcels of a specific user*/
-router.get('/users/:id/parcels', parcelController.getAllUserParcels);
+router.get('/users/:id/parcels', bhelp.checkToken, parcelController.getAllUserParcels);
 
 /*create a parcel delivery order the user want*/
 router.post('/parcels', bhelp.checkToken, parcelController.create);
 
 /*DELETE a specified parcel delivery order*/
-router.delete('/parcels/:id/delete', parcelController.delete);
+router.delete('/parcels/:id/delete', bhelp.checkToken, parcelController.delete);
 
 /*UPDATE a specific parcel delivery order*/
-router.put('/parcels/:id/update', parcelController.updateOrder);
+router.put('/parcels/:id/update', bhelp.checkToken, parcelController.updateOrder);
 
 router.put('/parcels/:id/presentLocation', bhelp.checkToken, parcelController.presentLocation);
 

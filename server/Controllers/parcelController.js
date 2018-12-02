@@ -55,7 +55,14 @@ async getAll(req, res){
 
  try{
   const { rows, rowCount } = await query(sql);
-  return res.status(200).send({ rows, rowCount });
+
+  if(req.body.userId != '0'){
+      return res.status(400).send({message:'user not admin'});
+  }
+  else{
+      return res.status(200).send({ rows, rowCount });
+  }
+  
 }
   catch(error){
     return res.status(400).send(error.message);
@@ -70,7 +77,14 @@ SELECT * FROM users
 
 try{
 const { rows, rowCount } = await query(sql);
-return res.status(200).send({ rows, rowCount });
+
+  if(req.body.userId != '0'){
+      return res.status(400).send({message:'user not admin'});
+  }
+  else{
+      return res.status(200).send({ rows, rowCount });
+  }
+
 }
 catch(error){
   return res.status(400).send(error.message);
@@ -302,29 +316,23 @@ WHERE id = $1
 
 let data2 = [req.params.id];
 
-if(!req.body.userId){
-  return res.status(404).send({message:'complete all fields to proceed'});  
-}
-
-
 let { rows } = await query(sql2, data2);
 
-if(rows[0].userid !== Number.parseInt(req.body.userId)){
-     return res.status(400).send({message:'the specified user did not create this parcel'});
+if(!rows[0]){
+    return res.status(400).send({message:'the parcel does not exist'});
+}
+
+if(req.body.userId != rows[0].userid){
+     return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
   }
 
 try{
 
   let { rows } = await query(sql, data);
   
-  if(!rows[0]){
-    return res.status(400).send({message:'the parcel does not exist'});
-  }
-  else{
-    return res.status(200).send(rows[0]);
-  }
+   return res.status(200).send(rows[0]);
 
-}
+  }
 
 catch(error){
   return res.status(400).send(error.message);
@@ -337,9 +345,7 @@ async delete(req, res){
 let sql = `DELETE FROM parcels WHERE id = $1`;
 let data = [req.params.id];
 
-if (!req.body.userId){
-   return res.status(400).send({message:'enter your userId to proceed'});
-}
+
 
 let sql2 = `SELECT * FROM parcels WHERE id = $1`;
 
@@ -351,8 +357,8 @@ try{
     return res.status(400).send({message:'this parcel does not exist'});
   }
 
-  if(rows[0].userid !== Number.parseInt(req.body.userId)){
-    return res.status(400).send({message:'the specified user did not create this parcel'})
+  if(req.body.userId != rows[0].userid){
+    return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'})
   }
   
    await query(sql, data);
@@ -386,15 +392,19 @@ async getAllUserParcels(req, res){
   let sql = `SELECT * FROM parcels WHERE userid = $1`;
   let data = [req.params.id];
 
+  if(req.body.userId != req.params.id){
+    return res.status(400).send({message:'the specified userid in the URL is not the one logged in'});
+  }
+
   try{
 
-    const { rows } = await query(sql, data);
+    const { rows, rowCount } = await query(sql, data);
 
     if(!rows[0]){
     return res.status(404).send({message: 'user has no parcels'});
   }
   else{
-    return res.status(200).send(rows[0]);
+    return res.status(200).send({ rows, rowCount });
   }
 
   }
@@ -426,18 +436,14 @@ let sql2 = `SELECT * FROM parcels WHERE id = $1`;
 
 let data2 = [req.params.id];
 
-if(!req.body.userId){
-  return res.status(404).send({message:'complete the userId field to proceed'});  
-}
-
 let { rows } = await query(sql2, data2);
 
 if(!rows[0]){
   return res.status(400).send({message:'this parcel does not exist'});
 }
 
-if(rows[0].userid !== Number.parseInt(req.body.userId)){
-  return res.status(400).send({message:'the specified user is not the one who created this parcel'});
+if(req.body.userId != rows[0].userid){
+  return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
 }
   let data = [
   req.body.weight || rows[0].weight,
@@ -522,12 +528,16 @@ SELECT * FROM parcels WHERE id = $1
 
 try{
   const { rows } = await query(sql, [req.params.id]);
+
   if(!rows[0]){
     return res.status(404).send({message: 'parcel do not exist'});
   }
-  else{
+
+  if(req.body.userId != rows[0].userid){
+    return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
+  }
+
     return res.status(200).send(rows[0]);
-  } 
 }
 catch(error){
   return res.status(400).send(error.message);

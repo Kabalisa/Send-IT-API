@@ -8,7 +8,7 @@ routerr.post('/signup', userController.signup);
 
 routerr.post('/signin', userController.signin);
 
-routerr.get('/list/users', userController.getUsers);
+routerr.get('/list/users', bhelp.checkToken, userController.getUsers);
 
 routerr.delete('/myprofile/delete', bhelp.checkToken, userController.deleteUser);
 
