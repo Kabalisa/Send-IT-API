@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 
 import app from '../app';
 import parcelData from '../Data/parcelData';
-import 'babel-polyfill';
+// import 'babel-polyfill';
 
 chai.should();
 chai.use(chaiHttp);
