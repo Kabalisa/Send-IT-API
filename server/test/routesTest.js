@@ -265,6 +265,25 @@ describe('admin access only', () => {
   });
 });
 
+  // test the update presentlocation endpoint
+  it('should update presentLocation of a parcel delivery order', (done) => {
+
+    let presentLocation = {
+    presentLocation : 'nyakariro'
+    };
+
+  chai.request(app)
+  .put(`/api/v1/parcels/${parcelId}/presentLocation`)
+  .send(presentLocation)
+  .set('x-access-token', admin_token)
+  .end((err, res) => {
+    res.should.have.status(200);
+    res.body.should.be.a('object');
+    res.body.should.have.property('presentlocation').eql('nyakariro');
+    done();
+  });
+});
+
 });
 
 // //test when not to fetch a single parcel
