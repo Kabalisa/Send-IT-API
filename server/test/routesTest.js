@@ -227,6 +227,17 @@ describe('admin access only', () => {
   });
 });
 
+  //tests the GET all users endpoint
+  it('should FETCH all users', (done) => {
+  chai.request(app)
+  .get('/auth/list/users')
+  .set('x-access-token', admin_token)
+  .end((err,res) => {
+    res.should.have.status(200);
+    done();
+  });
+});
+
 });
 
 // //test when not to fetch a single parcel
