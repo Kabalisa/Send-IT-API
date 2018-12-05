@@ -183,9 +183,12 @@ it('should FETCH one specific parcel', (done) => {
 
 });
 
-// describe('admin access only', () => {
+describe('admin access only', () => {
+  before((done) => {
+    
+  });
 
-// });
+});
 
 // //test when not to fetch a single parcel
 // it('should not FETCH one specific parcel', (done) => {

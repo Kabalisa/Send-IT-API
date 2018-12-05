@@ -1,23 +1,18 @@
 import { Pool } from 'pg';
+<<<<<<< HEAD
 import dotenv from 'dotenv';
 
 dotenv.config(); 
-
-const environment = process.env.ROLE != 'test'? {
+  
+const pool  = new Pool(
+  {
    user: 'postgres',
    host:'localhost',
    database: 'sendit',
    password : 'Kif@0788475785',
    port: 5432,
-  } : {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'sendittest',
-    password: 'Kif@0788475785',
-    port: 5432,
-  };
-  
-const pool  = new Pool(environment);
+  }
+  );
 
 pool.on('connect', () => {
   console.log('connected to database succesfully');
