@@ -284,6 +284,25 @@ describe('admin access only', () => {
   });
 });
 
+  // test the update status endpoint
+  it('should update status of a parcel delivery order', (done) => {
+
+    let status = {
+    status : 'delivered'
+    };
+
+  chai.request(app)
+  .put(`/api/v1/parcels/${parcelId}/status`)
+  .send(status)
+  .set('x-access-token', admin_token)
+  .end((err, res) => {
+    res.should.have.status(200);
+    res.body.should.be.a('object');
+    res.body.should.have.property('status').eql('delivered');
+    done();
+  });
+});
+
 });
 
 // //test when not to fetch a single parcel
