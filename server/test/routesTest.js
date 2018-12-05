@@ -35,11 +35,33 @@ describe('app route to GET index page', () => {
 });
 
 describe('app routes for users', () => {
+
+   let user;
+
   before((done) => {
     let sql = `DELETE FROM users`;
     chai.request(app);
     query(sql);
-    done();
+
+     const admin = {
+      first_name: 'fiston',
+      last_name: 'kabalisa',
+      town: 'kigali',
+      street_number: 'KN 268 St',
+      phone_number: '0785382213',
+      email: 'ikabalisa20@gmail.com',
+      userid: '0',
+      password: 'password'
+    };
+
+    chai.request(app)
+    .post('/auth/signup')
+    .send(admin)
+    .end((err, res) => {
+      user = res.body.result.userid;
+      done();
+    });
+
   });
   
   it('should create a users account', (done) => {
@@ -147,16 +169,6 @@ it('should create a parcel delivery order', (done) =>{
     });
 });
 
-// //tests the GET all parcels endpoint
-// it('should FETCH all parcels', (done) => {
-//   chai.request(app)
-//   .get('/api/v1/parcels')
-//   .end((err,res) => {
-//     res.should.have.status(200);
-//     done();
-//   });
-// });
-
 //test the GET one parcel endpoint
 it('should FETCH one specific parcel', (done) => {
   chai.request(app)
@@ -184,9 +196,36 @@ it('should FETCH one specific parcel', (done) => {
 });
 
 describe('admin access only', () => {
+ 
+  let admin_token;
+
   before((done) => {
-    
+
+    const credentials = {
+      userid: '0',
+      password: 'password'
+    };
+
+    chai.request(app)
+    .post('/auth/signin')
+    .send(credentials)
+    .end((err, res) => {
+        admin_token = res.body.token;
+      done();
+    });
+
   });
+
+  //tests the GET all parcels endpoint
+  it('should FETCH all parcels', (done) => {
+  chai.request(app)
+  .get('/api/v1/parcels')
+  .set('x-access-token', admin_token)
+  .end((err,res) => {
+    res.should.have.status(200);
+    done();
+  });
+});
 
 });
 
