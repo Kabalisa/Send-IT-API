@@ -206,6 +206,20 @@ it('should cancel a specified parcel delivery order', (done) => {
   });
 });
 
+//test the FETCH parcels for one user endpoint
+it('should FETCH  all parcels for one user', (done) => {
+   chai.request(app)
+   .get('/api/v1/users/101010/parcels')
+   .set('x-access-token', user_token)
+   .end((err, res) => {
+     res.should.have.status(200);
+     res.body.should.be.a('object');
+     res.body.should.have.property('rows');
+     res.body.should.have.property('rowCount');
+     done();
+   });
+});
+
 });
 
 describe('admin access only', () => {
@@ -275,18 +289,6 @@ describe('admin access only', () => {
 //     res.body.should.have.property('message').eql('parcel do not exist');
 //     done();
 //   });
-// });
-
-// //test the FETCH parcels for one user endpoint
-// it('should FETCH  all parcels for one user', (done) => {
-//    chai.request(app)
-//    .get('/api/v1/users/657384/parcels')
-//    .end((err, res) => {
-//      res.should.have.status(200);
-//      res.body.should.be.a('array');
-//      res.body.length.should.be.eql(1);
-//      done();
-//    });
 // });
 
 // //test when not to fethc parcels for one user
