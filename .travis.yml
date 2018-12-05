@@ -13,7 +13,7 @@ addons:
 env: 
   global: 
     - NODE_ENV=development
-    - SECRETKEY=fadees
+    - SECRETKEY="fadees"
     - PG_HOST=localhost
     - PG_URL=postgresql://fiston:0788475785@localhost/sendIT
     - PG_USER=fiston
