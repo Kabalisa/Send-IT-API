@@ -14,12 +14,12 @@ env:
   global: 
     - NODE_ENV=development
     - SECRETKEY=fadees
-    - PGHOST=localhost
-    - PGURL=postgresql://fiston:0788475785@localhost/sendIT
-    - PGUSER=fiston
-    - PGDATABASE=sendIT
-    - PGPASSWORD=0788475785
-    - PGPORT=5432
+    - PG_HOST=localhost
+    - PG_URL=postgresql://fiston:0788475785@localhost/sendIT
+    - PG_USER=fiston
+    - PG_DATABASE=sendIT
+    - PG_PASSWORD=0788475785
+    - PG_PORT=5432
 before_script:
     - psql -c 'create database sendIT;' -U postgres
     - psql -c "CREATE USER fiston WITH PASSWORD '0788475785';" -U postgres
