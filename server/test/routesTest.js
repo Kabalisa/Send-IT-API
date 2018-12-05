@@ -9,7 +9,7 @@ import query from '../Data/parcelData';
 
 chai.should();
 chai.use(chaiHttp);
-
+let parcelId;
 
 
 
@@ -128,6 +128,7 @@ it('should create a parcel delivery order', (done) =>{
     .set('x-access-token', user_token)
     .send(item)
     .end((err,res) => {
+      parcelId = res.body.id;
       res.should.have.status(201);
       res.body.should.be.a('object');
       res.body.should.have.property('id');
@@ -156,32 +157,35 @@ it('should create a parcel delivery order', (done) =>{
 //   });
 // });
 
-// //test the GET one parcel endpoint
-// it('should FETCH one specific parcel', (done) => {
-//   chai.request(app)
-//   .get('/api/v1/parcels/5')
-//   .end((err, res) => {
-//    res.should.have.status(200);
-//    res.body.should.be.a('object');
-//    res.body.should.have.property('id').eql(5);
-//    res.body.should.have.property('weight').eql(77);
-//    res.body.should.have.property('price').eql(77000);
-//    res.body.should.have.property('pickup').eql('kigali');
-//    res.body.should.have.property('pickup_stno').eql('KN 444 St');
-//    res.body.should.have.property('destination').eql('rwamana');
-//    res.body.should.have.property('destination_stno').eql('KN 445 St');
-//    res.body.should.have.property('userid').eql(111444);
-//    res.body.should.have.property('receiver').eql('ron');
-//    res.body.should.have.property('receiver_phone').eql(64646464);
-//    res.body.should.have.property('status').eql('pending');
-//    res.body.should.have.property('presentlocation').eql('kigali');
-//    done();
-//   });
-// });
+//test the GET one parcel endpoint
+it('should FETCH one specific parcel', (done) => {
+  chai.request(app)
+  .get(`/api/v1/parcels/${parcelId}`)
+  .set('x-access-token', user_token)
+  .end((err, res) => {
+   res.should.have.status(200);
+   res.body.should.be.a('object');
+   res.body.should.have.property('id');
+   res.body.should.have.property('weight').eql(5);
+   res.body.should.have.property('price').eql(5000);
+   res.body.should.have.property('pickup').eql('kirehe');
+   res.body.should.have.property('pickup_stno').eql('KN 334 St');
+   res.body.should.have.property('destination').eql('bugesera');
+   res.body.should.have.property('destination_stno').eql('KN 322 St');
+   res.body.should.have.property('userid').eql(101010);
+   res.body.should.have.property('receiver').eql('peruth');
+   res.body.should.have.property('receiver_phone').eql(789765432);
+   res.body.should.have.property('status').eql('pending');
+   res.body.should.have.property('presentlocation').eql('kirehe');
+   done();
+  });
+});
 
 });
 
+// describe('admin access only', () => {
 
+// });
 
 // //test when not to fetch a single parcel
 // it('should not FETCH one specific parcel', (done) => {
