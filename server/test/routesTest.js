@@ -239,6 +239,37 @@ it('should FETCH  all parcels for one user', (done) => {
   });
 });
 
+  //test when to update a specific parcel
+it('should update a specific parcel delivery order', (done) => {
+  const newitem = {
+       weight : '50',
+       destination : 'kimironko',
+       receiver : 'krichof',
+       receiver_phone : '0788364536'
+    };
+chai.request(app)
+.put(`/api/v1/parcels/${parcelId}/update`)
+.set('x-access-token', user_token)
+.send(newitem)
+.end((err, res) => {
+  res.should.have.status(200);
+  res.body.should.be.a('object');
+  res.body.should.have.property('id');
+  res.body.should.have.property('weight').eql(50);
+  res.body.should.have.property('price').eql(50000);
+  res.body.should.have.property('pickup_stno').eql('KN 334 St');
+  res.body.should.have.property('pickup').eql('kirehe');
+  res.body.should.have.property('destination_stno').eql('KN 322 St');
+  res.body.should.have.property('destination').eql('kimironko');
+  res.body.should.have.property('userid').eql(101010);
+  res.body.should.have.property('status').eql('CANCELED');
+  res.body.should.have.property('receiver').eql('krichof');
+  res.body.should.have.property('receiver_phone').eql(788364536);
+  res.body.should.have.property('presentlocation').eql('kirehe');
+  done();
+});
+});
+
 });
 
 describe('admin access only', () => {
@@ -445,39 +476,6 @@ describe('admin access only', () => {
 //      res.body.should.have.property('message').eql('parcel do not exist');
 //      done();
 //   });
-// });
-
-// //test when to update a specific parcel
-// it('should update a specific parcel delivery order', (done) => {
-//   const item = {
-//        pickup_StNo : 'KN 332 St',
-//        pickup : 'kayonza',
-//        destination_StNo : 'KN 003 St',
-//        destination : 'kigali',
-//        weight : '50',
-//        receiver : 'krichof',
-//        receiver_phone : '0788364536'
-//     };
-// chai.request(app)
-// .put('/api/v1/parcels/1/update')
-// .send(item)
-// .end((err, res) => {
-//   res.should.have.status(200);
-//   res.body.should.be.a('object');
-//   res.body.should.have.property('id').eql('1');
-//   res.body.should.have.property('weight').eql('50');
-//   res.body.should.have.property('price').eql(50000);
-//   res.body.should.have.property('pickup_StNo').eql('KN 332 St');
-//   res.body.should.have.property('pickup').eql('kayonza');
-//   res.body.should.have.property('destination_StNo').eql('KN 003 St');
-//   res.body.should.have.property('destination').eql('kigali');
-//   res.body.should.have.property('userId').eql('980768');
-//   res.body.should.have.property('status').eql('pending');
-//   res.body.should.have.property('receiver').eql('krichof');
-//   res.body.should.have.property('receiver_phone').eql('0788364536');
-//   res.body.should.have.property('presentLocation').eql('kayonza');
-//   done();
-// });
 // });
 
 // // test whe not to update a parcel delivery order
