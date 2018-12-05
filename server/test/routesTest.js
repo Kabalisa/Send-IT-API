@@ -385,6 +385,40 @@ describe('admin access only', () => {
 
 });
 
+describe('delete a parcel', () => {
+
+  let user_token;
+
+  before((done) => {
+    const credentials = {
+      userid: '101010',
+      password: 'kabalisa'
+    };
+
+    chai.request(app)
+    .post('/auth/signin')
+    .send(credentials)
+    .end((err, res) => {
+        user_token = res.body.token;
+      done();
+    });
+  });
+
+  //test the delete specific parcel order endpoint
+  it('should delete a specified parcel delivery order', (done) => {
+  chai.request(app)
+  .delete(`/api/v1/parcels/${parcelId}/delete`)
+  .set('x-access-token', user_token)
+  .end((err, res) => {
+    res.should.have.status(201);
+    res.body.should.be.a('object');
+    res.body.should.have.property('message').eql('parcel DELETED');
+    done();
+  });
+});
+
+});
+
 // //test when not to fetch a single parcel
 // it('should not FETCH one specific parcel', (done) => {
 //   chai.request(app)
@@ -481,18 +515,6 @@ describe('admin access only', () => {
 //    res.should.be.a('object');
 //    res.body.should.have.property('message').eql('complete all fields to proceed');
 //    done();
-//   });
-// });
-
-// //test the delete specific parcel order endpoint
-// it('should delete a specified parcel delivery order', (done) => {
-//   chai.request(app)
-//   .delete('/api/v1/parcels/2/delete')
-//   .end((err, res) => {
-//     res.should.have.status(201);
-//     res.body.should.be.a('object');
-//     res.body.should.have.property('message').eql('parcel DELETED');
-//     done();
 //   });
 // });
 
