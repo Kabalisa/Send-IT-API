@@ -193,6 +193,19 @@ it('should FETCH one specific parcel', (done) => {
   });
 });
 
+//test the cancel specific order endpoint
+it('should cancel a specified parcel delivery order', (done) => {
+  chai.request(app)
+  .put(`/api/v1/parcels/${parcelId}/cancel`)
+  .set('x-access-token', user_token)
+  .end((err, res) => {
+    res.should.have.status(200);
+    res.body.should.be.a('object');
+    res.body.should.have.property('status').eql('CANCELED');
+    done();
+  });
+});
+
 });
 
 describe('admin access only', () => {
@@ -249,18 +262,6 @@ describe('admin access only', () => {
 //      res.body.should.be.a('object');
 //      res.body.should.have.property('message').eql('parcel do not exist');
 //      done();
-//   });
-// });
-
-// //test the cancel specific order endpoint
-// it('should cancel a specified parcel delivery order', (done) => {
-//   chai.request(app)
-//   .put('/api/v1/parcels/2/cancel')
-//   .end((err, res) => {
-//     res.should.have.status(200);
-//     res.body.should.be.a('object');
-//     res.body.should.have.property('status').eql('canceled');
-//     done();
 //   });
 // });
 
