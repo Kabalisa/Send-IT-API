@@ -19,7 +19,11 @@ app.listen(port, () =>{
   console.log('API running now');
   });
 
-app.use(logger('dev'));
+if(process.env.ROLE != 'test'){
+  app.use(logger('dev'));
+};
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
