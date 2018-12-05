@@ -385,7 +385,7 @@ describe('admin access only', () => {
 
 });
 
-describe('delete a parcel', () => {
+describe('delete a parcel or a user', () => {
 
   let user_token;
 
@@ -413,6 +413,19 @@ describe('delete a parcel', () => {
     res.should.have.status(201);
     res.body.should.be.a('object');
     res.body.should.have.property('message').eql('parcel DELETED');
+    done();
+  });
+});
+
+  //test the delete specific user account endpoint
+  it('should delete a specified user account', (done) => {
+  chai.request(app)
+  .delete('/auth/myprofile/delete')
+  .set('x-access-token', user_token)
+  .end((err, res) => {
+    res.should.have.status(201);
+    res.body.should.be.a('object');
+    res.body.should.have.property('message').eql('your account has been deleted');
     done();
   });
 });
