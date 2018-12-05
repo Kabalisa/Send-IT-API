@@ -220,6 +220,25 @@ it('should FETCH  all parcels for one user', (done) => {
    });
 });
 
+// test the user update destination endpoint
+  it('user should update destination of a parcel delivery order', (done) => {
+
+    let destination = {
+    destination : 'nyamata'
+    };
+
+  chai.request(app)
+  .put(`/api/v1/parcels/${parcelId}/destination`)
+  .send(destination)
+  .set('x-access-token', user_token)
+  .end((err, res) => {
+    res.should.have.status(200);
+    res.body.should.be.a('object');
+    res.body.should.have.property('destination').eql('nyamata');
+    done();
+  });
+});
+
 });
 
 describe('admin access only', () => {
