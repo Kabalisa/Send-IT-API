@@ -14,7 +14,7 @@ let parcelId;
 
 
 /* Test the /GET route */
-describe('app route to GET index page', () => {
+describe('app route  GET index page', () => {
   it('it should GET /', (done) => {
     chai.request(app)
       .get('/')
