@@ -270,6 +270,36 @@ chai.request(app)
 });
 });
 
+//test when to update a specific user
+it('should update a specific user details', (done) => {
+  const details = {
+       first_name: 'claude',
+       last_name: 'muhoza',
+       town: 'heart',
+       street_number: 'KN 323 St',
+       phone_number: '0788332211',
+       email: 'uine@gmai.com',
+       password: 'kabalisa'
+    };
+chai.request(app)
+.put('/auth/myprofile/update')
+.set('x-access-token', user_token)
+.send(details)
+.end((err, res) => {
+  res.should.have.status(200);
+  res.body.should.be.a('object');
+  res.body.should.have.property('userid').eql(101010);
+  res.body.should.have.property('first_name').eql('claude');
+  res.body.should.have.property('last_name').eql('muhoza');
+  res.body.should.have.property('town').eql('heart');
+  res.body.should.have.property('street_number').eql('KN 323 St');
+  res.body.should.have.property('phone_number').eql(788332211);
+  res.body.should.have.property('email').eql('uine@gmai.com');
+  res.body.should.have.property('password')
+  done();
+});
+});
+
 });
 
 describe('admin access only', () => {
