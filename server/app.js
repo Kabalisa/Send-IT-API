@@ -9,6 +9,7 @@ import routes from './routes/routes';
 import userRoutes from './routes/userRoutes';
 import dotenv from 'dotenv';
 
+dotenv.config();
 const app = express();
 
 const port = process.env.PORT || 3000; 
@@ -18,7 +19,11 @@ app.listen(port, () =>{
   console.log('API running now');
   });
 
-app.use(logger('dev'));
+if(process.env.ROLE != 'test'){
+  app.use(logger('dev'));
+};
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
