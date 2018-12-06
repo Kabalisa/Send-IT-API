@@ -260,7 +260,7 @@ async signup(req, res){
     return res.status(201).send({result: rows[0], token});
   }
   catch(error){
-    return res.status(400).send({message:'userId already exist'});
+    return res.status(400).send(error.message);
   }
 },
 
