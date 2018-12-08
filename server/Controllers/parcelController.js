@@ -267,7 +267,18 @@ async signup(req, res){
 
   try{
     const { rows } = await query(sql, data);
-    return res.status(201).send({result: rows[0], token});
+
+  let details = {
+  userid: rows[0].userid, 
+  first_name: rows[0].first_name, 
+  last_name: rows[0].last_name, 
+  town: rows[0].town, 
+  street_number: rows[0].street_number, 
+  phone_number: rows[0].phone_number, 
+  email: rows[0].email
+  };
+
+    return res.status(201).send({result: details, token});
   }
   catch(error){
     return res.status(400).send(error.message);
