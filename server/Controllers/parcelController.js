@@ -78,11 +78,21 @@ SELECT * FROM users
 try{
 const { rows, rowCount } = await query(sql);
 
+let details = {
+  userid: rows[0].userid, 
+  first_name: rows[0].first_name, 
+  last_name: rows[0].last_name, 
+  town: rows[0].town, 
+  street_number: rows[0].street_number, 
+  phone_number: rows[0].phone_number, 
+  email: rows[0].email
+};
+
   if(req.body.userId != '0'){
       return res.status(400).send({message:'user not admin'});
   }
   else{
-      return res.status(200).send({ rows, rowCount });
+      return res.status(200).send({user: details, rowCount });
   }
 
 }
