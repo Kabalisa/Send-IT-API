@@ -3,7 +3,8 @@ body{
 	    padding: 0;
 }
 .one{
-	position: relative;
+	position: sticky;
+	z-index: 5;
 	top: 0%;
 	width: 100%;
 	background-color: #256188;
@@ -13,7 +14,7 @@ body{
 }
 
 .one-1{
-	display: flex;
+	/*display: flex;*/
     position: relative;
     top: 0px;
     color: white;
@@ -84,7 +85,7 @@ body{
 	text-align: center;
 	position: relative;
 	top: 50px;
-	grid-area: over;
+	/*grid-area: over;*/
 	z-index: 2;
 	font-size: 30px;
 	font-family: cursive;
@@ -213,6 +214,7 @@ body{
 	font-size: 20px;
 	padding: 5px;
     display: flex;
+   
 }
 
 hr{

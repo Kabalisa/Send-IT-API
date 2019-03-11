@@ -135,3 +135,8 @@ footer{
 	color: #FF9800;
 	padding: 8px;
 }
+
+.info input{
+	border-radius: 8px;
+	border:none;
+}

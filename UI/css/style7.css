@@ -75,7 +75,7 @@ h1{
 
 .mode{
   margin-top: 5px;	
-  border-radius: 50px;
+  border-radius: 50%;
 }
 
 h4{
@@ -90,7 +90,6 @@ h4{
 .the{
 	display: flex;
 	flex-direction: column;
-	align-content: center;
 	background-color: #DDDDDD;
 	height: 130px;
 }
@@ -131,7 +130,7 @@ h4{
 
 .lord{
 	display: grid;
-	grid-template-columns: 'over';
+	grid-template-areas: 'over';
 }
 
 .tab{
@@ -185,19 +184,21 @@ tr{
 }
 
 .status{
-	grid-area: over;
+	grid-area: ver;
 	z-index: 1;
 	background-color: #DDDDDD;
 	position: relative;
-	top: -130px;
+	top: 60px;
+	height: 200px;
 	text-align: center;
 }
 
 .location{
-	grid-area: over;
+	grid-area: ver;
 	z-index: 0;
 	background-color: #DDDDDD;
 	position: relative;
-	top: -130px;
+	height: 200px;
+	top: 60px;
 	text-align: center;
 }
