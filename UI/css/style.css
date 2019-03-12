@@ -3,7 +3,8 @@ body{
 	    padding: 0;
 }
 .one{
-	position: relative;
+	position: sticky;
+	z-index: 5;
 	top: 0%;
 	width: 100%;
 	background-color: #256188;

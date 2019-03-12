@@ -25,11 +25,11 @@ let bhelp = {
   	}
   	try{
         const { id } = await jwt.verify(token, 'fadees');
-        let sql = 'SELECT * FROM users WHERE userid = $1';
-        let { rows } = await query(sql, [id]);
-        if(!rows[0]){
-        	return res.status(400).send({message:'Invalid token'});
-        }
+        // let sql = 'SELECT * FROM users WHERE userid = $1';
+        // let { rows } = await query(sql, [id]);
+        // if(!rows[0]){
+        // 	return res.status(400).send({message:'Invalid token'}); // was supposed to valisate error. but with errors no id id decoded hence sql do not happen.
+        // }
         req.body.userId = id;
         req.body.user = id;
         next();

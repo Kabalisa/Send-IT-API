@@ -107,16 +107,17 @@ req.params.id
 ];
 
 if(!req.body.presentLocation){
-  return res.status(404).send({message:'complete the presentLocation fields to proceed'});  
+  return res.status(400).send({message:'complete the presentLocation fields to proceed'});  
 }
+
+if(req.body.userId != '0'){
+    return res.status(400).send({message: 'user not admin'});
+  }
 
 try{
 
   let { rows } = await query(sql, data);
 
-  if(req.body.userId != '0'){
-    return res.status(400).send({message: 'user not admin'});
-  }
 
   if(!rows[0]){
     return res.status(400).send({message:'the parcel does not exist'});
@@ -148,16 +149,16 @@ req.params.id
 ];
 
 if(!req.body.status){
-  return res.status(404).send({message:'complete the status fields to proceed'});  
+  return res.status(400).send({message:'complete the status fields to proceed'});  
 }
+
+if(req.body.userId != '0'){
+    return res.status(400).send({message: 'user not admin'});
+  }
 
 try{
 
   let { rows } = await query(sql, data);
-
-  if(req.body.userId != '0'){
-    return res.status(400).send({message: 'user not admin'});
-  }
 
   if(!rows[0]){
     return res.status(400).send({message:'the parcel does not exist'});
@@ -179,20 +180,21 @@ let sql = `SELECT * FROM parcels WHERE id = $1`;
 let data = [req.params.id];
 
 if(!req.body.destination){
-  return res.status(404).send({message:'complete the destination field to proceed!!'}); 
+  return res.status(400).send({message:'complete the destination field to proceed!!'}); 
 }
 
 try{
 
   let { rows } = await query(sql, data);
-  console.log(typeof(rows[0].userid));
+  // console.log(typeof(rows[0].userid));
+
+
+  if(!rows[0]){
+    return res.status(400).send({message: 'the specified parcel do not exist'});
+  }
 
   if(req.body.userId != rows[0].userid){
     return res.status(400).send({message:'the specified user did not create this parcel'});
-  }
-  
-  if(!rows[0]){
-    return res.status(400).send({message: 'the specified parcel do not exist'});
   }
   else{
     
@@ -246,7 +248,7 @@ async signup(req, res){
     return res.status(400).send({message: 'complete all fields to proceed'});
   }
   if(req.body.first_name.toLowerCase() === req.body.first_name.toUpperCase() || req.body.last_name.toLowerCase() === req.body.last_name.toUpperCase() || req.body.town.toLowerCase() === req.body.town.toUpperCase() || req.body.email.toLowerCase() === req.body.email.toUpperCase()){
-    return res.status(400).send({message: 'CHECK: first_name, last_name, town,\ and email must be a word'});
+    return res.status(400).send({message: 'CHECK: first_name, last_name, town, and email must be a word'});
   }
 
   if(req.body.phone_number.toLowerCase() !== req.body.phone_number.toUpperCase() || req.body.userid.toLowerCase() !== req.body.userid.toUpperCase()){
@@ -257,10 +259,21 @@ async signup(req, res){
 
   try{
     const { rows } = await query(sql, data);
-    return res.status(201).send({result: rows[0], token});
+
+  let details = {
+  userid: rows[0].userid, 
+  first_name: rows[0].first_name, 
+  last_name: rows[0].last_name, 
+  town: rows[0].town, 
+  street_number: rows[0].street_number, 
+  phone_number: rows[0].phone_number, 
+  email: rows[0].email
+  };
+
+    return res.status(201).send({result: details, token});
   }
   catch(error){
-    return res.status(400).send({message:'userId already exist'});
+    return res.status(400).send(error.message);
   }
 },
 
@@ -270,7 +283,7 @@ let sql = `SELECT * FROM users WHERE userid = $1`;
 let data = [req.body.userid];
 
 if(!req.body.userid || !req.body.password){
-  return res.status(404).send({message:'complete all field to proceed'}); 
+  return res.status(400).send({message:'complete all field to proceed'}); 
 }
 
 const token = bhelp.makeToken(req.body.userid);
@@ -401,7 +414,7 @@ async getAllUserParcels(req, res){
     const { rows, rowCount } = await query(sql, data);
 
     if(!rows[0]){
-    return res.status(404).send({message: 'user has no parcels'});
+    return res.status(400).send({message: 'user has no parcels'});
   }
   else{
     return res.status(200).send({ rows, rowCount });
@@ -427,8 +440,9 @@ SET
  destination_stno = $6,
  userid = $7,
  receiver = $8,
- receiver_phone = $9
-WHERE id = $10
+ receiver_phone = $9,
+ presentLocation = $10
+WHERE id = $11
 returning *
 `;
 
@@ -449,12 +463,13 @@ if(req.body.userId != rows[0].userid){
   req.body.weight || rows[0].weight,
   req.body.weight * 1000 || rows[0].price,
   req.body.pickup || rows[0].pickup,
-  req.body.pickup_stno || rows[0].pickup_stno,
+  req.body.pickup_StNo || rows[0].pickup_stno,
   req.body.destination || rows[0].destination,
-  req.body.destination_stno || rows[0].destination_stno,
+  req.body.destination_StNo || rows[0].destination_stno,
   req.body.userId || rows[0].userid,
   req.body.receiver || rows[0].receiver,
   req.body.receiver_phone || rows[0].receiver_phone,
+  req.body.pickup || rows[0].pickup,
   req.params.id
   ];
 
@@ -530,7 +545,7 @@ try{
   const { rows } = await query(sql, [req.params.id]);
 
   if(!rows[0]){
-    return res.status(404).send({message: 'parcel do not exist'});
+    return res.status(400).send({message: 'parcel do not exist'});
   }
 
   if(req.body.userId != rows[0].userid){
