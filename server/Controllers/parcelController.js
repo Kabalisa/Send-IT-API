@@ -1,6 +1,7 @@
 import query from '../Data/parcelData';
 import bhelp from '../helpers/bhelp';
 import uuid from 'uuid/v4';
+import joi from 'joi';
 
 const parcel = {
   
@@ -254,6 +255,15 @@ async signup(req, res){
   if(req.body.phone_number.toLowerCase() !== req.body.phone_number.toUpperCase() || req.body.userid.toLowerCase() !== req.body.userid.toUpperCase()){
     return res.status(400).send({message: 'CHECK: phone_number and userid must be a number'});
   }
+
+
+
+  const { error } = bhelp.validateEmail(req.body.email);
+
+  if(error){
+    return res.status(400).send({message: 'INVALID email'});
+  }
+
 
   const token = bhelp.makeToken(req.body.userId);
 
