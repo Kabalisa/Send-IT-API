@@ -1,6 +1,28 @@
+sudo: false
+
+services: 
+  - postgresql
+
 language: node_js
 node_js:
   - "8"
+
+addons: 
+   postgresql: "9.4"
+
+env: 
+  global: 
+    - NODE_ENV=development
+    - SECRETKEY="fadees"
+    - PG_HOST=localhost
+    - PG_URL=postgresql://fiston:0788475785@localhost/sendIT
+    - PG_USER=fiston
+    - PG_DATABASE=sendIT
+    - PG_PASSWORD=0788475785
+    - PG_PORT=5432
+before_script:
+    - psql -c 'create database sendIT;' -U postgres
+    - psql -c "CREATE USER fiston WITH PASSWORD '0788475785';" -U postgres
 
 script:
    - npm test
