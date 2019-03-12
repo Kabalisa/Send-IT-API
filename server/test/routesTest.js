@@ -52,7 +52,6 @@ describe('app routes for users', () => {
       street_number: 'KN 268 St',
       phone_number: '0785382213',
       email: 'ikabalisa20@gmail.com',
-      userid: '0',
       password: 'password'
     };
 
@@ -60,7 +59,7 @@ describe('app routes for users', () => {
     .post('/auth/signup')
     .send(admin)
     .end((err, res) => {
-      user = res.body.result.userid;
+      user = res.body.result.email;
       done();
     });
 
@@ -74,7 +73,6 @@ describe('app routes for users', () => {
       street_number: 'KN 100 St',
       phone_number: '0788654334',
       email: 'bubblebee@gmail.com',
-      userid: '101010',
       password: 'fiston'
     };
 
@@ -91,7 +89,6 @@ describe('app routes for users', () => {
       res.body.result.should.have.property('street_number').eql('KN 100 St');
       res.body.result.should.have.property('phone_number').eql(788654334);
       res.body.result.should.have.property('email').eql('bubblebee@gmail.com');
-      res.body.result.should.have.property('userid').eql(101010);
       done();
      });
 
@@ -124,7 +121,6 @@ describe('app routes for users', () => {
       street_number: 'KN 100 St',
       phone_number: '0788654334',
       email: 'bubblebee@gmail.com',
-      userid: '101010',
       password: 'fiston'
     };
 
@@ -149,7 +145,6 @@ describe('app routes for users', () => {
       street_number: 'KN 100 St',
       phone_number: 'nta phone mfite',
       email: 'bubblebee@gmail.com',
-      userid: '101010',
       password: 'fiston'
     };
 
@@ -159,7 +154,7 @@ describe('app routes for users', () => {
      .end((err, res) => {
       res.should.have.status(400);
       res.body.should.be.a('object');
-      res.body.should.have.property('message').eql('CHECK: phone_number and userid must be a number');
+      res.body.should.have.property('message').eql('CHECK: phone_number must be a number');
       done();
      });
 
@@ -168,7 +163,7 @@ describe('app routes for users', () => {
 
   it('should login the user', (done) => {
     const credentials = {
-      userid: '101010',
+      email: 'bubblebee@gmail.com',
       password: 'fiston'
     };
 
@@ -186,7 +181,7 @@ describe('app routes for users', () => {
   //test when not to sign in a user
   it('should again not login a user', (done) => {
     let credentials = {
-      userid : '101010'
+      email: 'bubblebee@gmail.com'
     };
 
     chai.request(app)
@@ -203,7 +198,7 @@ describe('app routes for users', () => {
   //test when not to sign in a user
   it('should also again not login a user', (done) => {
     let credentials = {
-      userid : '101020',
+      email: 'bubb@gmail.com',
       password :'fiston'
     };
 
@@ -221,7 +216,7 @@ describe('app routes for users', () => {
   //test when not to sign in a user
   it('should not login a user', (done) => {
     let credentials = {
-      userid : '101010',
+      email: 'bubblebee@gmail.com',
       password : 'innocent'
     };
 
@@ -250,7 +245,6 @@ describe('create another user and parcel', () => {
       street_number: 'KN 400 St',
       phone_number: '0788475785',
       email: 'inezadigne@gmail.com',
-      userid: '100100',
       password: 'password'
     };
 
@@ -258,14 +252,14 @@ describe('create another user and parcel', () => {
     .post('/auth/signup')
     .send(otherUser)
     .end((err,res) => {
-      user = res.body.result.userid;;
+      user = res.body.result.email;;
       done();
     });
   });
 
   it('login the other user', (done) => {
      const credentials = {
-      userid: '100100',
+      email: 'inezadigne@gmail.com',
       password: 'password'
     };
 
@@ -312,7 +306,7 @@ describe('app routes for parcels', () => {
 
   before((done) => {
     const credentials = {
-      userid: '101010',
+      email: 'bubblebee@gmail.com',
       password: 'fiston'
     };
 
@@ -351,7 +345,7 @@ it('should create a parcel delivery order', (done) =>{
       res.body.should.have.property('pickup_stno').eql('KN 334 St');
       res.body.should.have.property('destination').eql('bugesera');
       res.body.should.have.property('destination_stno').eql('KN 322 St');
-      res.body.should.have.property('userid');
+      res.body.should.have.property('email');
       res.body.should.have.property('receiver').eql('peruth');
       res.body.should.have.property('receiver_phone').eql(789765432);
       res.body.should.have.property('status').eql('pending');
@@ -401,7 +395,7 @@ it('should create a parcel delivery order with proper datatypes', (done) =>{
     .end((err,res) => {
       res.should.have.status(400);
       res.body.should.be.a('object');
-      res.body.should.have.property('message').eql('CHECK: weight, userId and receiver_phone must be a number')
+      res.body.should.have.property('message').eql('CHECK: weight and receiver_phone must be a number')
       done();
     });
 });
@@ -410,7 +404,7 @@ it('should create a parcel delivery order with proper datatypes', (done) =>{
 it('should not create a parcel delivery order', (done) => {
   const item = {
     weight : '5',
-    userId : '222000'
+    receiver : 'peruth'
   };
   chai.request(app)
   .post('/api/v1/parcels')
@@ -439,7 +433,7 @@ it('should FETCH one specific parcel', (done) => {
    res.body.should.have.property('pickup_stno').eql('KN 334 St');
    res.body.should.have.property('destination').eql('bugesera');
    res.body.should.have.property('destination_stno').eql('KN 322 St');
-   res.body.should.have.property('userid').eql(101010);
+   res.body.should.have.property('email').eql('bubblebee@gmail.com');
    res.body.should.have.property('receiver').eql('peruth');
    res.body.should.have.property('receiver_phone').eql(789765432);
    res.body.should.have.property('status').eql('pending');
@@ -518,7 +512,7 @@ it('user should not cancel a parcel she did not create', (done) => {
 //test the FETCH parcels for one user endpoint
 it('should FETCH  all parcels for one user', (done) => {
    chai.request(app)
-   .get('/api/v1/users/101010/parcels')
+   .get('/api/v1/users/bubblebee@gmail.com/parcels')
    .set('x-access-token', user_token)
    .end((err, res) => {
      res.should.have.status(200);
@@ -532,12 +526,12 @@ it('should FETCH  all parcels for one user', (done) => {
 //test when not to fethc parcels for one user
 it('should not fetch all parcels for one user', (done) => {
   chai.request(app)
-  .get('/api/v1/users/6573/parcels')
+  .get('/api/v1/users/bubblebee@gm/parcels')
   .set('x-access-token', user_token)
   .end((err, res) => {
    res.should.have.status(400);
    res.body.should.be.a('object');
-   res.body.should.have.property('message').eql('the specified userid in the URL is not the one logged in');
+   res.body.should.have.property('message').eql('the specified user email in the URL is not the one logged in');
    done();
   });
 });
@@ -633,7 +627,7 @@ chai.request(app)
   res.body.should.have.property('pickup').eql('kirehe');
   res.body.should.have.property('destination_stno').eql('KN 322 St');
   res.body.should.have.property('destination').eql('kimironko');
-  res.body.should.have.property('userid').eql(101010);
+  res.body.should.have.property('email').eql('bubblebee@gmail.com');
   res.body.should.have.property('status').eql('CANCELED');
   res.body.should.have.property('receiver').eql('krichof');
   res.body.should.have.property('receiver_phone').eql(788364536);
@@ -683,7 +677,6 @@ it('should update a specific user details', (done) => {
        town: 'heart',
        street_number: 'KN 323 St',
        phone_number: '0788332211',
-       email: 'uine@gmai.com',
        password: 'kabalisa'
     };
 chai.request(app)
@@ -693,13 +686,12 @@ chai.request(app)
 .end((err, res) => {
   res.should.have.status(200);
   res.body.should.be.a('object');
-  res.body.should.have.property('userid').eql(101010);
+  res.body.should.have.property('email').eql('bubblebee@gmail.com');
   res.body.should.have.property('first_name').eql('claude');
   res.body.should.have.property('last_name').eql('muhoza');
   res.body.should.have.property('town').eql('heart');
   res.body.should.have.property('street_number').eql('KN 323 St');
   res.body.should.have.property('phone_number').eql(788332211);
-  res.body.should.have.property('email').eql('uine@gmai.com');
   res.body.should.have.property('password')
   done();
 });
@@ -776,7 +768,7 @@ describe('admin access only', () => {
   before((done) => {
 
     const credentials = {
-      userid: '0',
+      email: 'ikabalisa20@gmail.com',
       password: 'password'
     };
 
@@ -928,7 +920,7 @@ describe('delete a parcel or a user', () => {
 
   before((done) => {
     const credentials = {
-      userid: '101010',
+      email: 'bubblebee@gmail.com',
       password: 'kabalisa'
     };
 
@@ -983,7 +975,7 @@ it('user should not delete a parcel she did not create', (done) => {
   //test when not to fethc parcels for one user
 it('should not fetch all parcels for one user', (done) => {
   chai.request(app)
-  .get('/api/v1/users/101010/parcels')
+  .get('/api/v1/users/bubblebee@gmail.com/parcels')
   .set('x-access-token', user_token)
   .end((err, res) => {
    res.should.have.status(400);

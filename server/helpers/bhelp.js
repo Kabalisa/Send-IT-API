@@ -31,7 +31,7 @@ let bhelp = {
         // if(!rows[0]){
         // 	return res.status(400).send({message:'Invalid token'}); // was supposed to valisate error. but with errors no id id decoded hence sql do not happen.
         // }
-        req.body.userId = id;
+        req.body.email = id;
         req.body.user = id;
         next();
   	}

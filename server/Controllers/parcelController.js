@@ -8,7 +8,7 @@ const parcel = {
 async create(req, res){
 
   const sql = `
-     INSERT INTO parcels(weight, price, pickup, pickup_stNo, destination, destination_stNo, userid, receiver, receiver_phone, status, presentlocation)
+     INSERT INTO parcels(weight, price, pickup, pickup_stNo, destination, destination_stNo, email, receiver, receiver_phone, status, presentlocation)
      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
      returning *
   `;
@@ -20,7 +20,7 @@ async create(req, res){
      req.body.pickup_StNo,
      req.body.destination,
      req.body.destination_StNo,
-     req.body.userId,
+     req.body.email,
      req.body.receiver,
      req.body.receiver_phone,
      'pending',
@@ -35,8 +35,8 @@ async create(req, res){
     return res.status(400).send({message: 'CHECK: pickup location, destination location and receiver must be a word'});
   }
 
-  if(req.body.weight.toLowerCase() !== req.body.weight.toUpperCase() || req.body.userId.toLowerCase() !== req.body.userId.toUpperCase() || req.body.receiver_phone.toLowerCase() !== req.body.receiver_phone.toUpperCase()){
-    return res.status(400).send({message: 'CHECK: weight, userId and receiver_phone must be a number'});
+  if(req.body.weight.toLowerCase() !== req.body.weight.toUpperCase() || req.body.receiver_phone.toLowerCase() !== req.body.receiver_phone.toUpperCase()){
+    return res.status(400).send({message: 'CHECK: weight and receiver_phone must be a number'});
   }
    
   try{
@@ -57,7 +57,7 @@ async getAll(req, res){
  try{
   const { rows, rowCount } = await query(sql);
 
-  if(req.body.userId != '0'){
+  if(req.body.email != 'ikabalisa20@gmail.com'){
       return res.status(400).send({message:'user not admin'});
   }
   else{
@@ -79,7 +79,7 @@ SELECT * FROM users
 try{
 const { rows, rowCount } = await query(sql);
 
-  if(req.body.userId != '0'){
+  if(req.body.email != 'ikabalisa20@gmail.com'){
       return res.status(400).send({message:'user not admin'});
   }
   else{
@@ -111,7 +111,7 @@ if(!req.body.presentLocation){
   return res.status(400).send({message:'complete the presentLocation fields to proceed'});  
 }
 
-if(req.body.userId != '0'){
+if(req.body.email != 'ikabalisa20@gmail.com'){
     return res.status(400).send({message: 'user not admin'});
   }
 
@@ -153,7 +153,7 @@ if(!req.body.status){
   return res.status(400).send({message:'complete the status fields to proceed'});  
 }
 
-if(req.body.userId != '0'){
+if(req.body.email != 'ikabalisa20@gmail.com'){
     return res.status(400).send({message: 'user not admin'});
   }
 
@@ -194,7 +194,7 @@ try{
     return res.status(400).send({message: 'the specified parcel do not exist'});
   }
 
-  if(req.body.userId != rows[0].userid){
+  if(req.body.email != rows[0].email){
     return res.status(400).send({message:'the specified user did not create this parcel'});
   }
   else{
@@ -227,33 +227,32 @@ return res.status(400).send(error.message);
 async signup(req, res){
 
   let sql = `
-    INSERT INTO users(userid, first_name, last_name, town, street_number, phone_number, email, password)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    INSERT INTO users(email, first_name, last_name, town, street_number, phone_number, password)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
     returning *
   `;
 
   let hashPassword = bhelp.hashPassword(req.body.password);
 
   let data  = [
-   req.body.userid,
+   req.body.email,
    req.body.first_name,
    req.body.last_name,
    req.body.town,
    req.body.street_number,
    req.body.phone_number,
-   req.body.email,
    hashPassword
   ]
 
-  if(!req.body.first_name || !req.body.last_name || !req.body.town || !req.body.street_number || !req.body.phone_number || !req.body.email|| !req.body.userid || !req.body.password){
+  if(!req.body.first_name || !req.body.last_name || !req.body.town || !req.body.street_number || !req.body.phone_number || !req.body.email || !req.body.password){
     return res.status(400).send({message: 'complete all fields to proceed'});
   }
   if(req.body.first_name.toLowerCase() === req.body.first_name.toUpperCase() || req.body.last_name.toLowerCase() === req.body.last_name.toUpperCase() || req.body.town.toLowerCase() === req.body.town.toUpperCase() || req.body.email.toLowerCase() === req.body.email.toUpperCase()){
     return res.status(400).send({message: 'CHECK: first_name, last_name, town, and email must be a word'});
   }
 
-  if(req.body.phone_number.toLowerCase() !== req.body.phone_number.toUpperCase() || req.body.userid.toLowerCase() !== req.body.userid.toUpperCase()){
-    return res.status(400).send({message: 'CHECK: phone_number and userid must be a number'});
+  if(req.body.phone_number.toLowerCase() !== req.body.phone_number.toUpperCase()){
+    return res.status(400).send({message: 'CHECK: phone_number must be a number'});
   }
 
 
@@ -265,19 +264,18 @@ async signup(req, res){
   }
 
 
-  const token = bhelp.makeToken(req.body.userId);
+  const token = bhelp.makeToken(req.body.email);
 
   try{
     const { rows } = await query(sql, data);
 
   let details = {
-  userid: rows[0].userid, 
+  email: rows[0].email, 
   first_name: rows[0].first_name, 
   last_name: rows[0].last_name, 
   town: rows[0].town, 
   street_number: rows[0].street_number, 
-  phone_number: rows[0].phone_number, 
-  email: rows[0].email
+  phone_number: rows[0].phone_number 
   };
 
     return res.status(201).send({result: details, token});
@@ -289,14 +287,20 @@ async signup(req, res){
 
 async signin(req, res){
 
-let sql = `SELECT * FROM users WHERE userid = $1`;
-let data = [req.body.userid];
+let sql = `SELECT * FROM users WHERE email = $1`;
+let data = [req.body.email];
 
-if(!req.body.userid || !req.body.password){
+if(!req.body.email || !req.body.password){
   return res.status(400).send({message:'complete all field to proceed'}); 
 }
 
-const token = bhelp.makeToken(req.body.userid);
+const { error } = bhelp.validateEmail(req.body.email);
+
+  if(error){
+    return res.status(400).send({message: 'INVALID email'});
+  }
+
+const token = bhelp.makeToken(req.body.email);
 
 try{
 
@@ -345,7 +349,7 @@ if(!rows[0]){
     return res.status(400).send({message:'the parcel does not exist'});
 }
 
-if(req.body.userId != rows[0].userid){
+if(req.body.email != rows[0].email){
      return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
   }
 
@@ -380,7 +384,7 @@ try{
     return res.status(400).send({message:'this parcel does not exist'});
   }
 
-  if(req.body.userId != rows[0].userid){
+  if(req.body.email != rows[0].email){
     return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'})
   }
   
@@ -397,8 +401,8 @@ catch(error){
 
 async deleteUser(req, res){
    
-   let sql = `DELETE FROM users WHERE userid = $1`;
-   let data  = [req.body.userId];
+   let sql = `DELETE FROM users WHERE email = $1`;
+   let data  = [req.body.email];
 
    try{
        let { rows } = await query(sql, data);
@@ -412,11 +416,11 @@ async deleteUser(req, res){
 
 async getAllUserParcels(req, res){
   
-  let sql = `SELECT * FROM parcels WHERE userid = $1`;
+  let sql = `SELECT * FROM parcels WHERE email = $1`;
   let data = [req.params.id];
 
-  if(req.body.userId != req.params.id){
-    return res.status(400).send({message:'the specified userid in the URL is not the one logged in'});
+  if(req.body.email != req.params.id){
+    return res.status(400).send({message:'the specified user email in the URL is not the one logged in'});
   }
 
   try{
@@ -448,7 +452,7 @@ SET
  pickup_stno = $4,
  destination = $5,
  destination_stno = $6,
- userid = $7,
+ email = $7,
  receiver = $8,
  receiver_phone = $9,
  presentLocation = $10
@@ -466,7 +470,7 @@ if(!rows[0]){
   return res.status(400).send({message:'this parcel does not exist'});
 }
 
-if(req.body.userId != rows[0].userid){
+if(req.body.email != rows[0].email){
   return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
 }
   let data = [
@@ -476,7 +480,7 @@ if(req.body.userId != rows[0].userid){
   req.body.pickup_StNo || rows[0].pickup_stno,
   req.body.destination || rows[0].destination,
   req.body.destination_StNo || rows[0].destination_stno,
-  req.body.userId || rows[0].userid,
+  req.body.email || rows[0].email,
   req.body.receiver || rows[0].receiver,
   req.body.receiver_phone || rows[0].receiver_phone,
   req.body.pickup || rows[0].pickup,
@@ -508,13 +512,12 @@ async updateDetails(req, res){
     town = $3,
     street_number = $4,
     phone_number = $5,
-    email = $6,
-    password = $7
-    WHERE userid = $8
+    password = $6
+    WHERE email = $7
     returning * 
   `;
    
-   let sql2 = `SELECT * FROM users WHERE userid = $1`;
+   let sql2 = `SELECT * FROM users WHERE email = $1`;
 
    let data2 = [req.body.user];
 
@@ -528,9 +531,8 @@ async updateDetails(req, res){
       req.body.town || rows[0].town,
       req.body.street_number || rows[0].street_number,
       req.body.phone_number || rows[0].phone_number,
-      req.body.email || rows[0].email,
       hashPassword || rows[0].password,
-      rows[0].userid
+      rows[0].email
    ];
 
    try{
@@ -558,7 +560,7 @@ try{
     return res.status(400).send({message: 'parcel do not exist'});
   }
 
-  if(req.body.userId != rows[0].userid){
+  if(req.body.email != rows[0].email){
     return res.status(400).send({message:'you do not have a parcel with the specified id in the URL'});
   }
 
