@@ -26,15 +26,15 @@ describe('app route  GET index page', () => {
       });
   });
   
-//   it('it should handle 404 error', (done) => {
-//     chai.request(app)
-//       .get('/notExist')
-//       .end((err, res) => {
-//         res.should.have.status(404);
-//         done();
-//       });
-//   });
-// });
+  it('it should handle 404 error', (done) => {
+    chai.request(app)
+      .get('/notExist')
+      .end((err, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
+});
 
 describe('app routes for users', () => {
 
