@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import query from '../Data/parcelData';
+import joi from 'joi';
 
 let bhelp = {
 
@@ -30,13 +31,27 @@ let bhelp = {
         // if(!rows[0]){
         // 	return res.status(400).send({message:'Invalid token'}); // was supposed to valisate error. but with errors no id id decoded hence sql do not happen.
         // }
-        req.body.userId = id;
+        req.body.email = id;
         req.body.user = id;
         next();
   	}
     catch(error){
        return res.status(400).send(error.message);
     }
+  },
+
+  validateEmail(check){
+      
+  const email = {
+    data: check
+  };
+
+  const schema = joi.object().keys({
+    data: joi.string().trim().email({ minDomainAtoms: 2 }).required()
+  });
+
+  return joi.validate(email, schema);
+
   }
 
 };

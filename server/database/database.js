@@ -39,7 +39,7 @@ class Initial {
         pickup_StNo VARCHAR(15) NOT NULL,
         destination VARCHAR(30) NOT NULL,
         destination_StNo VARCHAR(15) NOT NULL,
-        userId INT NOT NULL REFERENCES users(userid) ON DELETE CASCADE ON UPDATE CASCADE, 
+        email VARCHAR(30) NOT NULL REFERENCES users(email) ON DELETE CASCADE ON UPDATE CASCADE, 
         receiver VARCHAR(30) NOT NULL,
         receiver_phone INT,
         status VARCHAR(10),
@@ -55,13 +55,12 @@ class Initial {
         
            const table2 = `
                CREATE TABLE IF NOT EXISTS users(
-               userId INT PRIMARY KEY,
+               email VARCHAR(30) PRIMARY KEY,
      	         first_name VARCHAR(30) NOT NULL,
      	         last_name VARCHAR(30) NOT NULL,
                town VARCHAR(30) NOT NULL,
                street_number VARCHAR(15) NOT NULL,
                phone_number INT NOT NULL,
-               email VARCHAR(30) NOT NULL, 
                password VARCHAR(70) NOT NULL
              )`;
             
