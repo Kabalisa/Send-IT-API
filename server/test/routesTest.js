@@ -160,6 +160,29 @@ describe('app routes for users', () => {
 
   });
 
+  // test when not to create a user account
+   it('should again not create a users account', (done) => {
+    const user = {
+      first_name: 'bubble',
+      last_name: 'bee',
+      town: 'dreams',
+      street_number: 'KN 100 St',
+      phone_number: '0788654334',
+      email: 'bubblebeegmail.com',
+      password: 'fiston'
+    };
+
+     chai.request(app)
+     .post('/auth/signup')
+     .send(user)
+     .end((err, res) => {
+      res.should.have.status(400);
+      res.body.should.be.a('object');
+      res.body.should.have.property('message').eql('INVALID email');
+      done();
+     });
+
+  });
 
   it('should login the user', (done) => {
     const credentials = {
@@ -191,6 +214,24 @@ describe('app routes for users', () => {
       res.should.have.status(400);
       res.body.should.be.a('object');
       res.body.should.have.property('message').eql('complete all field to proceed');
+      done();
+    });
+  });
+  
+  //test when not to sign in a user
+  it('should also again not login a user', (done) => {
+    let credentials = {
+      email: 'bubblebee@gmailcom',
+      password :'fiston'
+    };
+
+    chai.request(app)
+    .post('/auth/signin')
+    .send(credentials)
+    .end((err, res) => {
+      res.should.have.status(400);
+      res.body.should.be.a('object');
+      res.body.should.have.property('message').eql('INVALID email');
       done();
     });
   });
