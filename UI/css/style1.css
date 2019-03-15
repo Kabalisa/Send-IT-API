@@ -60,7 +60,6 @@ body{
 
 .two-3{
     position: relative;
-    left: 40px;
     padding: 13px;
     border-radius: 8px;
     border: none;
@@ -157,23 +156,25 @@ body{
 .rimwe{
     position: relative;
     top: -190px;
+    left: 30px;
 }
 
 .kabiri{
 	position: relative;
-	top: -190px;
+	top: -75px;
 	right: 120px;
 }
 
 .gatatu{
 	position: relative;
-	top: -200px;
+	top: -150px;
 	left: 40px;
 }
 
 .kane{
 	position: relative;
 	top: -130px;
+	left: 30px;
 }
 
 .unos{

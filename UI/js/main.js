@@ -47,11 +47,11 @@ function regular1(){
 }
 
 function back(){
-	document.getElementById("6").style.color = '#256188';
+	
 	document.getElementById("7").style.color = '#256188';
 	document.getElementById("11").style.color = '#256188';
 	document.getElementById("12").style.color = '#256188';
-    document.getElementById("6").style.backgroundColor = '#DDDDDD';
+    
     document.getElementById("7").style.backgroundColor = '#DDDDDD';
     document.getElementById("11").style.backgroundColor = 'white';
     document.getElementById("12").style.backgroundColor = 'white';
