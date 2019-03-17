@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import logger from 'morgan';
 import swaggerui from 'swagger-ui-express';
+import cors from 'cors';
 
 import database from './database/database';
 import swaggerfile from './swagger.json';
@@ -28,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-
+app.use(cors());
 
 app.use(express.static(__dirname + '/public'));
 app.use('/swaggerui', swaggerui.serve, swaggerui.setup(swaggerfile));

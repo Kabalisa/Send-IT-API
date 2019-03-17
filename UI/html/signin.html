@@ -20,13 +20,14 @@
 <h1>Sign-In to Send-IT </h1>
 
 
-Email  <input type="text" class="texto" name="Email" placeholder="Email" />  <br>
-Password<input type="password" class="text1"  name="pswd"  placeholder="Password" /> <br>
+Email  <input type="text" class="texto"  id="emm" name="Email" placeholder="Email" onfocus="erase()" />  <br>
+Password<input type="password" class="text1" id="pas" name="pswd"  placeholder="Password" onfocus="erase()" /> <br>
+<p id="invalid" class="popup"></p>
 
 
 
 <label> <input type="checkbox" name="remember"/> Remember me <label> <br><br>
-<a href="createorder.html" class="bt">Sign In</a> <br><br><br>
+<a href="#" class="bt" id="sig" onclick="signin()">Sign In</a> <br><br><br>
 <a href="">Forgot Password or Email?</a> <br><br>
 <a href="adminpage.html">Admin Login</a><br>
 <a href="signup.html" class="btn">Sign Up</a>
@@ -50,7 +51,7 @@ Password<input type="password" class="text1"  name="pswd"  placeholder="Password
 Copyright © 2084 Send-IT	
 </footer>
 <script src="../js/main.js"></script>
-
+<script src="../js/fetch.js"></script>
 
 </body>
 </html>

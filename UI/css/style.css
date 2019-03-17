@@ -134,7 +134,7 @@ footer .ci{
 .signin-form{
 margin:auto;
 width: 400px;
-height: 520px;
+height: 530px;
 background-color: #DDDDDD;
 margin-top: 20px;
 margin-bottom: 20px;
@@ -193,6 +193,10 @@ form .btn {
 .signin-form  input{
 margin:20px;
 
+}
+
+.popup {
+	color: red;
 }
 
 
