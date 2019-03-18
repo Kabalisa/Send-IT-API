@@ -1,4 +1,3 @@
-let TOKEN;
 
 function signin(){
 	
@@ -31,8 +30,11 @@ function signin(){
      	return resp.json();
      })
      .then((response) => {
-     	 let { token } = response;
-     	 TOKEN = token;
+     	 let myJson1 = JSON.stringify(response.token);
+     	 let myJson2 = JSON.stringify(response.user);
+
+     	 localStorage.setItem('authantic', myJson1);
+     	 localStorage.setItem('authantice', myJson2);
          console.log(response);
 
          if(STATUS === 200){
@@ -55,3 +57,82 @@ function signin(){
 function erase(){
 	document.getElementById('invalid').innerHTML = ' ';
 };
+
+function placeOrder(){
+   // replace the select tag with the validation messages. and parcel create message.// on signin endpoint return email then use it here.
+   let inputs = document.getElementsByTagName('input');
+   let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+   let EMAIL = JSON.parse(localStorage.getItem('authantice'));
+   let STATUS;
+
+   let data = {
+        weight : inputs[0].value,
+        price : inputs[0].value * 1000,
+        pickup : inputs[3].value,
+        pickup_StNo : inputs[2].value,
+        destination : inputs[5].value,
+        destination_StNo : inputs[4].value,
+        email : EMAIL,
+        receiver : inputs[6].value,
+        receiver_phone : inputs[7].value,
+        status : 'pending',
+        presentLocation : inputs[3].value
+      };
+
+      let fetchData = {
+      	method : 'POST',
+      	headers : {
+      		'Accept' : 'application/json',
+      		'Content-Type' : 'application/json',
+      		'x-access-token': TOKEN
+      	},
+      	body : JSON.stringify(data)
+      };
+
+      fetch('http://localhost:3000/api/v1/parcels', fetchData)
+      .then((resp) => {
+
+      	let { status }  = resp;
+      	STATUS = status;
+      	console.log(STATUS);
+      	return resp.json();
+
+      })
+      .then((response) => {
+
+      	if(STATUS === 201){
+      		document.getElementById('msge').style.color = 'green';
+      		document.getElementById('msge').innerHTML = 'PARCEL CREATED. CLEAR AND CREATE ANOTHER';
+      	}
+
+      	if(STATUS === 400){
+      		document.getElementById('msge').style.color = '#CA1E21';
+      		document.getElementById('msge').innerHTML = `${response.message}`;
+      	}
+      	console.log(response);
+      })
+      .catch((error) => {
+      	console.log(error);
+      })
+};
+
+function erase1(){
+    document.getElementById('msge').innerHTML = ' ';
+};
+
+function price(){
+    let weight = document.getElementById('wgt').value;
+
+
+    if(weight.toLowerCase() === weight.toUpperCase()){
+       let WEIGHT = Number.parseInt(weight);
+       let price  = WEIGHT * 1000;
+       document.getElementById('price').value = `${price}`;
+
+       if(!weight){
+    	document.getElementById('price').value = ' ';
+    }
+
+   }
+
+}

@@ -22,32 +22,32 @@
     <a href="myprofile.html">My Profile</a>
   </div>
   <div class="display">
-    <h3 class="cente"><b>Delivery Order</b></h3><br>
-        Parcel No. <select id = "pid"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select><br><br>
-        Weight <input type="text" > .in Kilograms<br><br>
-        <span class="lef">Price <input type="text"> .Quoted per kg</span>
+    <h3 class="cente"><b>Delivery Order</b></h3>
+        <p id="msge" class="mesg"></p>
+        Weight <input type="text" onfocus="erase1()" id="wgt" oninput="price()"> .in Kilograms<br><br>
+        <span class="lef">Price <input type="text" onfocus="erase1()" id="price"> .Quoted per kg</span>
         <div class="ano">
 
         <div>
         <b><h4>Pick-Up Address:</h4></b><br>
-        Street number <input type="text" class=""><br><br>
-        street name   <input type="text" class="pick2"><br><br>
+        Street number <input type="text" class="" onfocus="erase1()"><br><br>
+        street name   <input type="text" class="pick2" onfocus="erase1()"><br><br>
         </div>
                 
         <div>
         <b><h4>Destination Address:</h4></b><br>
-        Street number <input type="text" class=""><br><br>
-        street name   <input type="text" class="pick2"><br><br>
+        Street number <input type="text" class="" onfocus="erase1()"><br><br>
+        street name   <input type="text" class="pick2" onfocus="erase1()"><br><br>
         </div>
                 
         <div>
         <b><h4>Receiver details:</h4></b><br>
-        Receiver's Name  <input type="text" class="pick1"><br><br>
-        Receiver's Phone <input type="text" class="pick1"><br><br>
+        Receiver's Name  <input type="text" class="pick1" onfocus="erase1()"><br><br>
+        Receiver's Phone <input type="text" class="pick1" onfocus="erase1()"><br><br>
         </div>
         
         </div>
-        <input type="button" value="Place Order" class="do" onclick="addi()">
+        <input type="button" value="Place Order" class="do" onclick="placeOrder()">
         <input type="button" value="Clear" class="do" onclick="ucl()">
     </div>
 </div>
@@ -64,5 +64,6 @@
         </footer>
         <script src="../js/main.js"></script>
         <script  src="../js/createOrder.js"></script>
+        <script src="../js/fetch.js"></script>
 </body>
 </html>

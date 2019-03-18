@@ -313,7 +313,7 @@ try{
     return res.status(400).send({message:'INVALID password'});
   }
   else{
-    return res.status(200).send({token: token});
+    return res.status(200).send({user: rows[0].email, token: token});
   }
 }
 catch(error){
