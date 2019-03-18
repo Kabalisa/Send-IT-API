@@ -81,9 +81,7 @@
 
  	const v = document.getElementsByTagName('input');
 
-    document.getElementById('pid').value = "0";
-
- 	for(l = 0; l<12; l++){
+   for(l = 0; l<=7; l++){
      v[l].value = " ";
     }
  }   
