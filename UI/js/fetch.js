@@ -1,3 +1,4 @@
+// use onload on createorder and others to display logged in user name on menu bar not only kabalisa. send name, store in localstorage and retrice it in name()...
 function signup(){
      let STATUS;
      let inputs = document.getElementsByTagName('input');
