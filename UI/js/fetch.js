@@ -298,9 +298,69 @@ function getOne(){
     	inputs[7].value = response.receiver_phone;
     	inputs[8].value = response.status;
     	inputs[9].value = response.presentlocation;
+
+    	if(response.status === 'delivered'){
+    		inputs[10].style.display = 'none';
+    		inputs[11].style.display = 'none';
+    		inputs[12].style.display = 'none';
+    	}
+
     	console.log(response);
     })
     .catch((error) => {
     	console.log(error);
     })     
+};
+
+function updateOrder(){
+    let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+    let id = JSON.parse(localStorage.getItem('id'));
+    let EMAIL = JSON.parse(localStorage.getItem('authantice'));
+    let inputs = document.getElementsByTagName('input');
+    let STATUS;
+
+    let data = {
+    	weight : inputs[0].value,
+    	price : inputs[0].value * 1000,
+    	pickup  : inputs[3].value,
+    	pickup_StNo : inputs[2].value,
+    	destination : inputs[5].value,
+    	destination_StNo : inputs[4].value,
+    	email : EMAIL,
+    	receiver : inputs[6].value,
+    	receiver_phone : inputs[7].value,
+    	presentlocation : inputs[3].value 
+    };
+
+    let fetchData = {
+    	method : 'PUT',
+    	headers : {
+    		'Accept' : 'application/json',
+    		'Content-Type' : 'application/json',
+    		'x-access-token' : TOKEN
+    	},
+    	body : JSON.stringify(data)
+    };
+
+    fetch(`http://localhost:3000/api/v1/parcels/${id}/update`, fetchData)
+    .then((resp) => {
+        let { status } = resp;
+        STATUS = status;
+        console.log(STATUS);
+    	return resp.json();
+    })
+    .then((response) => {
+
+    	if(STATUS === 200){
+    		document.getElementById('parcelNo').style.color = 'green'; 
+    		document.getElementById('parcelNo').innerHTML = `Parcel NO. ${id} is updated`;
+
+    		for(let i = 0; i<10; i++){ inputs[i].disabled = true };
+    	}
+      
+      console.log(response);
+    })
+    .catch((error) => {
+    	console.log(error);
+    })
 };
