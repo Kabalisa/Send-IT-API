@@ -553,7 +553,7 @@ it('user should not cancel a parcel she did not create', (done) => {
 //test the FETCH parcels for one user endpoint
 it('should FETCH  all parcels for one user', (done) => {
    chai.request(app)
-   .get('/api/v1/users/bubblebee@gmail.com/parcels')
+   .get('/api/v1/users/parcels')
    .set('x-access-token', user_token)
    .end((err, res) => {
      res.should.have.status(200);
@@ -562,19 +562,6 @@ it('should FETCH  all parcels for one user', (done) => {
      res.body.should.have.property('rowCount');
      done();
    });
-});
-
-//test when not to fethc parcels for one user
-it('should not fetch all parcels for one user', (done) => {
-  chai.request(app)
-  .get('/api/v1/users/bubblebee@gm/parcels')
-  .set('x-access-token', user_token)
-  .end((err, res) => {
-   res.should.have.status(400);
-   res.body.should.be.a('object');
-   res.body.should.have.property('message').eql('the specified user email in the URL is not the one logged in');
-   done();
-  });
 });
 
 // test the user update destination endpoint
@@ -1016,7 +1003,7 @@ it('user should not delete a parcel she did not create', (done) => {
   //test when not to fethc parcels for one user
 it('should not fetch all parcels for one user', (done) => {
   chai.request(app)
-  .get('/api/v1/users/bubblebee@gmail.com/parcels')
+  .get('/api/v1/users/parcels')
   .set('x-access-token', user_token)
   .end((err, res) => {
    res.should.have.status(400);

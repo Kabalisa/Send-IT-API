@@ -417,11 +417,7 @@ async deleteUser(req, res){
 async getAllUserParcels(req, res){
   
   let sql = `SELECT * FROM parcels WHERE email = $1`;
-  let data = [req.params.id];
-
-  if(req.body.email != req.params.id){
-    return res.status(400).send({message:'the specified user email in the URL is not the one logged in'});
-  }
+  let data = [req.body.email];
 
   try{
 
