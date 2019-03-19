@@ -49,30 +49,16 @@ function regular1(){
 function back(){
 	
 	document.getElementById("7").style.color = '#256188';
-	document.getElementById("11").style.color = '#256188';
 	document.getElementById("12").style.color = '#256188';
     
     document.getElementById("7").style.backgroundColor = '#DDDDDD';
-    document.getElementById("11").style.backgroundColor = 'white';
     document.getElementById("12").style.backgroundColor = 'white';
 }
 
-function company(){
-	document.getElementById("9").style.zIndex = "1";
-	document.getElementById("10").style.zIndex = "0";
-	document.getElementById("8").style.zIndex = "-1";
-}
-
 function person(){
-	document.getElementById("9").style.zIndex = "0";
 	document.getElementById("10").style.zIndex = "1";
 	document.getElementById("8").style.zIndex = "-1";
 
-}
-
-function regular2(){
-	document.getElementById("11").style.color = '#FF9800';
-    document.getElementById("11").style.backgroundColor = '#256188';
 }
 
 function regular3(){

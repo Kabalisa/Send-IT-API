@@ -1,3 +1,73 @@
+function signup(){
+     let STATUS;
+     let inputs = document.getElementsByTagName('input');
+
+     if(inputs[6].value !== inputs[7].value && inputs[8].value !== inputs[9].value){
+     	document.getElementById('pop').style.color = '#CA1E21';
+     	return document.getElementById('pop').innerHTML = 'COMFIRM SAME EMAIL AND PASSWORD PLEASE';
+     }
+
+     if(inputs[6].value !== inputs[7].value){
+     	document.getElementById('pop').style.color = '#CA1E21';
+     	return document.getElementById('pop').innerHTML = 'COMFIRM SAME EMAILS PLEASE';
+     }
+
+     if(inputs[8].value !== inputs[9].value){
+     	document.getElementById('pop').style.color = '#CA1E21';
+     	return document.getElementById('pop').innerHTML = 'COMFIRM SAME PASSWORD PLEASE';
+     }
+
+     let data = {
+     	email : inputs[6].value,
+     	first_name : inputs[1].value,
+        last_name : inputs[2].value,
+        town : inputs[4].value,
+        street_number : inputs[3].value,
+        phone_number : inputs[5].value,
+        password : inputs[8].value
+     };
+
+     let fetchData = {
+     	method : 'POST',
+     	headers : {
+     		'Accept' : 'application/json',
+     		'Content-Type' : 'application/json'
+     	},
+     	body : JSON.stringify(data)
+     };
+
+     fetch('http://localhost:3000/auth/signup', fetchData)
+     .then((resp) => {
+     	let {status} = resp;
+     	STATUS = status;
+     	console.log(STATUS);
+     	return resp.json();
+     })
+     .then((response) => {
+
+     	if(STATUS === 201){
+     		// let { result } = response;
+     	 //    let EMAIL = result.email;
+     	 //    let myJson3 = JSON.stringify(EMAIL);
+     	 //    let myJson4 = JSON.stringify(response.token);
+     	 //    localStorage.setItem('authantic', myJson3);
+     	 //    localStorage.setItem('authantice', myJson4);
+     		window.location.assign('../html/signin.html');
+     	}
+
+     	if(STATUS === 400){
+     		document.getElementById('pop').style.color = '#CA1E21';
+      		document.getElementById('pop').innerHTML = `${response.message}`;
+     	}
+     })
+     .catch((error) => {
+     	console.log(error);
+     })
+};
+
+function erase2(id){
+	document.getElementById(id).innerHTML = ' ';
+};
 
 function signin(){
 	

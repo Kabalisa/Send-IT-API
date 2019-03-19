@@ -3,8 +3,8 @@
 <head>
 	<title>Sign-Up</title>
 	<link rel="stylesheet" type="text/css" href="../css/style1.css">
-	<script src="../js/main.js">
-</script>
+	<script src="../js/main.js"></script>
+    <script src="../js/fetch.js"></script>
 </head>
 <body>
 <div class="one">
@@ -14,141 +14,56 @@
 	<a href="signup.html" class="one-2" id="4" onmouseover="yello3()" onmouseout="whit()">Sign up</a>
 	<a href="signin.html" class="one-2" id="5" onmouseover="yello4()" onmouseout="whit()">Sign In</a>
 </div>
+
 <div class="two">
     <p class="two-1"> Sign Up For an Account</p>
     <input type="button" value="Sign Up" class="two-3" id="7" onmouseover="regular1()" onmouseout="back()" onclick="person()">
 </div>
+
 <div class="three">
+
     <div class="three-a" id="8">
         <p class="three-1">Create an Account on Send-<b class="it">IT</b>.<br><br><br> Start enjoying the benefits of Send-<span class="it">IT</span> today.</p>
     </div>
-    <div class="three-2" id="9">
-        <p><b><h3 class="uno">Business account</h3></b></p>
-        
-        <div class="ano">
-        <div class="moja">
-        <span class="dos">*</span>Required Fields.<br><br>
-        <b><h3>Company Information:</h3></b><br>
-        company Name<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        VAT<br>
-        <input type="text" class="tres"><br><br>
-        Company Phone<span class="dos">*</span><br>
-        <input type="text" placeholder="+250" class="tres"><br><br><br>
-        </div>
-
-        <div class="mbili">
-        <b>Main Address:</b><br><br>
-        Street number<span class="dos">*</span><br>
-        <input type="text"><br><br>
-        street name<br>
-        <input type="text" class="tres"><br><br>
-        Town/City<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        Province<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        Country<span class="dos">*</span><br>
-        <select class="tres" disabled="true">
-            <option value="Rwanda">Rwanda</option>
-        </select><br><br>
-        Zip/Postal<br>
-        <input type="text"><br><br>
-        </div>
-
-        <div class="tatu">
-        <b><h3>Contact Information:</h3></b><br>
-        First Name<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        Last Name<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        Job Title<br>
-        <select class="tres">
-            <option value="Please select..">Please select...</option>
-            <option value="Consultant">Consultant</option>
-        </select><br><br>
-        Salutation<span class="dos">*</span><br>
-        <select class="tres">
-            <option value="Mr">Mr</option>
-            <option value="Mrs">Mrs</option>
-        </select><br><br>
-        Email Address<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        Comfirm Email Address<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        Office Phone<span class="dos">*</span><br>
-        <input type="text" placeholder="+250" class="tres"><br><br>
-        Mobile Phone<span class="dos">*</span><br>
-        <input type="text" placeholder="+250" class="tres"><br><br>
-        </div>
-
-        <div class="ine">
-        <b><h3>Login Information:</h3></b><br>
-        Create User ID<span class="dos">*</span><br>
-        <input type="text" class="tres"><br>
-        use at least 6 characters.<br>
-        <input type="checkbox"> Use my Email address as user ID<br><br>
-        Create a Password<span class="dos">*</span><br>
-        <input type="text" class="tres"><br>
-        password should be at least 8 characters and contain at least one uppercase letter, at least one<br> 
-        lowercase letter, at least one special character and at least one numeric character.
-        <br><br>
-        Re-enter Password<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-
-        </div>
-        
-        <div class="tanu">
-        <b><h4>Terms & Conditions</h4></b>
-        I have read, understood  and agree to be bound by the following. I also understand how Send-IT<br>intends to use my Information.<br>
-        <input type="checkbox"> <a href="#" class="cuatro">Send-IT Terms of Use</a><br>
-        <input type="checkbox"> <a href="#" class="cuatro">Privacy Policy</a><br><br>
-        <input type="checkbox"> I would like to receive Send-IT information and promotional offers via email.<br><br>
-        <a href="createorder.html" class="three-4" id="11" onmouseover="regular2()" onmouseout="back()">Sign-Up</a>
-        </div>
-        
-        </div>
-        
-    </div>
-
+    
     <div class="three-3" id="10">
         <p><b><h3 class="unos">Account Information</h3></b></p>
         
         <div class="doss">
+
         <div class="rimwe">
         <span class="dos">*</span>Required Fields.<br><br>
         <b><h3>Contact Information:</h3></b><br>
         First Name<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
+        <input type="text" class="tres" onfocus="erase2('pop')"><br><br>
         Last Name<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
+        <input type="text" class="tres" onfocus="erase2('pop')"><br><br>
         Street number<span class="dos">*</span><br>
-        <input type="text"><br><br>
-        Town/City<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
+        <input type="text" onfocus="erase2('pop')"><br><br>
+        Town/City<span class="dos" id="iop">*</span><br>
+        <input type="text" class="tres" onfocus="erase2('pop')"><br><br>
         </div>
         
         
         <div class="kabiri">
         Mobile Phone<span class="dos">*</span><br>
-        <input type="text" placeholder="+250" class="tres"><br><br>
+        <input type="text" placeholder="+250" class="tres" onfocus="erase2('pop')"><br><br>
         </div>
         
         
         <div class="gatatu">
         <b><h3>Login Information:</h3></b><br>
         Email Address<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
+        <input type="text" class="tres" onfocus="erase2('pop')"><br><br>
         Comfirm Email Address<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
-        use at least 6 characters.<br>
-        <input type="checkbox"> Use my Email address as user ID<br><br>
+        <input type="text" class="tres" onfocus="erase2('pop')"><br><br>
         Create a Password<span class="dos">*</span><br>
-        <input type="text" class="tres"><br>
+        <input type="password" class="tres" onfocus="erase2('pop')"><br>
         password should be at least 8 characters and contain<br>at least one uppercase letter, at least one 
         lowercase letter, at least one special character and at least one numeric character.
         <br><br>
         Re-enter Password<span class="dos">*</span><br>
-        <input type="text" class="tres"><br><br>
+        <input type="password" class="tres" onfocus="erase2('pop')"><br><br>
         </div>
         
         
@@ -158,12 +73,16 @@
         <input type="checkbox"> <a href="#" class="cuatro">Send-IT Terms of Use</a><br>
         <input type="checkbox"> <a href="#" class="cuatro">Privacy Policy</a><br><br>
         <input type="checkbox"> I would like to receive Send-IT information and promotional offers via email.<br><br>
-        <a href="createorder.html" class="three-4" id="12" onmouseover="regular3()" onmouseout="back()">Sign-Up</a>
+        <a href="#iop" class="three-4" id="12" onmouseover="regular3()" onmouseout="back()" onclick="signup()">Sign-Up</a><br><br>
+        <p id="pop"></p>
         </div>
 
         </div>
+
         </div>
+
        </div>
+
        <div class="block-1">   
           <a href="../index.html">Home</a>
           <a href="contactus.html">Contact Us</a>
