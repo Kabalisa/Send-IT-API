@@ -232,7 +232,7 @@ function getAll(){
     				<td><a href="#" class="view" onclick='viewEdit("${parcel.id}")'>View/Edit</a></td>
     				</tr>`)
     		}
-    		if(parcel.status === 'delivered'){
+    		if(parcel.status === 'delivered' || parcel.status === 'CANCELED'){
     			historyTable.insertAdjacentHTML('beforeend', `<tr>
     				<td>${parcel.id}</td>
     				<td>${parcel.pickup}</td>
@@ -364,3 +364,43 @@ function updateOrder(){
     	console.log(error);
     })
 };
+// give users ability to uncancel a parcel. like change the button cancel order to ....
+function cancelOrder(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let id = JSON.parse(localStorage.getItem('id'));
+	let STATUS;
+
+	let data = {
+		status : 'CANCELED'
+	};
+
+	let fetchData = {
+		method : 'PUT',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		},
+		body : JSON.stringify(data)
+	};
+
+	fetch(`http://localhost:3000/api/v1/parcels/${id}/cancel`, fetchData).
+	then((resp) => {
+		let { status } = resp;
+		STATUS = status;
+		return resp.json();
+	})
+	.then((response) => {
+
+		if(STATUS === 200){
+			  document.getElementById("disp").style.height= "150px";
+	          document.getElementById('hidee').innerHTML="<h1> Your Order Has Been Canceled </h1>";
+	          document.getElementById('hidee').style.color = "#256188";
+	          console.log(response);
+		}
+
+	})
+	.catch((error) => {
+		console.log(error);
+	})
+}

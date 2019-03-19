@@ -60,16 +60,3 @@ if(i === 1 || i === 8 || i === 9){ continue; };
 //  return localStorage.getItem("4");
 // //delete after
 // }
-
-const onenable1 = () =>{
-
-	const d = document.getElementById("rt").value;
-
-    const height =document.getElementById("disp").style.height= "150px";
-	const cont = document.getElementById('hidee').innerHTML="<h1> Your Order Has Been Canceled </h1>";
-	document.getElementById('hidee').style.color = "#256188";
-
-    localStorage.removeItem(d);
-
-	return localStorage.getItem("2");
-}
