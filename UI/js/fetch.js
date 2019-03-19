@@ -1,3 +1,4 @@
+// use onload on createorder and others to display logged in user name on menu bar not only kabalisa. send name, store in localstorage and retrice it in name()...
 function signup(){
      let STATUS;
      let inputs = document.getElementsByTagName('input');
@@ -129,7 +130,6 @@ function erase(){
 };
 
 function placeOrder(){
-   // replace the select tag with the validation messages. and parcel create message.// on signin endpoint return email then use it here.
    let inputs = document.getElementsByTagName('input');
    let TOKEN = JSON.parse(localStorage.getItem('authantic'));
    let EMAIL = JSON.parse(localStorage.getItem('authantice'));
@@ -202,7 +202,62 @@ function price(){
        if(!weight){
     	document.getElementById('price').value = ' ';
     }
-
    }
+}
 
+function getAll(){
+    let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+    let fetchData = {
+    	method : 'GET',
+    	headers : {
+    		'Accept' : 'application/json',
+    		'Content-Type' : 'application/json',
+    		'x-access-token' : TOKEN 
+    	}
+    };
+
+    fetch('http://localhost:3000/api/v1/users/parcels', fetchData)
+    .then((resp) => {
+    	let { status }  = resp;
+      	STATUS = status;
+    	return resp.json();
+    })
+    .then((response) => {
+    	let historyTable = document.getElementById('delivered');
+    	let currentTable = document.getElementById('toro');
+    	let { rows } = response;
+
+    	if(STATUS === 200){
+            rows.map((parcel) => {
+            console.log(parcel);
+    		if(parcel.status === 'pending'){
+    			currentTable.insertAdjacentHTML('beforeend', `<tr>
+    				<td>${parcel.id}</td>
+    				<td>${parcel.pickup}</td>
+    				<td>${parcel.destination}</td>
+    				<td>${parcel.status}</td>
+    				<td><a href="#" class="view">View/Edit</a></td>
+    				</tr>`)
+    		}
+    		if(parcel.status === 'delivered'){
+    			historyTable.insertAdjacentHTML('beforeend', `<tr>
+    				<td>${parcel.id}</td>
+    				<td>${parcel.pickup}</td>
+    				<td>${parcel.destination}</td>
+    				<td>${parcel.status}</td>
+    				<td><a href="#" class="view">View</a></td>
+    				</tr>`)
+    		}
+    	});
+    	}
+
+    	if(STATUS === 400){
+    		let noParcel = document.getElementById('noParcel');
+    		noParcel.style.color = 'green';
+    		noParcel.innerHTML = 'You have no parcels. Click on createorder to create some.';
+    	}
+    })
+    .catch((error) => {
+    	console.log(error);
+    })
 }

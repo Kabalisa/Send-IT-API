@@ -14,7 +14,7 @@ router.get('/parcels/:id', bhelp.checkToken, parcelController.getOne);
 router.put('/parcels/:id/cancel', bhelp.checkToken, parcelController.cancelOrder);
 
 /*GET all parcels of a specific user*/
-router.get('/users/:id/parcels', bhelp.checkToken, parcelController.getAllUserParcels);
+router.get('/users/parcels', bhelp.checkToken, parcelController.getAllUserParcels);
 
 /*create a parcel delivery order the user want*/
 router.post('/parcels', bhelp.checkToken, parcelController.create);
