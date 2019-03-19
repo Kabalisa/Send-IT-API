@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="../css/style4.css">
 	
 </head>
-<body>
+<body onload="getOne()">
 <header>
 	<div class="one">
 	<a href="../index.html" class="one-1" id="1" onmouseover="yello()" onmouseout="whit()">Send-<span class="it">IT</span></a>
@@ -14,7 +14,7 @@
 	<a href="contactus.html" class="one-2" id="3" onmouseover="yello2()" onmouseout="whit()">About Us</a>
 	<a href="vieworders.html" class="one-2" id="4" onmouseover="yello3()" onmouseout="whit()"><span class="diss">4</span> items</a>
 	<a href="myprofile.html" class="one-2" id="5" onmouseover="yello4()" onmouseout="whit()">Kabalisa</a>
-	<a href="../index.html" class="one-2" id="13" onmouseover="yello5()" onmouseout="whit()"><span class="diss">Log Out</span></a>
+	<a href="signin.html" class="one-2" id="13"><span class="diss">Log Out</span></a>
 </div>
 <div class="container">
   <div class="menu">
@@ -25,34 +25,34 @@
  
   <div class="display" id="disp">
         <h3 class="cente"><b>Delivery Order</b></h3>
-        Parcel No. <select  id="rt"><option value="2">2</option></select><br><br>
+        <p id="parcelNo"></p>
      <div id="hidee">
-        Weight <input type="text" disabled="true"  value="2 kg"> <br><br>
-        Price  <input type="text" disabled="true"  value="2000 RWF" class="le"> <br>
+        Weight <input type="text" disabled="true" > <br><br>
+        Price  <input type="text" disabled="true"  class="le"> <br>
         <div class="ano">
 
         <div>
         <b><h4>Pick-Up Address:</h4></b><br>
-        Street number <input type="text" id="edit"  disabled="true"  value="KN 268 St"><br><br>
-        street name   <input type="text" id="edit" class="pick2" disabled="true" value="Nyamirambo road"><br><br>
+        Street number <input type="text" id="edit"  disabled="true" ><br><br>
+        street name   <input type="text" id="edit" class="pick2" disabled="true" ><br><br>
         </div>
                 
         <div>
         <b><h4>Destination Address:</h4></b><br>
-        Street number <input type="text" id="edit"  disabled="true"  value="KN 309 St"><br><br>
-        street name   <input type="text" id="edit" class="pick2" disabled="true"  value="Mucyo road"><br><br>
+        Street number <input type="text" id="edit"  disabled="true"><br><br>
+        street name   <input type="text" id="edit" class="pick2" disabled="true"><br><br>
         </div>
                 
         <div>
         <b><h4>Receiver details:</h4></b><br>
-        Receiver's Name  <input type="text" id="edit"  disabled="true"  value="Innocent Fiston"><br><br>
-        Receiver's Phone <input type="text" id="edit"  disabled="true"  value="0785382213"><br><br>
+        Receiver's Name  <input type="text" id="edit"  disabled="true"  ><br><br>
+        Receiver's Phone <input type="text" id="edit"  disabled="true" ><br><br>
         </div>
 
         <div>
           <b><h4>Status:</h4></b><br>
-          Delivery <input type="text" id="edit" class="pick1" disabled="true"  value="Pending"><br><br>
-          Present Location <input type="text" id="edit"  disabled="true"  value="Gishushu">
+          Delivery <input type="text" id="edit" class="pick1" disabled="true" ><br><br>
+          Present Location <input type="text" id="edit"  disabled="true">
         </div>
 
         </div>
@@ -77,5 +77,6 @@
 </header>
 <script src="../js/main.js"></script>
 <script src="../js/editable.js"></script>
+<script src="../js/fetch.js"></script>
 </body>
 </html>

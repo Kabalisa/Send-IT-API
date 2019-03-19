@@ -125,10 +125,6 @@ function signin(){
      })
 };
 
-function erase(){
-	document.getElementById('invalid').innerHTML = ' ';
-};
-
 function placeOrder(){
    let inputs = document.getElementsByTagName('input');
    let TOKEN = JSON.parse(localStorage.getItem('authantic'));
@@ -186,9 +182,6 @@ function placeOrder(){
       })
 };
 
-function erase1(){
-    document.getElementById('msge').innerHTML = ' ';
-};
 
 function price(){
     let weight = document.getElementById('wgt').value;
@@ -236,7 +229,7 @@ function getAll(){
     				<td>${parcel.pickup}</td>
     				<td>${parcel.destination}</td>
     				<td>${parcel.status}</td>
-    				<td><a href="#" class="view">View/Edit</a></td>
+    				<td><a href="#" class="view" onclick='viewEdit("${parcel.id}")'>View/Edit</a></td>
     				</tr>`)
     		}
     		if(parcel.status === 'delivered'){
@@ -245,7 +238,7 @@ function getAll(){
     				<td>${parcel.pickup}</td>
     				<td>${parcel.destination}</td>
     				<td>${parcel.status}</td>
-    				<td><a href="#" class="view">View</a></td>
+    				<td><a href="#" class="view" onclick='view("${parcel.id}")'>View</a></td>
     				</tr>`)
     		}
     	});
@@ -261,3 +254,53 @@ function getAll(){
     	console.log(error);
     })
 }
+
+function viewEdit(id){
+	let myjson = JSON.stringify(id);
+	localStorage.setItem('id', myjson);
+	window.location.assign('../html/order-detail.html');
+};
+
+function view(id){
+	let myjson = JSON.stringify(id);
+	localStorage.setItem('id', myjson);
+	window.location.assign('../html/order-detail.html');
+};
+
+function getOne(){
+	let id = JSON.parse(localStorage.getItem('id'));
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	document.getElementById('parcelNo').innerHTML = `Parcel NO. ${id}`;
+	let inputs = document.getElementsByTagName('input');
+    let fetchData = {
+    	method : 'GET',
+    	headers : {
+    		'Accept' : 'application/json',
+    		'Content-Type' : 'application/json',
+    		'x-access-token' : TOKEN 
+    	}
+    };
+
+    fetch(`http://localhost:3000/api/v1/parcels/${id}`, fetchData)
+    .then((resp) => {
+    	let { status } = resp;
+    	let STATUS = status;
+       	return resp.json();
+    })
+    .then((response) => {
+    	inputs[0].value = response.weight;
+    	inputs[1].value = response.price;
+    	inputs[2].value = response.pickup_stno;
+    	inputs[3].value = response.pickup;
+    	inputs[4].value = response.destination_stno;
+    	inputs[5].value = response.destination;
+    	inputs[6].value = response.receiver;
+    	inputs[7].value = response.receiver_phone;
+    	inputs[8].value = response.status;
+    	inputs[9].value = response.presentlocation;
+    	console.log(response);
+    })
+    .catch((error) => {
+    	console.log(error);
+    })     
+};
