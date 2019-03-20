@@ -364,7 +364,7 @@ function updateOrder(){
     	console.log(error);
     })
 };
-// give users ability to uncancel a parcel. like change the button cancel order to ....
+
 function cancelOrder(){
 	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
 	let id = JSON.parse(localStorage.getItem('id'));
