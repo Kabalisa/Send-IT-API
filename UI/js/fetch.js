@@ -352,10 +352,7 @@ function updateOrder(){
     .then((response) => {
 
     	if(STATUS === 200){
-    		document.getElementById('parcelNo').style.color = 'green'; 
-    		document.getElementById('parcelNo').innerHTML = `Parcel NO. ${id} is updated`;
-
-    		for(let i = 0; i<10; i++){ inputs[i].disabled = true };
+    		window.location.reload(true);
     	}
       
       console.log(response);
@@ -479,4 +476,37 @@ function myProfile(){
 
 	document.getElementById("hi").style.display = "none";
 
+};
+
+function updateProfile(){
+    let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+    let inputs = document.getElementsByTagName('input');
+
+    let data = {
+    	first_name : inputs[0].value,
+    	last_name : inputs[1].value,
+    	town : inputs[4].value,
+    	street_number : inputs[3].value,
+    	phone_number : inputs[2].value,
+    	password : inputs[6].value
+    };
+
+    let fetchData = {
+    	method : 'PUT',
+    	headers : {
+    		'Accept' : 'application/json',
+    		'Content-Type' : 'application/json',
+    		'x-access-token' : TOKEN
+    	},
+    	body : JSON.stringify(data) 
+    };
+
+    fetch('http://localhost:3000/auth/myprofile/update', fetchData)
+    .then((resp) => resp.json())
+    .then((response) => {
+    	window.location.reload(true);
+    })
+    .catch((error) => {
+    	console.log(error);
+    })
 };
