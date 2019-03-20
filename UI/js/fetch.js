@@ -676,11 +676,99 @@ function toggleStatus(id){
 	localStorage.setItem('toggleId', statusId);
     document.getElementById('go').style.zIndex = "1";
     document.getElementById('get').style.zIndex = "0";
-}
+};
 
 function toggleLocation(id){
 	let locationId = id;
 	localStorage.setItem ('toggleIde', locationId);
     document.getElementById('go').style.zIndex = "0";
     document.getElementById('get').style.zIndex = "1";
-}
+};
+
+function adminStatus(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let id = JSON.parse(localStorage.getItem('toggleId'));
+	let newStatus = document.getElementById('edit');
+	let STATUS;
+
+	let data = {
+		status : newStatus.value
+	};
+
+	let fetchData = {
+		method : 'PUT',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		},
+		body : JSON.stringify(data)
+	};
+
+	fetch(`http://localhost:3000/api/v1/parcels/${id}/status`, fetchData)
+	.then((resp) => {
+		let { status } = resp;
+		STATUS = status;
+		return resp.json();
+	})
+	.then((response) => {
+
+		if(STATUS === 200){
+			window.location.reload(true);
+		}
+
+		if(STATUS === 400){
+			let complete = document.getElementById('complete');
+			complete.style.backgroundColor = 'red';
+			complete.innerHTML = `${response.message}`;
+		}
+
+	})
+	.catch((error) => {
+		console.log(error);
+	})
+};
+
+function adminLocation(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let id = JSON.parse(localStorage.getItem('toggleIde'));
+	let newLocation = document.getElementById('edi');
+	let STATUS;
+
+	let data = {
+		presentLocation : newLocation.value
+	};
+
+	let fetchData = {
+		method : 'PUT',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		},
+		body : JSON.stringify(data)
+	};
+
+	fetch(`http://localhost:3000/api/v1/parcels/${id}/presentLocation`, fetchData)
+	.then((resp) => {
+		let { status } = resp;
+		STATUS = status;
+		return resp.json();
+	})
+	.then((response) => {
+
+		if(STATUS === 200){
+			window.location.reload(true);
+		}
+
+		if(STATUS === 400){
+			let complete = document.getElementById('complete');
+			complete.style.backgroundColor = 'red';
+			complete.innerHTML = `${response.message}`
+		}
+
+	})
+	.catch((error) => {
+		console.log(error);
+	})
+};

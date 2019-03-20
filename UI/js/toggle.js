@@ -42,11 +42,3 @@ function chan1(){
     y.style.zIndex = "1";
     x.style.zIndex = "0";
 }
-
-function onenable(){
- document.getElementById('edit').disabled= true;
-}
-
-function onenabl(){
- document.getElementById('edi').disabled= true;
-}
