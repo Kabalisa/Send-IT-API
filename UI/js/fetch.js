@@ -103,6 +103,8 @@ function signin(){
          console.log(response);
 
          if(STATUS === 200){
+         	let passJson = JSON.stringify(passwords);
+         	localStorage.setItem('pass', passJson);
             window.location.assign('../html/createorder.html');
 
          	// let attr = document.getElementById('sig');
@@ -474,6 +476,7 @@ function myProfile(){
 
 function updateProfile(){
     let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+    let PASS = JSON.parse(localStorage.getItem('pass'));
     let inputs = document.getElementsByTagName('input');
 
     let data = {
@@ -482,7 +485,7 @@ function updateProfile(){
     	town : inputs[4].value,
     	street_number : inputs[3].value,
     	phone_number : inputs[2].value,
-    	password : inputs[6].value
+    	password : PASS
     };
 
     let fetchData = {
@@ -524,4 +527,96 @@ function deleteProfile(){
 	.catch((error) => {
 		console.log(error);
 	})
+};
+
+function show(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let STATUS;
+	let fetchData = {
+		method : 'GET',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		}
+	};
+
+	fetch('http://localhost:3000/api/v1/users/parcels', fetchData)
+	.then((resp) => {
+		let { status } = resp;
+		STATUS = status;
+		return resp.json();
+	})
+	.then((response) => {
+		let parcelTable = document.getElementById('PARCELS');
+		let del = document.getElementById('del');
+    	let pend = document.getElementById('pend');
+		let { rows } = response;
+		
+		if(STATUS === 200){
+			parcelTable.innerHTML = `
+    	         <tr>
+    		        <th>Order No.</th>
+    		        <th>Origin</th>
+    		        <th>Desination</th>
+    		        <th>Status</th>
+    		        <th>View</th>
+    	         </tr> `;
+			let pending = 0;
+			let delivered = 0;
+            rows.map((parcel) => {
+            console.log(parcel);
+    		if(parcel.status === 'pending'){
+    			pending += 1;
+    			parcelTable.insertAdjacentHTML('beforeend', `<tr>
+    				<td>${parcel.id}</td>
+    				<td>${parcel.pickup}</td>
+    				<td>${parcel.destination}</td>
+    				<td>${parcel.status}</td>
+    				<td><a href="#" class="view" onclick='viewEdit("${parcel.id}")'>View/Edit</a></td>
+    				</tr>`)
+    		}
+    		if(parcel.status === 'delivered'){
+    			delivered += 1;
+    			parcelTable.insertAdjacentHTML('beforeend', `<tr>
+    				<td>${parcel.id}</td>
+    				<td>${parcel.pickup}</td>
+    				<td>${parcel.destination}</td>
+    				<td>${parcel.status}</td>
+    				<td><a href="#" class="view" onclick='view("${parcel.id}")'>View</a></td>
+    				</tr>`)
+    		}
+    		if(parcel.status === 'CANCELED'){
+    			parcelTable.insertAdjacentHTML('beforeend', `<tr>
+    				<td>${parcel.id}</td>
+    				<td>${parcel.pickup}</td>
+    				<td>${parcel.destination}</td>
+    				<td>${parcel.status}</td>
+    				<td><a href="#" class="view" onclick='view("${parcel.id}")'>View</a></td>
+    				</tr>`)
+    		}
+
+    		del.innerHTML = `Number of delivered parcels is : ${delivered}`;
+    		pend.innerHTML = `Number of pending parcels is : ${pending}`;
+    	});
+    	}
+
+    	if(STATUS === 400){
+    		let noParcel = document.getElementById('hi');
+    		noParcel.style.color = 'green';
+    		noParcel.innerHTML = 'You have no parcels. Click on createorder to create some.';
+    	}
+	})
+	.catch((error) => {
+		console.log(error);
+	})
+  
+
+	let x = document.getElementById("hi");
+	if(x.style.display === "none"){
+		x.style.display = "flex";
+	}
+	else{
+      x.style.display = "none";
+	}
 };
