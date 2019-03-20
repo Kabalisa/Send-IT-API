@@ -403,4 +403,39 @@ function cancelOrder(){
 	.catch((error) => {
 		console.log(error);
 	})
-}
+};
+
+function deleteOrder(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let id = JSON.parse(localStorage.getItem('id'));
+	let STATUS;
+
+	let fetchData = {
+		method : 'DELETE',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		}
+	};
+
+	fetch(`http://localhost:3000/api/v1/parcels/${id}/delete`, fetchData)
+	.then((resp) => {
+		let { status } = resp;
+		STATUS = status;
+		return resp.json();
+	})
+	.then((response) => {
+
+		if(STATUS === 201){
+			  let { message } = response;
+		      document.getElementById("disp").style.height= "150px";
+	          document.getElementById('hidee').innerHTML=`<h1> ${message} </h1>`;
+	          document.getElementById('hidee').style.color = "#256188";
+	          console.log(response);
+		}
+	})
+	.catch((error) => {
+		console.log(error);
+	})
+};
