@@ -652,16 +652,16 @@ function adminAll(){
 					<td>${parcel.id}</td>
     		        <td>${parcel.pickup}</td>
     		        <td>${parcel.destination}</td>
-    		        <td><a href="#" class="view" onclick='visca("${parcel.id}")''>${parcel.presentlocation}</a></td>
+    		        <td><a href="#" class="view" onclick='toggleLocation("${parcel.id}")''>${parcel.presentlocation}</a></td>
     	     </tr>`)
 
 				statusTable.insertAdjacentHTML('beforeend', `<tr>
 					<td>${parcel.id}</td>
     		        <td>${parcel.pickup}</td>
     		        <td>${parcel.destination}</td>
-    		        <td><a href="#" class="view" onclick='barca("${parcel.id}")''>${parcel.status}</a></td>
+    		        <td><a href="#" class="view" onclick='toggleStatus("${parcel.id}")''>${parcel.status}</a></td>
     	    </tr>`)
-				
+
 			})
 
 		}
@@ -670,3 +670,17 @@ function adminAll(){
 		console.log(error);
 	})
 };
+
+function toggleStatus(id){
+	let statusId = id;
+	localStorage.setItem('toggleId', statusId);
+    document.getElementById('go').style.zIndex = "1";
+    document.getElementById('get').style.zIndex = "0";
+}
+
+function toggleLocation(id){
+	let locationId = id;
+	localStorage.setItem ('toggleIde', locationId);
+    document.getElementById('go').style.zIndex = "0";
+    document.getElementById('get').style.zIndex = "1";
+}
