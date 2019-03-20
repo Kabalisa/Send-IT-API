@@ -299,7 +299,7 @@ function getOne(){
     	inputs[8].value = response.status;
     	inputs[9].value = response.presentlocation;
 
-    	if(response.status === 'delivered'){
+    	if(response.status === 'delivered' || response.status === 'CANCELED'){
     		inputs[10].style.display = 'none';
     		inputs[11].style.display = 'none';
     		inputs[12].style.display = 'none';
