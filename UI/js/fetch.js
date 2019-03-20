@@ -47,12 +47,6 @@ function signup(){
      .then((response) => {
 
      	if(STATUS === 201){
-     		// let { result } = response;
-     	 //    let EMAIL = result.email;
-     	 //    let myJson3 = JSON.stringify(EMAIL);
-     	 //    let myJson4 = JSON.stringify(response.token);
-     	 //    localStorage.setItem('authantic', myJson3);
-     	 //    localStorage.setItem('authantice', myJson4);
      		window.location.assign('../html/signin.html');
      	}
 
@@ -509,4 +503,25 @@ function updateProfile(){
     .catch((error) => {
     	console.log(error);
     })
+};
+
+function deleteProfile(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let fetchData = {
+		method : 'DELETE',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		}
+	};
+
+	fetch('http://localhost:3000/auth/myprofile/delete', fetchData)
+	.then((resp) => resp.json())
+	.then((response) =>{
+		window.location.assign('../html/signup.html');
+	})
+	.catch((error) => {
+		console.log(error);
+	})
 };
