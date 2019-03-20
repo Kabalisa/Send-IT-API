@@ -51,12 +51,12 @@ function onenabl(){
  document.getElementById('edi').disabled= true;
 }
 
-function barca(){
-    document.getElementById('go').style.zIndex = "1";
-    document.getElementById('get').style.zIndex = "0";
-}
+// function barca(){
+//     document.getElementById('go').style.zIndex = "1";
+//     document.getElementById('get').style.zIndex = "0";
+// }
 
-function visca(){
-    document.getElementById('go').style.zIndex = "0";
-    document.getElementById('get').style.zIndex = "1";
-}
+// function visca(){
+//     document.getElementById('go').style.zIndex = "0";
+//     document.getElementById('get').style.zIndex = "1";
+// }

@@ -620,3 +620,53 @@ function show(){
       x.style.display = "none";
 	}
 };
+
+function adminAll(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let STATUS;
+	let fetchData = {
+		method : 'GET',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		}
+	};
+
+	fetch('http://localhost:3000/api/v1/parcels', fetchData)
+	.then((resp) => {
+		let { status } = resp;
+		STATUS = status;
+		return resp.json();
+	})
+	.then((response) => {
+		let locationTable = document.getElementById('location');
+		let statusTable = document.getElementById('status');
+		let { rows } = response;
+
+		if(STATUS === 200){
+
+			rows.map((parcel) => {
+
+				locationTable.insertAdjacentHTML('beforeend', `<tr>
+					<td>${parcel.id}</td>
+    		        <td>${parcel.pickup}</td>
+    		        <td>${parcel.destination}</td>
+    		        <td><a href="#" class="view" onclick='visca("${parcel.id}")''>${parcel.presentlocation}</a></td>
+    	     </tr>`)
+
+				statusTable.insertAdjacentHTML('beforeend', `<tr>
+					<td>${parcel.id}</td>
+    		        <td>${parcel.pickup}</td>
+    		        <td>${parcel.destination}</td>
+    		        <td><a href="#" class="view" onclick='barca("${parcel.id}")''>${parcel.status}</a></td>
+    	    </tr>`)
+				
+			})
+
+		}
+	})
+	.catch((error) => {
+		console.log(error);
+	})
+};
