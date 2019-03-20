@@ -10,6 +10,8 @@ routerr.post('/signin', userController.signin);
 
 routerr.get('/list/users', bhelp.checkToken, userController.getUsers);
 
+routerr.get('/list/users/:id', bhelp.checkToken, userController.oneUser);
+
 routerr.delete('/myprofile/delete', bhelp.checkToken, userController.deleteUser);
 
 routerr.put('/myprofile/update', bhelp.checkToken, userController.updateDetails);

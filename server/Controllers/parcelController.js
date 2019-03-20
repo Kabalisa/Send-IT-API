@@ -93,6 +93,41 @@ catch(error){
 
 },
 
+// write test
+async oneUser(req, res){
+
+  let sql = `
+  SELECT * FROM users
+  WHERE email = $1
+  `;
+
+  let data = [req.params.id];
+
+  if(req.body.email !== req.params.id){
+    return res.status(400).send({message : 'the specified user in url is not the one logged in'});
+  }
+
+  try{
+
+    let { rows } = await query(sql, data);
+
+    let details = {
+               email: rows[0].email, 
+               first_name: rows[0].first_name, 
+               last_name: rows[0].last_name, 
+               town: rows[0].town, 
+               street_number: rows[0].street_number, 
+               phone_number: rows[0].phone_number 
+  };
+    return res.status(200).send(details);
+
+  }
+  catch(error){
+    return res.status(400).send(error.message);
+  }
+
+},
+
 async presentLocation(req, res){
 
 let sql = `

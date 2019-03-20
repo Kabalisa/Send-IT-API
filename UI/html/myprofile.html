@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/style6.css">
 	<link rel="stylesheet" type="text/css" href="../css/style3.css">
 </head>
-<body onload="go()">
+<body onload="myProfile()">
 
 <header>
 	<div class="one">
@@ -14,7 +14,7 @@
 	<a href="contactus.html" class="one-2" id="3" onmouseover="yello2()" onmouseout="whit()">About Us</a>
 	<a href="vieworders.html" class="one-2" id="4" onmouseover="yello3()" onmouseout="whit()"><span class="diss">4</span> items</a>
 	<a href="myprofile.html" class="one-2" id="5" onmouseover="yello4()" onmouseout="whit()">Kabalisa</a>
-	<a href="../index.html" class="one-2" id="13" onmouseover="yello5()" onmouseout="whit()"><span class="diss">Log Out</span></a>
+	<a href="signin.html" class="one-2" id="13"><span class="diss">Log Out</span></a>
 </div>
 </header>
 
@@ -36,29 +36,23 @@
     		First Name<br> <input type="text" value="Innocent Fiston" disabled="true"><br><br>
             Last Name<br> <input type="text" value="Kabalisa" disabled="true"><br><br>
             Mobile Phone<br> <input type="text" value="+250785382213" disabled="true"><br><br>
-            Email Address<br> <input type="text" value="ikabalisa20@gmail.com" disabled="true"><br><br>
             Street number<br> <input type="text" value="KN 259 St" disabled="true"><br><br>
-            street name<br>   <input type="text" value="Rwezamenyo" disabled="true"><br><br>
     		</div>
 
             <div class="dembele">
             Town/City<br> <input type="text" value="Nyarugenge" disabled="true"><br><br>
-            Province<br> <input type="text" value="Kigali" disabled="true"><br><br>
-            Country<br> <select  disabled="true" >
-        	<option value="Rwanda">Rwanda</option>
-            </select><br><br>
             <h3><b>Login Information</b></h3>
-            User ID<br> <input type="text" value="201228"disabled="true"><br><br>
+            Email Address<br> <input type="text" value="ikabalisa20@gmail.com" disabled="true"><br><br>
             Password<br> <input type="Password" value="12345678" disabled="true"><br><br>
             <input type="button" value="Edit" class="do" onclick="ondis()">
-            <input type="button" value="Save" class="do" onclick="onenable()">
+            <input type="button" value="Save" class="do" onclick="onenable()"><br><br><br><br>
             </div>
 
         </div>
 
     	<div class="parcel">
     		<h4>Number Of Delivered Parcels: 7.<br></h4>
-    		<h4>Number of Pending Prcels:    4.<br></h4>
+    		<h4>Number of Pending Parcels:    4.<br></h4>
     		<h4>Parcels History <a href="#hi" class="view" onclick="show()">view/hide</a></h4>
     	</div>
         
@@ -138,7 +132,8 @@
        <footer>
          Copyright © 2084 Send-IT	
        </footer>
-
+<script src="../js/main.js"></script>
 <script src="../js/hide.js"></script>
+<script src="../js/fetch.js"></script>
 </body>
 </html>

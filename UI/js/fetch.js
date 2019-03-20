@@ -439,3 +439,44 @@ function deleteOrder(){
 		console.log(error);
 	})
 };
+
+function myProfile(){
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+	let EMAIL  = JSON.parse(localStorage.getItem('authantice'));
+	let inputs = document.getElementsByTagName('input');
+	let STATUS;
+
+	let fetchData = {
+		method : 'GET',
+		headers : {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'x-access-token' : TOKEN
+		}
+	};
+	fetch(`http://localhost:3000/auth/list/users/${EMAIL}`, fetchData)
+	.then((resp) => {
+		let { status } = resp;
+		STATUS = status;
+		return resp.json();
+	})
+	.then((response) => {
+
+		if(STATUS === 200){
+			inputs[0].value = response.first_name;
+			inputs[1].value = response.last_name;
+			inputs[2].value = response.phone_number;
+			inputs[3].value = response.street_number;
+			inputs[4].value = response.town;
+			inputs[5].value = response.email;
+			inputs[6].value = response.password;
+			console.log(response);
+		}
+	})
+	.catch((error) => {
+		console,log(error);
+	})
+
+	document.getElementById("hi").style.display = "none";
+
+};

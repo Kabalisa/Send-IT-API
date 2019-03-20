@@ -1,6 +1,3 @@
-function go(){
-	document.getElementById("hi").style.display = "none";
-}
 
 function show(){
 	var x = document.getElementById("hi");
