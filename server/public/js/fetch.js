@@ -173,7 +173,8 @@ function placeOrder(){
       .then((response) => {
 
       	if(STATUS === 201){
-      		document.getElementById('msge').style.color = 'green';
+            document.getElementById('msge').style.backgroundColor = '#609B21',
+      		document.getElementById('msge').style.color = 'white';
       		document.getElementById('msge').innerHTML = 'PARCEL CREATED. CLEAR AND CREATE ANOTHER';
       	}
 
