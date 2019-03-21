@@ -51,7 +51,9 @@ function signup(){
      	}
 
      	if(STATUS === 400){
-     		document.getElementById('pop').style.color = '#CA1E21';
+     		document.getElementById('pop').style.backgroundColor = '#CA1E21';
+     		document.getElementById('pop').style.color = 'white';
+     		document.getElementById('pop').style.padding = '5px';
       		document.getElementById('pop').innerHTML = `${response.message}`;
      	}
      })
@@ -97,10 +99,12 @@ function signin(){
      .then((response) => {
      	 let myJson1 = JSON.stringify(response.token);
      	 let myJson2 = JSON.stringify(response.user);
+     	 let myName = JSON.stringify(response.name);
 
      	 localStorage.setItem('authantic', myJson1);
      	 localStorage.setItem('authantice', myJson2);
-         console.log(response);
+     	 localStorage.setItem('name', myName);
+         console.log(response.name);
 
          if(STATUS === 200){
          	let passJson = JSON.stringify(passwords);
@@ -168,7 +172,8 @@ function placeOrder(){
       	}
 
       	if(STATUS === 400){
-      		document.getElementById('msge').style.color = '#CA1E21';
+      		document.getElementById('msge').style.backgroundColor = '#CA1E21';
+      		document.getElementById('msge').style.color = 'white';
       		document.getElementById('msge').innerHTML = `${response.message}`;
       	}
       	console.log(response);
@@ -196,6 +201,15 @@ function price(){
 
 function getAll(){
     let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+
+    let NAME = JSON.parse(localStorage.getItem('name'));
+	document.getElementById('5').innerHTML = `${NAME}`;
+
+	let EMAIL = JSON.parse(localStorage.getItem('authantice'));
+	if(EMAIL === 'ikabalisa20@gmail.com'){
+		document.getElementById('5').href = 'admindashboard.html';
+	}
+
     let fetchData = {
     	method : 'GET',
     	headers : {
@@ -217,9 +231,13 @@ function getAll(){
     	let { rows } = response;
 
     	if(STATUS === 200){
+    		    let pending = 0;
+            	let delivered = 0;
+
             rows.map((parcel) => {
             console.log(parcel);
     		if(parcel.status === 'pending'){
+    			pending += 1;
     			currentTable.insertAdjacentHTML('beforeend', `<tr>
     				<td>${parcel.id}</td>
     				<td>${parcel.pickup}</td>
@@ -229,6 +247,7 @@ function getAll(){
     				</tr>`)
     		}
     		if(parcel.status === 'delivered' || parcel.status === 'CANCELED'){
+    			delivered += 1;
     			historyTable.insertAdjacentHTML('beforeend', `<tr>
     				<td>${parcel.id}</td>
     				<td>${parcel.pickup}</td>
@@ -238,12 +257,19 @@ function getAll(){
     				</tr>`)
     		}
     	});
+            let TOTAL = pending + delivered;
+            let item = document.getElementById('items');
+            item.innerHTML = `${TOTAL}`;
     	}
 
     	if(STATUS === 400){
     		let noParcel = document.getElementById('noParcel');
-    		noParcel.style.color = 'green';
+    		noParcel.style.backgroundColor = '#609B21';
+    		noParcel.style.color = 'white';
+    		noParcel.style.padding = '5px';
     		noParcel.innerHTML = 'You have no parcels. Click on createorder to create some.';
+    		let item = document.getElementById('items');
+            item.innerHTML = '0';
     	}
     })
     .catch((error) => {
@@ -266,6 +292,19 @@ function view(id){
 function getOne(){
 	let id = JSON.parse(localStorage.getItem('id'));
 	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+
+	let NAME = JSON.parse(localStorage.getItem('name'));
+	document.getElementById('5').innerHTML = `${NAME}`;
+
+    let EMAIL = JSON.parse(localStorage.getItem('authantice'));
+    if(EMAIL === 'ikabalisa20@gmail.com'){
+        document.getElementById('5').href = 'admindashboard.html';
+    }
+
+	let ITEMS = JSON.parse(localStorage.getItem('itms'));
+	let item = document.getElementById('items');
+    item.innerHTML = `${ITEMS}`;
+
 	document.getElementById('parcelNo').innerHTML = `Parcel NO. ${id}`;
 	let inputs = document.getElementsByTagName('input');
     let fetchData = {
@@ -439,6 +478,17 @@ function myProfile(){
 	let inputs = document.getElementsByTagName('input');
 	let STATUS;
 
+	let NAME = JSON.parse(localStorage.getItem('name'));
+	document.getElementById('5').innerHTML = `${NAME}`;
+
+	if(EMAIL === 'ikabalisa20@gmail.com'){
+		document.getElementById('5').href = 'admindashboard.html';
+	}
+
+	let ITEMS = JSON.parse(localStorage.getItem('itms'));
+	let item = document.getElementById('items');
+    item.innerHTML = `${ITEMS}`;
+
 	let fetchData = {
 		method : 'GET',
 		headers : {
@@ -603,7 +653,9 @@ function show(){
 
     	if(STATUS === 400){
     		let noParcel = document.getElementById('hi');
-    		noParcel.style.color = 'green';
+    		noParcel.style.backgroundColor = '#609B21';
+    		noParcel.style.color = 'white';
+    		noParcel.style.padding = '5px';
     		noParcel.innerHTML = 'You have no parcels. Click on createorder to create some.';
     	}
 	})
@@ -771,4 +823,61 @@ function adminLocation(){
 	.catch((error) => {
 		console.log(error);
 	})
+};
+
+function menu(){
+	let NAME = JSON.parse(localStorage.getItem('name'));
+	document.getElementById('5').innerHTML = `${NAME}`;
+
+	let EMAIL = JSON.parse(localStorage.getItem('authantice'));
+	if(EMAIL === 'ikabalisa20@gmail.com'){
+		document.getElementById('5').href = 'admindashboard.html';
+	}
+
+	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
+
+    let fetchData = {
+    	method : 'GET',
+    	headers : {
+    		'Accept' : 'application/json',
+    		'Content-Type' : 'application/json',
+    		'x-access-token' : TOKEN 
+    	}
+    };
+
+    fetch('http://localhost:3000/api/v1/users/parcels', fetchData)
+    .then((resp) => {
+    	let { status }  = resp;
+      	STATUS = status;
+    	return resp.json();
+    })
+    .then((response) => {
+    	let { rows } = response;
+
+    	if(STATUS === 200){
+    		    let parcelNumber = 0;
+
+         rows.map((parcel) => {
+            console.log(parcel);
+            parcelNumber += 1;
+    	});
+            let item = document.getElementById('items');
+            item.innerHTML = `${parcelNumber}`;
+
+            let myNumber = JSON.stringify(parcelNumber);
+            localStorage.setItem('itms', myNumber);
+    	}
+
+    	if(STATUS === 400){
+    		let item = document.getElementById('items');
+            item.innerHTML = '0';
+
+            let parcelNumber = 0;
+            let myNumber = JSON.stringify(parcelNumber);
+            localStorage.setItem('itms', myNumber);
+    	}
+    })
+    .catch((error) => {
+    	console.log(error);
+    })
 };

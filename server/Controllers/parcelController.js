@@ -348,7 +348,7 @@ try{
     return res.status(400).send({message:'INVALID password'});
   }
   else{
-    return res.status(200).send({user: rows[0].email, token: token});
+    return res.status(200).send({user: rows[0].email, name : rows[0].first_name, token: token});
   }
 }
 catch(error){

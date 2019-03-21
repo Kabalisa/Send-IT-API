@@ -131,6 +131,7 @@ h4{
 .lord{
 	display: grid;
 	grid-template-areas: 'over';
+	height: 350px;
 }
 
 .tab{
@@ -179,7 +180,7 @@ tr{
 	display: grid;
 	grid-template-areas: 'ver';
 	position: relative;
-	
+	margin-left: 8px;
 }
 
 .status{
