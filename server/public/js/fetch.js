@@ -37,7 +37,7 @@ function signup(){
      	body : JSON.stringify(data)
      };
 
-     fetch('http://localhost:3000/auth/signup', fetchData)
+     fetch('https://send-order.herokuapp.com/auth/signup', fetchData)
      .then((resp) => {
      	let {status} = resp;
      	STATUS = status;
@@ -89,7 +89,7 @@ function signin(){
      	body : JSON.stringify(data)
      };
 
-     fetch('http://localhost:3000/auth/signin', fetchData)
+     fetch('https://send-order.herokuapp.com/auth/signin', fetchData)
      .then((resp) => {
      	let { status } = resp;
      	STATUS = status;
@@ -155,7 +155,7 @@ function placeOrder(){
       	body : JSON.stringify(data)
       };
 
-      fetch('http://localhost:3000/api/v1/parcels', fetchData)
+      fetch('https://send-order.herokuapp.com/api/v1/parcels', fetchData)
       .then((resp) => {
 
       	let { status }  = resp;
@@ -219,7 +219,7 @@ function getAll(){
     	}
     };
 
-    fetch('http://localhost:3000/api/v1/users/parcels', fetchData)
+    fetch('https://send-order.herokuapp.com/api/v1/users/parcels', fetchData)
     .then((resp) => {
     	let { status }  = resp;
       	STATUS = status;
@@ -316,7 +316,7 @@ function getOne(){
     	}
     };
 
-    fetch(`http://localhost:3000/api/v1/parcels/${id}`, fetchData)
+    fetch(`https://send-order.herokuapp.com/api/v1/parcels/${id}`, fetchData)
     .then((resp) => {
     	let { status } = resp;
     	let STATUS = status;
@@ -377,7 +377,7 @@ function updateOrder(){
     	body : JSON.stringify(data)
     };
 
-    fetch(`http://localhost:3000/api/v1/parcels/${id}/update`, fetchData)
+    fetch(`https://send-order.herokuapp.com/api/v1/parcels/${id}/update`, fetchData)
     .then((resp) => {
         let { status } = resp;
         STATUS = status;
@@ -416,7 +416,7 @@ function cancelOrder(){
 		body : JSON.stringify(data)
 	};
 
-	fetch(`http://localhost:3000/api/v1/parcels/${id}/cancel`, fetchData).
+	fetch(`https://send-order.herokuapp.com/api/v1/parcels/${id}/cancel`, fetchData).
 	then((resp) => {
 		let { status } = resp;
 		STATUS = status;
@@ -451,7 +451,7 @@ function deleteOrder(){
 		}
 	};
 
-	fetch(`http://localhost:3000/api/v1/parcels/${id}/delete`, fetchData)
+	fetch(`https://send-order.herokuapp.com/api/v1/parcels/${id}/delete`, fetchData)
 	.then((resp) => {
 		let { status } = resp;
 		STATUS = status;
@@ -497,7 +497,7 @@ function myProfile(){
 			'x-access-token' : TOKEN
 		}
 	};
-	fetch(`http://localhost:3000/auth/list/users/${EMAIL}`, fetchData)
+	fetch(`https://send-order.herokuapp.com/auth/list/users/${EMAIL}`, fetchData)
 	.then((resp) => {
 		let { status } = resp;
 		STATUS = status;
@@ -548,7 +548,7 @@ function updateProfile(){
     	body : JSON.stringify(data) 
     };
 
-    fetch('http://localhost:3000/auth/myprofile/update', fetchData)
+    fetch('https://send-order.herokuapp.com/auth/myprofile/update', fetchData)
     .then((resp) => resp.json())
     .then((response) => {
     	window.location.reload(true);
@@ -569,7 +569,7 @@ function deleteProfile(){
 		}
 	};
 
-	fetch('http://localhost:3000/auth/myprofile/delete', fetchData)
+	fetch('https://send-order.herokuapp.com/auth/myprofile/delete', fetchData)
 	.then((resp) => resp.json())
 	.then((response) =>{
 		window.location.assign('../html/signup.html');
@@ -591,7 +591,7 @@ function show(){
 		}
 	};
 
-	fetch('http://localhost:3000/api/v1/users/parcels', fetchData)
+	fetch('https://send-order.herokuapp.com/api/v1/users/parcels', fetchData)
 	.then((resp) => {
 		let { status } = resp;
 		STATUS = status;
@@ -685,7 +685,7 @@ function adminAll(){
 		}
 	};
 
-	fetch('http://localhost:3000/api/v1/parcels', fetchData)
+	fetch('https://send-order.herokuapp.com/api/v1/parcels', fetchData)
 	.then((resp) => {
 		let { status } = resp;
 		STATUS = status;
@@ -757,7 +757,7 @@ function adminStatus(){
 		body : JSON.stringify(data)
 	};
 
-	fetch(`http://localhost:3000/api/v1/parcels/${id}/status`, fetchData)
+	fetch(`https://send-order.herokuapp.com/api/v1/parcels/${id}/status`, fetchData)
 	.then((resp) => {
 		let { status } = resp;
 		STATUS = status;
@@ -801,7 +801,7 @@ function adminLocation(){
 		body : JSON.stringify(data)
 	};
 
-	fetch(`http://localhost:3000/api/v1/parcels/${id}/presentLocation`, fetchData)
+	fetch(`https://send-order.herokuapp.com/api/v1/parcels/${id}/presentLocation`, fetchData)
 	.then((resp) => {
 		let { status } = resp;
 		STATUS = status;
@@ -845,7 +845,7 @@ function menu(){
     	}
     };
 
-    fetch('http://localhost:3000/api/v1/users/parcels', fetchData)
+    fetch('https://send-order.herokuapp.com/api/v1/users/parcels', fetchData)
     .then((resp) => {
     	let { status }  = resp;
       	STATUS = status;
