@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin dashboard</title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/style7.css">
+	<link rel="stylesheet" type="text/css" href="../css/style2.css">
+</head>
+<body onload="adminAll()">
+
+<div class="one">
+	<a href="admindashboard.html" class="one-1" id="1" onmouseover="yello()" onmouseout="whit()">Send-<span class="it">IT Admin</span></a>
+	<a href="" class="one-2" id="2" onmouseover="yello1()" onmouseout="whit()">Fiston</a>
+	<a href="signin.html" class="one-2" id="13"><span class="diss">Log Out</span></a>
+</div>
+
+<div class="pic">
+	<img src="../img/photo.jpg" alt="admin picture" class="mode">
+	<h4>Welcome Admin. How are you Today?</h4>
+</div>
+
+<div class="hail">
+	
+	<div class="the">
+		<div>DashBoard</div>
+		<a href="#" onclick="chan()">Update Status</a>
+		<a href="#" onclick="chan1()">update Location</a>
+	</div>
+
+	<div class="lord">
+     <div class="histo" id="hi">
+         	<table class="tab" id="location" rules="rows" cellpadding="16px" frame="vsides">
+    	 	<tr>
+    		<th>Order No.</th>
+    		<th>Origin</th>
+    		<th>Desination</th>
+    		<th>Present Location</th>
+    	 </tr>
+    	</table>
+    </div>
+
+		<div class="cure" id="ta">
+    	<table class="tab" id="status" rules="rows" cellpadding="16px" frame="vsides">
+    	 	<tr>
+    		<th>Order No.</th>
+    		<th>Origin</th>
+    		<th>Desination</th>
+    		<th>Status</th>
+    	 </tr>
+    	</table>
+    </div>
+
+	</div>
+
+	<div class="now" id="connection">
+		
+		<div class="status" id="go">
+		<b><h3>Status:</h3></b><br>
+          Delivery <input type="text" id="edit" class="pick1" onfocus="erase2('complete')"><br><br>
+        <input type="button" value="Save" class="do" onclick="adminStatus()">
+	   </div>
+
+	   <div class="location" id="get">
+		<b><h3>Present Location:</h3></b><br>
+          Present Location <input type="text" id="edi" onfocus="erase2('complete')"><br><br>
+          <input type="button" value="Save" class="do" onclick="adminLocation()">
+	   </div>
+
+	</div>
+
+    <div id="complete" class="complete"></div>
+
+</div>
+
+<div class="block-1">
+<a href="admindashboard.html">Home</a>
+<a href="adminpage.html"><span class="diss">Log Out</span></a>
+</div>
+
+<hr>
+
+<footer>
+Copyright © 2084 Send-IT	
+</footer>
+
+	<script src="../js/toggle.jS"></script>
+	<script src="../js/main.js"></script>
+    <script src="../js/fetch.js"></script>
+</body>
+</html>

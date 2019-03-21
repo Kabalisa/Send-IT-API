@@ -1,0 +1,168 @@
+body{
+		margin: 0;
+	    padding: 0;
+}
+.one{
+	position: relative;
+	top: 0%;
+	width: 100%;
+	background-color: #256188;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 10px;
+}
+
+.one-1{
+	display: flex;
+    position: relative;
+    top: 0px;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.it{
+	
+	position: relative;
+	color: #FF9800;
+}
+.one-2{
+	margin: 30px;
+	position: relative;
+	top: 1px;
+	text-decoration: none;
+	color: white;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #FF9800;
+}
+
+.block-1 a{
+	text-decoration: none;
+	color:white;
+	background-color:#256188;
+	font-size: 20px;
+	padding: 5px;
+    display: flex;
+
+    
+}
+
+hr{
+	opacity:1;
+	
+}
+footer{
+	text-align: center;
+	font-size: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.diss{
+	color: #FF4560;
+}
+
+.contain{
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	align-items: center;
+}
+
+.menu{
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ 
+}
+
+.menu>a{
+	border:none;
+	border-bottom-style: solid;
+	text-decoration: none;
+	padding: 13px;
+	width: 120px;
+	background-color: #DDDDDD;
+	border-bottom-width: 2px;
+	border-bottom-color: #FF9800;
+	color: #256188;
+}
+
+.choice{
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ margin-left: 120px;
+}
+
+.choice>input{
+	padding: 13px;
+	border:none;
+	border-radius: 8px;
+	margin: 10px;
+	font-size: 16px;
+	color: #256188;
+}
+
+.switch{
+	display: grid;
+	grid-template-areas: "over";
+	margin-left: 230px;
+}
+
+.histo{
+  grid-area: over;
+  z-index: 0;
+  background-color: white;
+  width: 590px;
+  height: 433px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.tabl{
+	display: block;
+	border-collapse: separate;
+	border-spacing: 0 1em;
+    border: none;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.view{
+	text-decoration: none;
+	color: blue;
+}
+
+.cure{
+	grid-area: over;
+	z-index: 1;
+	background-color: white;
+	width: 590px;
+	height: 433px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	overflow: auto;
+}
+
+.tab{
+	display: block;
+	border-collapse: separate;
+	border-spacing: 0 1em;
+	border: none;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+tr{
+	background-color: #ABB1BA;
+	color: #010101;
+ }
+
+ tr:hover {background-color: #011740; color: white;}
+

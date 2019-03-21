@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vieworders</title>
+	<link rel="stylesheet" type="text/css" href="../css/style3.css">
+</head>
+<body onload="getAll()">
+<header>
+	<div class="one">
+	<a href="../index.html" class="one-1" id="1" onmouseover="yello()" onmouseout="whit()">Send-<span class="it">IT</span></a>
+	<a href="contactus.html#contra" class="one-2" id="2" onmouseover="yello1()" onmouseout="whit()">Contact Us</a>
+	<a href="contactus.html" class="one-2" id="3" onmouseover="yello2()" onmouseout="whit()">About Us</a>
+	<a href="vieworders.html" class="one-2" id="4" onmouseover="yello3()" onmouseout="whit()"><span class="diss" id="items"></span> items</a>
+	<a href="myprofile.html" class="one-2" id="5" onmouseover="yello4()" onmouseout="whit()"></a>
+	<a href="signin.html" class="one-2" id="13"><span class="diss">Log Out</span></a>
+</div>
+</header>
+
+<div class="contain">
+	
+	<div class="menu">
+		<a href="createorder.html">Create Order</a>
+		<a href="vieworders.html">View Orders</a>
+		<a href="myprofile.html">My Profile</a>
+	</div>
+
+	<div class="choice">
+		<input type="button" value="  History  "  id="14" onmouseover="regular4()" onmouseout="bac()" onclick="toggle1()">
+		<input type="button" value="  Current  "  id="15" onmouseover="regular5()" onmouseout="bac()" onclick="toggle2()">
+	</div>
+
+    <div class="switch" id="noParcel">
+    
+    <div class="histo" id="hi">
+    <table class="tabl" id="delivered" cellpadding="16px">
+    	<tr>
+    		<th>Order No.</th>
+    		<th>Origin</th>
+    		<th>Desination</th>
+    		<th>Status</th>
+    		<th>View</th>
+    	</tr>
+    </table>
+    </div>
+    
+
+    <div class="cure" id="ta">
+    	<table class="tab" id="toro"  cellpadding="16px" frame="vsides">
+    	 	<tr>
+    		<th>Order No.</th>
+    		<th>Origin</th>
+    		<th>Desination</th>
+    		<th>Status</th>
+    		<th>View/Edit</th>
+    	 </tr>
+        </table>
+    </div>
+
+    </div>
+
+</div>
+
+<div class="block-1">   
+          <a href="../index.html">Home</a>
+          <a href="contactus.html">Contact Us</a>
+          <a href="contactus.html#contact">About Us</a>
+          <a href="myprofile.html">Kabalisa</a>
+          <a href="index.html"><span class="diss">Log Out</span></a>
+        </div>
+       <hr>
+       <footer>
+         Copyright © 2084 Send-IT	
+        </footer>
+    <script src="../js/main.js"></script>    
+    <script src="../js/toggle.jS"></script>
+    <script src="../js/ordre.js"></script>
+    <script src="../js/fetch.js"></script>
+</body>
+</html>
