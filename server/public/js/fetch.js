@@ -4,17 +4,23 @@ function signup(){
      let inputs = document.getElementsByTagName('input');
 
      if(inputs[6].value !== inputs[7].value && inputs[8].value !== inputs[9].value){
-     	document.getElementById('pop').style.color = '#CA1E21';
+     	document.getElementById('pop').style.backgroundColor = '#CA1E21';
+        document.getElementById('pop').style.color = 'white';
+        document.getElementById('pop').style.padding = '5px';
      	return document.getElementById('pop').innerHTML = 'COMFIRM SAME EMAIL AND PASSWORD PLEASE';
      }
 
      if(inputs[6].value !== inputs[7].value){
-     	document.getElementById('pop').style.color = '#CA1E21';
+     	document.getElementById('pop').style.backgroundColor = '#CA1E21';
+        document.getElementById('pop').style.color = 'white';
+        document.getElementById('pop').style.padding = '5px';
      	return document.getElementById('pop').innerHTML = 'COMFIRM SAME EMAILS PLEASE';
      }
 
      if(inputs[8].value !== inputs[9].value){
-     	document.getElementById('pop').style.color = '#CA1E21';
+     	document.getElementById('pop').style.backgroundColor = '#CA1E21';
+        document.getElementById('pop').style.color = 'white';
+        document.getElementById('pop').style.padding = '5px';
      	return document.getElementById('pop').innerHTML = 'COMFIRM SAME PASSWORD PLEASE';
      }
 
