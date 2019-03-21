@@ -85,6 +85,7 @@ h4{
 .hail{
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 
 .the{
@@ -121,7 +122,6 @@ h4{
 	z-index: 1;
 	background-color: white;
 	width: 590px;
-	height: 433px;
 	text-align: center;
 	display: flex;
 	justify-content: center;
@@ -131,6 +131,7 @@ h4{
 .lord{
 	display: grid;
 	grid-template-areas: 'over';
+	height: 350px;
 }
 
 .tab{
@@ -154,7 +155,6 @@ tr{
   z-index: 0;
   background-color: white;
   width: 590px;
-  height: 433px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -180,7 +180,7 @@ tr{
 	display: grid;
 	grid-template-areas: 'ver';
 	position: relative;
-	
+	margin-left: 8px;
 }
 
 .status{
@@ -188,7 +188,7 @@ tr{
 	z-index: 1;
 	background-color: #DDDDDD;
 	position: relative;
-	top: 60px;
+	/*top: 60px;*/
 	height: 200px;
 	text-align: center;
 }
@@ -199,6 +199,12 @@ tr{
 	background-color: #DDDDDD;
 	position: relative;
 	height: 200px;
-	top: 60px;
+	/*top: 60px;*/
 	text-align: center;
+}
+
+.complete{
+	color: white;
+	padding: 8px;
+	margin-left: 15px;
 }
