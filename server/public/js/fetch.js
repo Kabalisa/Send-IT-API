@@ -210,10 +210,12 @@ function getAll(){
 
     let NAME = JSON.parse(localStorage.getItem('name'));
 	document.getElementById('5').innerHTML = `${NAME}`;
+    document.getElementById('x').innerHTML = `${NAME}`;
 
 	let EMAIL = JSON.parse(localStorage.getItem('authantice'));
 	if(EMAIL === 'ikabalisa20@gmail.com'){
 		document.getElementById('5').href = 'admindashboard.html';
+        document.getElementById('x').href = 'admindashboard.html';
 	}
 
     let fetchData = {
@@ -301,10 +303,12 @@ function getOne(){
 
 	let NAME = JSON.parse(localStorage.getItem('name'));
 	document.getElementById('5').innerHTML = `${NAME}`;
+    document.getElementById('x').innerHTML = `${NAME}`;
 
     let EMAIL = JSON.parse(localStorage.getItem('authantice'));
     if(EMAIL === 'ikabalisa20@gmail.com'){
         document.getElementById('5').href = 'admindashboard.html';
+        document.getElementById('x').href = 'admindashboard.html';
     }
 
 	let ITEMS = JSON.parse(localStorage.getItem('itms'));
@@ -486,9 +490,11 @@ function myProfile(){
 
 	let NAME = JSON.parse(localStorage.getItem('name'));
 	document.getElementById('5').innerHTML = `${NAME}`;
+    document.getElementById('x').innerHTML = `${NAME}`;
 
 	if(EMAIL === 'ikabalisa20@gmail.com'){
 		document.getElementById('5').href = 'admindashboard.html';
+        document.getElementById('x').href = 'admindashboard.html';
 	}
 
 	let ITEMS = JSON.parse(localStorage.getItem('itms'));
@@ -834,10 +840,12 @@ function adminLocation(){
 function menu(){
 	let NAME = JSON.parse(localStorage.getItem('name'));
 	document.getElementById('5').innerHTML = `${NAME}`;
+    document.getElementById('x').innerHTML = `${NAME}`;
 
 	let EMAIL = JSON.parse(localStorage.getItem('authantice'));
 	if(EMAIL === 'ikabalisa20@gmail.com'){
 		document.getElementById('5').href = 'admindashboard.html';
+        document.getElementById('x').href = 'admindashboard.html';
 	}
 
 	let TOKEN = JSON.parse(localStorage.getItem('authantic'));
