@@ -131,11 +131,34 @@ function signin(){
      })
 };
 
+function check(objOne, objTwo){
+    if(objOne.weight === objTwo.weight){
+        if(objOne.price === objTwo.price){
+            if(objOne.pickup === objTwo.pickup){
+                if(objOne.pickup_stno === objTwo.pickup_StNo){
+                    if(objOne.destination === objTwo.destination){
+                        if(objOne.destination_stno === objTwo.destination_StNo){
+                            if(objOne.receiver === objTwo.receiver){
+                                if(objOne.receiver_phone === objTwo.receiver_phone){
+                                    let state = 'Parcel already Exist';
+                                    return state;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+};
+
 function placeOrder(){
    let inputs = document.getElementsByTagName('input');
    let TOKEN = JSON.parse(localStorage.getItem('authantic'));
    let EMAIL = JSON.parse(localStorage.getItem('authantice'));
    let STATUS;
+   let STATU;
 
    let data = {
         weight : inputs[0].value,
@@ -150,6 +173,40 @@ function placeOrder(){
         status : 'pending',
         presentLocation : inputs[3].value
       };
+
+      let fetchDetails = {
+        method : 'GET',
+        headers : {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json',
+            'x-access-token' : TOKEN
+        }
+      };
+
+      fetch('https://send-order.herokuapp.com/api/v1/users/parcels', fetchDetails)
+      .then((resp) => {
+        let { status } = resp;
+        STATU = status;
+        return resp.json();
+      })
+      .then((response) => {
+        let { rows } = response;
+
+        if(STATU === 200){
+            rows.map((parcel) => {
+                let state = check(parcel, data);
+                if(state === 'Parcel already Exist'){
+                    document.getElementById('msge').style.backgroundColor = '#CA1E21';
+                    document.getElementById('msge').style.color = 'white';
+                    document.getElementById('msge').innerHTML = `${state}`;
+                }
+            });
+        }
+
+      })
+      .catch((error) => {
+        console.log(error);
+      })
 
       let fetchData = {
       	method : 'POST',
