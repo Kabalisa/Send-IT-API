@@ -187,6 +187,7 @@ function placeOrder(){
       .then((resp) => {
         let { status } = resp;
         STATU = status;
+        console.log(STATU);
         return resp.json();
       })
       .then((response) => {
