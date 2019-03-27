@@ -1,3 +1,5 @@
+// on small devices make the menu a columns and change font and width of the middle things.
+
 * {
 	box-sizing: border-box;
 }
@@ -232,4 +234,21 @@ h1{
 	content: "";
 	clear: both;
 	display: table;
+}
+
+@media only screen and (max-width: 600px){
+
+.smallone{
+	position: relative;
+	height: initial;
+	flex-direction: column;
+}
+.content-slide{
+	font-size: 15px;
+}
+
+.content-slide > p{
+	font-size: 15px;
+}
+
 }
