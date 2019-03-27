@@ -213,6 +213,10 @@ h1{
 	padding-top: 10px;
 }
 
+.main img{
+	width: 100%; 
+}
+
 [class*="col-"] {
 	float: left;
 }
@@ -229,6 +233,8 @@ h1{
 .col-10 { width: 83.33%; }
 .col-11 { width: 91.66%; }
 .col-12 { width: 100%; }
+.col-s-3 { width: 30%; }
+
 
 .slide::after {
 	content: "";
