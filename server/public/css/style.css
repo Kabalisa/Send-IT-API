@@ -299,8 +299,9 @@ h1{
 	}
 }
 
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 600px){
 	.signin-form{
-		width: 60%;
+		width: 80%;
 	}
 }
+
