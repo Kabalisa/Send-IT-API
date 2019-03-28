@@ -265,6 +265,11 @@ h1{
 .content-slide > p{
 	font-size: 15px;
 }
+
+.content-slide1{
+		font-size: 25px;
+}
+
 }
 
 @media only screen and (max-device-width: 768px){
@@ -275,7 +280,7 @@ h1{
 }
 
 .content-slide1{
-		font-size: 20px;
+		font-size: 25px;
 }
 
 }
