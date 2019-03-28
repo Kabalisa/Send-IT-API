@@ -217,6 +217,15 @@ h1{
 	width: 100%; 
 }
 
+.content-slide1{
+	position: absolute;
+	top:12%;
+	left: 25%;
+	color:white;
+    font-size: 40px;
+
+}
+
 [class*="col-"] {
 	float: left;
 }
@@ -255,6 +264,10 @@ h1{
 
 .content-slide > p{
 	font-size: 15px;
+}
+
+.content-slide1{
+		font-size: 20px;
 }
 
 }

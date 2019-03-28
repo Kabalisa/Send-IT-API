@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 .sliding1{
 	
  border-radius: 8px;
@@ -7,15 +11,6 @@
 .slide1{
     position: relative;
 	text-align: center;
-
-}
-
-.content-slide1{
-	position: absolute;
-	top:12%;
-	left: 25%;
-	color:white;
-    font-size: 40px;
 
 }
 
@@ -105,10 +100,4 @@ input .subm{
 	padding: 20px;
 	font-size: 20px;
 	border:none;
-}
-
-@media only screen and (max-width: 600px){
-	.content-slide1{
-		font-size: 20px;
-	}
 }
