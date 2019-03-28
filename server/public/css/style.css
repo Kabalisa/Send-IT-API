@@ -20,7 +20,6 @@ body{
 }
 
 .one-1{
-	display: flex;
     position: relative;
     top: 0px;
     color: white;
@@ -29,7 +28,6 @@ body{
 }
 
 .it{
-	display: flex;
 	position: relative;
 	color: #FF9800;
 }
