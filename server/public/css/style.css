@@ -265,6 +265,14 @@ h1{
 .content-slide > p{
 	font-size: 15px;
 }
+}
+
+@media only screen and (max-device-width: 768px){
+	.smallone{
+	position: relative;
+	height: initial;
+	flex-direction: column;
+}
 
 .content-slide1{
 		font-size: 20px;
