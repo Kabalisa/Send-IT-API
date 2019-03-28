@@ -297,3 +297,11 @@ flex-direction: column;
 }
 
 }
+
+@media only screen and (max-width: 768px){
+	.smallone{
+	position: relative;
+	height: initial;
+	flex-direction: column;
+}
+}
