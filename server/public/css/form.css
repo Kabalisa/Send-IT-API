@@ -1,0 +1,11 @@
+@media only screen and (max-width: 1100px){
+	.signin-form{
+		width: 40%;
+	}
+}
+
+@media only screen and (max-width: 600px){
+	.signin-form{
+		width: 96%;
+	}
+}
