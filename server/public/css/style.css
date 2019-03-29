@@ -224,6 +224,16 @@ h1{
 
 }
 
+.pic1{
+	margin-top: 140px;
+	margin-right: 100px
+	margin-bottom: 90px;
+	margin-left: 100px;
+	width:40%;
+	height: 40%;
+	border-radius: 50%;
+}
+
 [class*="col-"] {
 	float: left;
 }
@@ -270,7 +280,7 @@ h1{
 
 }
 
-@media only screen and (max-device-width: 768px) and (max-device-width: 600px){
+@media only screen and (max-device-width: 768px){
 	.smallone{
 	position: relative;
 	height: initial;
@@ -281,6 +291,10 @@ h1{
 		font-size: 25px;
 }
 
+.pic1{
+	margin-left: 20px;
+}
+
 }
 
 @media only screen and (max-width: 600px){
@@ -289,6 +303,10 @@ h1{
 	position: relative;
 	height: initial;
 	flex-direction: column;
+}
+
+.pic1{
+	margin-left: 20px;
 }
 
 }
