@@ -1,4 +1,6 @@
-
+* {
+	box-sizing: border-box;
+}
 body{
 		margin: 0;
 	    padding: 0;
@@ -93,6 +95,7 @@ h4{
 	flex-direction: column;
 	background-color: #DDDDDD;
 	height: 130px;
+	background-color: blue;
 }
 
 .the>a{
@@ -100,7 +103,7 @@ h4{
 	text-align: center;
 	border:none;
 	border-radius: ;
-	width: 130px;
+	//width: 130px;
 	height: 50px;
     background-color: #DDDDDD;
     color: #256188;
@@ -132,7 +135,7 @@ h4{
 	display: grid;
 	grid-template-areas: 'over';
 	height: 350px;
-	width: 570px;
+	//width: 570px;
 }
 
 .tab{

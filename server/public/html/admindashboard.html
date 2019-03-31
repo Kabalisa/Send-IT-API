@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>admin dashboard</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
 	<link rel="stylesheet" type="text/css" href="../css/style7.css">
 	<link rel="stylesheet" type="text/css" href="../css/style2.css">
@@ -21,13 +22,13 @@
 
 <div class="hail">
 	
-	<div class="the">
-		<div>DashBoard</div>
-		<a href="#" onclick="chan()">Update Status</a>
-		<a href="#" onclick="chan1()">update Location</a>
+	<div class="the col-2">
+		<div class="col-8">DashBoard</div>
+		<a href="#" onclick="chan()" class="col-8">Update Status</a>
+		<a href="#" onclick="chan1()" class="col-8">update Location</a>
 	</div>
 
-	<div class="lord">
+	<div class="lord col-5">
      <div class="histo" id="hi">
          	<table class="tab" id="location" rules="rows" cellpadding="16px" frame="vsides">
     	 	<tr>
@@ -52,7 +53,7 @@
 
 	</div>
 
-	<div class="now" id="connection">
+	<div class="now col-3" id="connection">
 		
 		<div class="status" id="go">
 		<b><h3>Status:</h3></b><br>
@@ -68,7 +69,7 @@
 
 	</div>
 
-    <div id="complete" class="complete"></div>
+    <div id="complete" class="complete col-2"></div>
 
 </div>
 
