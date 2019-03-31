@@ -230,4 +230,8 @@ footer{
 	.ano{
 		grid-template-columns: auto;
 	}
+
+	.lef{
+	left:initial;
+}
 }

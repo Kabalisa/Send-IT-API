@@ -1,16 +1,21 @@
+* {
+	box-sizing: border-box;
+}
+
 body{
 		margin: 0;
 	    padding: 0;
 }
+
 .one{
-	position: relative;
+	position: sticky;
+	z-index: 5;
 	top: 0%;
 	width: 100%;
 	background-color: #256188;
-	height: 50px;
+	height: 70px;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 10px;
 }
 
 .one-1{
@@ -33,8 +38,8 @@ body{
 	top: 1px;
 	text-decoration: none;
 	color: white;
-	border-style: solid;
-	border-width: 1px;
+	border-top-style: solid;
+	border-width: 2px;
 	border-color: #FF9800;
 }
 
@@ -74,20 +79,21 @@ footer{
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	margin-left: 280px;
+	//margin-left: 200px;
 	margin-bottom: 10px;
-	width: 650px;
+	//width: 650px;
 	border-radius: 14px;
+	align-items: center;
 }
 
 .info{
    background-color: #999999;
    position: relative;
-   left: 45px;
+   //left: 45px;
    top: 10px;
    display: flex;
    flex-direction: row;
-   width: 550px;
+   //width: 550px;
    justify-content: center;
    border-radius: 9px;
 }
@@ -107,9 +113,9 @@ footer{
   margin-top: 20px;
   margin-bottom: 10px; 
   text-align: center;
-  width: 550px;
+  //width: 550px;
   position: relative;
-  left: 45px;
+  //left: 45px;
   border-radius: 9px;
 }
 
@@ -117,14 +123,14 @@ footer{
   grid-area: over;
   z-index: 0;
   background-color: white;
-  width: 590px;
+  //width: 590px;
   text-align: center;
   display: flex;
   justify-content: center;
   border-radius: 8px;
   overflow: auto;
   position: relative;
-  left: 27px;
+  //left: 27px;
 }
 
 .do{
@@ -139,4 +145,65 @@ footer{
 .info input{
 	border-radius: 8px;
 	border:none;
+}
+
+.col-s-6 { width: 50%; }
+
+.conta::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+@media only screen and (max-width: 1111px){
+
+	.col-s-8 { width: 66.66%; }
+
+}
+
+@media only screen and (max-width: 845px){
+
+	.col-s-11 { width: 91.66%; }
+	
+}
+
+@media only screen and (max-width: 768px){
+	.conta {
+		flex-direction: column;
+    }
+
+	.menu {
+		flex-direction: row;
+	}
+
+	.col-6 { width: 50%; }
+
+}
+
+@media only screen and (max-width: 600px){
+
+	.smallone {
+		position: relative;
+		height: initial;
+		flex-direction: column;
+	}
+
+	.col-12 { width: 100%; }
+    
+    .col-8 { width: 66.66%; }
+
+    .col-s-11-5 { width: 98%; }
+    
+}
+
+@media only screen and (max-width: 500px){
+
+	.info {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.dembele {
+		margin-left: 40px;
+	}
 }

@@ -2,13 +2,14 @@
 <html>
 <head>
 	<title>My Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="../css/style6.css">
 	<link rel="stylesheet" type="text/css" href="../css/style3.css">
 </head>
 <body onload="myProfile()">
 
 <header>
-	<div class="one">
+	<div class="one smallone">
 	<a href="../index.html" class="one-1" id="1" onmouseover="yello()" onmouseout="whit()">Send-<span class="it">IT</span></a>
 	<a href="contactus.html#Contra" class="one-2" id="2" onmouseover="yello1()" onmouseout="whit()">Contact Us</a>
 	<a href="contactus.html" class="one-2" id="3" onmouseover="yello2()" onmouseout="whit()">About Us</a>
@@ -20,15 +21,15 @@
 
 <div class="conta">
 
-	<div class="menu">
-		<a href="createorder.html">Create Order</a>
-		<a href="vieworders.html">View Orders</a>
-		<a href="myprofile.html">My Profile</a>
+	<div class="menu col-2 col-6 col-8 cols">
+		<a href="createorder.html" class="col-7">Create Order</a>
+		<a href="vieworders.html" class="col-7">View Orders</a>
+		<a href="myprofile.html" class="col-7">My Profile</a>
 	</div>
     
-    <div class="tudiv">
+    <div class="tudiv col-10 col-12">
     	
-    	<div class="info">
+    	<div class="info col-s-6 col-s-8 col-s-11 col-s-11-5">
     		
     		<div class="messi">
     		<h3><b>My Profile</b></h3>
@@ -51,13 +52,13 @@
 
         </div>
 
-    	<div class="parcel">
+    	<div class="parcel col-s-6 col-s-8 col-s-11 col-s-11-5">
     		<h4 id="del"></h4>
     		<h4 id="pend"></h4>
     		<h4>Parcels History <a href="#hi" class="view" onclick="show()">view/hide</a></h4>
     	</div>
         
-        <div class="histos" id="hi">
+        <div class="histos col-s-6 col-s-8 col-s-11 col-s-11-5" id="hi">
          <table class="tabl" id="PARCELS" cellpadding="16px">
     	 <tr>
     		<th>Order No.</th>
