@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node --require babel-core/register --require babel-polyfill server/app.js",
     "test": "nyc  --reporter=html --reporter=text mocha server/test --compilers js:babel-core/register --require babel-polyfill --exit",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "pretest": "eslint --ignore-path .gitignore ."
   },
   "dependencies": {
     "babel-core": "^6.25.0",
@@ -40,9 +41,10 @@
     "chai": "^4.2.0",
     "chai-http": "^3.0.0",
     "coveralls": "^3.0.2",
-    "eslint": "^4.19.1",
+    "eslint": "^5.3.0",
     "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-plugin-react": "^7.2.1",
