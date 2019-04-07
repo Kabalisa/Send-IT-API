@@ -1,4 +1,3 @@
-
 // const order = () =>{
 
 // const element = document.getElementById("toro");
@@ -10,7 +9,7 @@
 // 	if(obj !== null){
 
 //       var row = document.createElement("tr");
-      
+
 //       for(let j = 0; j<5; j++){
 
 //         if(j === 0){
@@ -18,15 +17,15 @@
 //          var textOne = document.createTextNode(obj[0].toString());
 //          one.appendChild(textOne);
 //          row.appendChild(one);
-//         } 
-        
+//         }
+
 //         if(j === 1){
 //          var two = document.createElement("td");
 //          var textTwo = document.createTextNode(obj[2][2].toString());
 //          two.appendChild(textTwo);
 //          row.appendChild(two);
 //         }
-         
+
 //          if(j === 2){
 //          var three = document.createElement("td");
 //          var textThree = document.createTextNode(obj[3][2].toString());
@@ -61,5 +60,3 @@
 // return localStorage.getItem("1");
 
 // }
-
-

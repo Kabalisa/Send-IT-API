@@ -21,14 +21,12 @@
 
 //  var ids = new idStore(); //set to store parcel ids
 
-
 //  const addi = () =>{
 
 //    let parcel = [ , , [], [], []];
 //    parcel[0] = document.getElementById('pid').value;
-   
-  
-//    const u = document.getElementsByTagName('input'); 
+
+//    const u = document.getElementsByTagName('input');
 
 //    parcel[1] = u[0].value;
 
@@ -45,7 +43,7 @@
 //     parcel[3][count2] = u[j].value;
 //     count2++;
 //   }
-  
+
 //     let count3 = 0;
 
 //    for(k = 9; k<12; k++){
@@ -56,7 +54,7 @@
 //   let myJson = JSON.stringify(parcel);
 
 //   if(ids.has(parcel[0])){
-   	
+
 //    	if(Number.parseInt(parcel[0]) === 0){
 //        alert('INVALID parcel: no 0 id')
 //    	}else{
@@ -70,22 +68,20 @@
 //    else{
 //     localStorage.setItem(parcel[0], myJson);
 //    	ids.add(parcel[0]);
-//    } 
+//    }
 
 //  	return localStorage.getItem("3");
 // //delete after
 // }
 
-    
- const ucl = () =>{
+const ucl = () => {
+  const v = document.getElementsByTagName("input");
 
- 	const v = document.getElementsByTagName('input');
+  for (l = 0; l <= 7; l++) {
+    v[l].value = " ";
+  }
+};
 
-   for(l = 0; l<=7; l++){
-     v[l].value = " ";
-    }
- }   
-
- // const ucl = () =>{
- // 	return localStorage.getItem("1");
- // }
+// const ucl = () =>{
+// 	return localStorage.getItem("1");
+// }

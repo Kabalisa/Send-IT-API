@@ -1,19 +1,27 @@
-import express from 'express';
-import userController from '../Controllers/parcelController';
-import bhelp from '../helpers/bhelp';
+import express from "express";
+import userController from "../Controllers/parcelController";
+import bhelp from "../helpers/bhelp";
 
 const routerr = express.Router();
 
-routerr.post('/signup', userController.signup);
+routerr.post("/signup", userController.signup);
 
-routerr.post('/signin', userController.signin);
+routerr.post("/signin", userController.signin);
 
-routerr.get('/list/users', bhelp.checkToken, userController.getUsers);
+routerr.get("/list/users", bhelp.checkToken, userController.getUsers);
 
-routerr.get('/list/users/:id', bhelp.checkToken, userController.oneUser);
+routerr.get("/list/users/:id", bhelp.checkToken, userController.oneUser);
 
-routerr.delete('/myprofile/delete', bhelp.checkToken, userController.deleteUser);
+routerr.delete(
+  "/myprofile/delete",
+  bhelp.checkToken,
+  userController.deleteUser
+);
 
-routerr.put('/myprofile/update', bhelp.checkToken, userController.updateDetails);
+routerr.put(
+  "/myprofile/update",
+  bhelp.checkToken,
+  userController.updateDetails
+);
 
 export default routerr;

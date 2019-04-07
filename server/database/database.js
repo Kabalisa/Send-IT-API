@@ -1,36 +1,28 @@
-import { Pool, Client } from 'pg';
-
+import { Pool, Client } from "pg";
 
 class Initial {
+  constructor() {
+    this.pool = new Pool({
+      user: process.env.PGUSER,
+      host: process.env.PGHOST,
+      database: process.env.PGDATABASE,
+      password: process.env.PGPASSWORD,
+      port: process.env.PGPORT
+    });
 
-	constructor(){
-    
-     this.pool = new Pool({
-                      user: process.env.PGUSER,
-                      host: process.env.PGHOST,
-                      database: process.env.PGDATABASE,
-                      password: process.env.PGPASSWORD,
-                      port: process.env.PGPORT,
-                 });
+    this.pool.on("connect", () => {
+      console.log("connection to database has been successful");
+    });
 
-     this.pool.on('connect', () => {
-      console.log('connection to database has been successful');
-     })
+    this.pool.query("SELECT NOW()", (err, res) => {
+      console.log(err, res);
+    });
 
-      this.pool.query('SELECT NOW()', (err,res) => {
-        console.log(err,res);
-        
-      });
+    this.createTables();
+  }
 
-
-
-     this.createTables();
-  
-      }
-
-      createTables() {
-
-     	const table1 = `
+  createTables() {
+    const table1 = `
      	  CREATE TABLE IF NOT EXISTS parcels(
      	  id SERIAL PRIMARY KEY,
      	  weight INT NOT NULL,
@@ -45,15 +37,14 @@ class Initial {
         status VARCHAR(10),
         presentLocation VARCHAR(30)
         )`;
-        
-        try{
-          this.pool.query(table1);
-        }catch(error){
-          console.log(error.message);
-        }
 
-        
-           const table2 = `
+    try {
+      this.pool.query(table1);
+    } catch (error) {
+      console.log(error.message);
+    }
+
+    const table2 = `
                CREATE TABLE IF NOT EXISTS users(
                email VARCHAR(30) PRIMARY KEY,
      	         first_name VARCHAR(30) NOT NULL,
@@ -63,21 +54,15 @@ class Initial {
                phone_number INT NOT NULL,
                password VARCHAR(70) NOT NULL
              )`;
-            
 
-            try{
-              this.pool.query(table2);
-            }
-            catch(error){
-              console.log(error.message);
-            }
-            finally{
-              this.pool.end;
-            }
-
-     }
-
-	
+    try {
+      this.pool.query(table2);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      this.pool.end;
+    }
+  }
 }
 
 export default new Initial();

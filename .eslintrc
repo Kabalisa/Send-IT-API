@@ -8,13 +8,22 @@
       "modules": true
     }
   },
-  "extends": "airbnb-base",
+  "extends": [
+    "airbnb-base",
+    "plugin:prettier/recommended"
+  ],
   "env": {
     "es6": true,
     "node": true,
     "mocha": true
   },
+  "plugins":["prettier"],
   "rules": {
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "no-undef": 0,
+    "no-unused-vars": 0,
+    "no-console": 0,
+    "eqeqeq": 0,
+    "prettier/prettier": "error"
   }
 }
