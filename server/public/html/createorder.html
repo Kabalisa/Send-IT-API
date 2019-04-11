@@ -1,70 +1,81 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Create Order</title>
+  <title>Create Order</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="../css/style2.css">
+  <link rel="stylesheet" type="text/css" href="../css/style2.css">
 </head>
+
 <body onload="menu()">
-<header>
-	<div class="one smallone">
-	<a href="../index.html" class="one-1" id="1" onmouseover="yello()" onmouseout="whit()">Send-<span class="it">IT</span></a>
-	<a href="contactus.html#contra" class="one-2" id="2" onmouseover="yello1()" onmouseout="whit()">Contact Us</a>
-	<a href="contactus.html" class="one-2" id="3" onmouseover="yello2()" onmouseout="whit()">About Us</a>
-	<a href="vieworders.html" class="one-2" id="4" onmouseover="yello3()" onmouseout="whit()"><span class="diss" id="items"></span> items</a>
-	<a href="myprofile.html" class="one-2" id="5" onmouseover="yello4()" onmouseout="whit()"></a>
-	<a href="signin.html" class="one-2" id="13"><span class="diss">Log Out</span></a>
-</div>
-</header>
-<div class="container">
-  <div class="menu col-3 col-6 col-7">
-    <a href="createorder.html" class="col-5">Create Order</a>
-    <a href="vieworders.html" class="col-5">View Orders</a>
-    <a href="myprofile.html" class="col-5">My Profile</a>
-  </div>
-  <div class="display col-8 col-10 col-11">
-    <h3 class="cente"><b>Delivery Order</b></h3>
-        <p id="msge" class="mesg"></p>
-        Weight <input type="text" onfocus="erase2('msge')" id="wgt" oninput="price()"> .in Kilograms<br><br>
-        <span class="lef">Price <input type="text" onfocus="erase2('msge')" id="price"> .Quoted per kg</span>
-        <div class="ano">
+  <header>
+    <div class="one smallone">
+      <a href="../index.html" class="one-1" id="1" onmouseover="yello()" onmouseout="whit()">Send-<span
+          class="it">IT</span></a>
+      <a href="contactus.html#contra" class="one-2" id="2" onmouseover="yello1()" onmouseout="whit()">Contact Us</a>
+      <a href="contactus.html" class="one-2" id="3" onmouseover="yello2()" onmouseout="whit()">About Us</a>
+      <a href="vieworders.html" class="one-2" id="4" onmouseover="yello3()" onmouseout="whit()"><span class="diss"
+          id="items"></span> items</a>
+      <a href="myprofile.html" class="one-2" id="5" onmouseover="yello4()" onmouseout="whit()"></a>
+      <a href="signin.html" class="one-2" id="13"><span class="diss">Log Out</span></a>
+    </div>
+  </header>
+  <div class="container">
+    <div class="menu col-3 col-6 col-7">
+      <a href="createorder.html" class="col-5">Create Order</a>
+      <a href="vieworders.html" class="col-5">View Orders</a>
+      <a href="myprofile.html" class="col-5">My Profile</a>
+    </div>
+    <div class="display col-8 col-10 col-11">
+      <h3 class="cente"><b>Delivery Order</b></h3>
+      <p id="msge" class="mesg"></p>
+      Weight <input type="text" onfocus="erase2('msge')" id="wgt" oninput="price()"> .in Kilograms<br><br>
+      <span class="lef">Price <input type="text" onfocus="erase2('msge')" id="price"> .Quoted per kg</span>
+      <div class="ano">
 
         <div>
-        <b><h4>Pick-Up Address:</h4></b><br>
-        Street number <input type="text" class="" onfocus="erase2('msge')"><br><br>
-        street name   <input type="text" class="pick2" onfocus="erase2('msge')"><br><br>
+          <b>
+            <h4>Pick-Up Address:</h4>
+          </b><br>
+          Street number <input type="text" class="" onfocus="erase2('msge')"><br><br>
+          street name <input type="text" class="pick2" onfocus="erase2('msge')"><br><br>
         </div>
-                
+
         <div>
-        <b><h4>Destination Address:</h4></b><br>
-        Street number <input type="text" class="" onfocus="erase2('msge')"><br><br>
-        street name   <input type="text" class="pick2" onfocus="erase2('msge')"><br><br>
+          <b>
+            <h4>Destination Address:</h4>
+          </b><br>
+          Street number <input type="text" class="" onfocus="erase2('msge')"><br><br>
+          street name <input type="text" class="pick2" onfocus="erase2('msge')"><br><br>
         </div>
-                
+
         <div>
-        <b><h4>Receiver details:</h4></b><br>
-        Receiver's Name  <input type="text" class="pick1" onfocus="erase2('msge')"><br><br>
-        Receiver's Phone <input type="text" class="pick1" onfocus="erase2('msge')"><br><br>
+          <b>
+            <h4>Receiver details:</h4>
+          </b><br>
+          Receiver's Name <input type="text" class="pick1" onfocus="erase2('msge')"><br><br>
+          Receiver's Phone <input type="text" class="pick1" onfocus="erase2('msge')"><br><br>
         </div>
-        
-        </div>
-        <input type="button" value="Place Order" class="do" onclick="placeOrder()">
-        <input type="button" value="Clear" class="do" onclick="ucl()">
+
+      </div>
+      <input type="button" value="Place Order" class="do" onclick="placeOrder()">
+      <input type="button" value="Clear" class="do" onclick="ucl()">
     </div>
-</div>
-<div class="block-1">   
-          <a href="../index.html">Home</a>
-          <a href="contactus.html">Contact Us</a>
-          <a href="contactus#contact">About Us</a>
-          <a href="myprofile.html" id="x"></a>
-          <a href="signin.html"><span class="diss">Log Out</span></a>
-        </div>
-       <hr>
-       <footer>
-         Copyright © 2084 Send-IT	
-        </footer>
-        <script src="../js/main.js"></script>
-        <script  src="../js/createOrder.js"></script>
-        <script src="../js/fetch.js"></script>
+  </div>
+  <div class="block-1">
+    <a href="../index.html">Home</a>
+    <a href="contactus.html">Contact Us</a>
+    <a href="contactus#contact">About Us</a>
+    <a href="myprofile.html" id="x"></a>
+    <a href="signin.html"><span class="diss">Log Out</span></a>
+  </div>
+  <hr>
+  <footer>
+    Copyright © 2084 Send-IT
+  </footer>
+  <script src="../js/main.js"></script>
+  <script src="../js/createOrder.js"></script>
+  <script src="../js/fetch.js"></script>
 </body>
+
 </html>
