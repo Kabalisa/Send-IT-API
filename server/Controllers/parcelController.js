@@ -214,16 +214,16 @@ returning *
     }
 
     try {
-      let { rows } = await query(sql, data);
+      const results = await query(sql, data);
       // console.log(typeof(rows[0].userid));
 
-      if (!rows[0]) {
+      if (!results.rows[0]) {
         return res
           .status(400)
           .send({ message: "the specified parcel do not exist" });
       }
 
-      if (req.body.email != rows[0].email) {
+      if (req.body.email != results.rows[0].email) {
         return res
           .status(400)
           .send({ message: "the specified user did not create this parcel" });
